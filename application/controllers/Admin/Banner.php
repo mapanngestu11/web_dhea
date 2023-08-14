@@ -52,13 +52,13 @@ class Banner  extends CI_Controller
                 $gambar = $gbr['file_name'];
                 $id_banner = $this->input->post('id_banner');
                 $judul = $this->input->post('judul');
-                $nama_lengkap = $this->input->post('nama_lengkap');
+                $nama_user = $this->input->post('nama_user');
                 $tanggal =  date('Y-m-d h:i:s');
 
                 $data = array(
 
                     'judul' => $judul,
-                    'nama_lengkap' => $nama_lengkap,
+                    'nama_user' => $nama_user,
                     'gambar' => $gambar,
                     'tanggal' => $tanggal
 
@@ -78,28 +78,28 @@ class Banner  extends CI_Controller
 
         } else {
 
-         $id_banner = $this->input->post('id_banner');
-         $judul = $this->input->post('judul');
-         $nama_lengkap = $this->input->post('nama_lengkap');
-         $tanggal =  date('Y-m-d h:i:s');
+           $id_banner = $this->input->post('id_banner');
+           $judul = $this->input->post('judul');
+           $nama_user = $this->input->post('nama_user');
+           $tanggal =  date('Y-m-d h:i:s');
 
-         $data = array(
+           $data = array(
 
             'judul' => $judul,
-            'nama_lengkap' => $nama_lengkap,
+            'nama_user' => $nama_user,
             'tanggal' => $tanggal
 
         );
 
 
 
-         $where = array(
+           $where = array(
             'id_banner' => $id_banner
         );
 
-         $cek = $this->M_banner->update_data($where,$data,'tbl_banner');
-         echo $this->session->set_flashdata('msg', 'success_update');
-         redirect('Admin/Banner');
-     }
- }
+           $cek = $this->M_banner->update_data($where,$data,'tbl_banner');
+           echo $this->session->set_flashdata('msg', 'success_update');
+           redirect('Admin/Banner');
+       }
+   }
 }

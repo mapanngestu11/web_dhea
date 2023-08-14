@@ -62,7 +62,7 @@
                       $id_banner           = $row['id_banner'];
                       $gambar = $row['gambar'];
                       $judul     = $row['judul'];
-                      $nama_lengkap = $row['nama_lengkap'];
+                      $nama_lengkap = $row['nama_user'];
                       ?>
                       <tr>
                         <td><?php echo $no ?></td>
@@ -96,7 +96,7 @@
       <!-- modal edit -->
       <?php foreach ($banner->result_array() as $row) :
         $id_banner = $row['id_banner'];
-        $nama_lengkap = $row['nama_lengkap'];
+        $nama_lengkap = $row['nama_user'];
 
         ?>
         <div class="modal fade " id="ModalEdit<?php echo $id_banner; ?>" role="dialog" aria-hidden="true" data-backdrop="static">
@@ -139,7 +139,7 @@
                           <?php 
                           $nama_lengkap = $this->session->userdata('nama_lengkap'); ?>
                           
-                          <input type="text" name="nama_lengkap" class="form-control form-input" value="<?php echo $nama_lengkap;?>" readonly>
+                          <input type="text" name="nama_user" class="form-control form-input" value="<?php echo $nama_lengkap;?>" readonly>
                         </div>
                       </div>
                     </div>

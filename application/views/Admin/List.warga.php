@@ -301,8 +301,7 @@
         <!-- modal edit -->
         <?php foreach ($warga->result_array() as $row) :
           $id_warga = $row['id_warga'];
-          $nama_lengkap = $row['nama_lengkap'];
-          $hak_akses    = $row['hak_akses'];
+          // $nama_lengkap = $row['nama_lengkap'];
 
           ?>
           <div class="modal fade " id="ModalEdit<?php echo $id_warga; ?>" role="dialog" aria-hidden="true" data-backdrop="static">>
@@ -331,33 +330,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <label>Username</label>
-                          <div class="form-group form-input">
-                            <input type="text" name="username" value="<?php echo $row['username']; ?>" placeholder="Kode Pegawai" class="form-control" required>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <label>Password</label>
-                          <div class="form-group form-input">
-                            <input type="password" name="password" autocomplete="off"  placeholder="Ubah Password" class="form-control" >
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <label>Hak Akses</label>
-                          <div class="form-group form-input">
-                            <select name="hak_akses" class="form-control" required>
-                              <option value="<?php echo $row['hak_akses']; ?>"> <?php echo $row['hak_akses']; ?> </option>
-                              <option value="admin"> Admin </option>
-                              <option value="kepsek"> Kepsek </option>
-                              <option value="ortu"> Orangtua </option>
-                            </select>
-                          </div>
-                        </div>
-                      </div>
+                      
                     </div>
                   </div>
                   <div class="modal-footer">
