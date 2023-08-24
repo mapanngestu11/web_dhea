@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <head>
-	<title>NUSANTARA SAKTI GROUP</title>
+	<title>Website Kelurahan</title>
 	<!-- Favicon -->
 	<link rel="icon" type="image/png" href="<?php echo base_url()."assets/Front/images/icon.png"; ?>">
 

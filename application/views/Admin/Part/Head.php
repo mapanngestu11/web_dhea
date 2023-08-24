@@ -5,7 +5,7 @@
   <meta name="description" content="">
   <meta name="author" content="">
   <link href="img/logo/logo.png" rel="icon">
-  <title>Admn - Dashboard</title>
+  <title>Admin - Dashboard</title>
   <link href="<?php echo base_url()."assets/Admin/"; ?>vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="<?php echo base_url()."assets/Admin/"; ?>vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="<?php echo base_url()."assets/Admin/"; ?>css/ruang-admin.min.css" rel="stylesheet">

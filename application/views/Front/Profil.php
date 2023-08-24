@@ -51,7 +51,7 @@ data-wow-delay="0.1s"
         >
         <img
         class="position-absolute w-100 h-100"
-        src="<?php echo base_url() . "assets/Front/"; ?>img/about.jpg"
+        src="<?php echo base_url() . "assets/Front/"; ?>img/iconpurpose.png"
         alt=""
         style="object-fit: cover"
         />
@@ -132,9 +132,15 @@ data-wow-delay="0.1s"
         $gambar = $data['gambar'];
         ?>
 
+        <style type="text/css">
+          .gambar_kegiatan{
+            height: 300px !important; 
+            width : 350px !important;
+          }
+        </style>
         <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
           <div class="service-item bg-light overflow-hidden h-100">
-            <img class="img-fluid" src="<?php echo base_url() . "assets/upload/"; ?><?php echo $gambar;?>" alt="" />
+            <img class="img-fluid gambar_kegiatan" src="<?php echo base_url() . "assets/upload/"; ?><?php echo $gambar;?>" alt="" />
             <div class="service-text position-relative text-center h-100 p-4">
               <h5 class="mb-3"><?php echo $nama_kegiatan;?></h5>
               <p style="text-align: left;">

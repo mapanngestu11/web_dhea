@@ -16,12 +16,6 @@
           Tampilan Dashboard
         </div>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo base_url('Admin/Banner/') ?>">
-            <i class="fas fa-fw fa-images"></i>
-            <span>Data Banner</span>
-          </a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="<?php echo base_url('Admin/Kegiatan/') ?>">
             <i class="fas fa-fw fa-pen"></i>
             <span>Data Kegiatan</span>
@@ -50,11 +44,21 @@
         <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Data Surat</h6>
-            <a class="collapse-item" href="simple-tables.html">Surat Pindah</a>
-            <a class="collapse-item" href="datatables.html">Surat KK Baru</a>
-            <a class="collapse-item" href="datatables.html">Surat KK Perubahan</a>
+            <a class="collapse-item" href="<?php echo base_url('Admin/Ktp/') ?>">KTP Baru</a>
+            <a class="collapse-item" href="datatables.html">Surat Pendatang</a>
+            <a class="collapse-item" href="datatables.html">Surat Kelahiran</a>
           </div>
         </div>
+      </li>
+      <hr class="sidebar-divider">
+      <div class="sidebar-heading">
+        Laporan
+      </div>
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo base_url('Admin/User/') ?>">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Cetak Laporan</span>
+        </a>
       </li>
       <hr class="sidebar-divider">
       <div class="sidebar-heading">

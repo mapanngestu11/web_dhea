@@ -35,4 +35,7 @@
 
   <!-- Template Stylesheet -->
   <link href="<?php echo base_url() . "assets/Front/"; ?>css/style.css" rel="stylesheet" />
+
+  <!-- boostrap -->
+  
 </head>

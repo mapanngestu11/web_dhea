@@ -60,8 +60,9 @@ class Kegiatan  extends CI_Controller
                 $gambar = $gbr['file_name'];
                 $nama_kegiatan = $this->input->post('nama_kegiatan');
                 $isi_kegiatan = $this->input->post('isi_kegiatan');
-                $status = '1';
-                $isi_kegiatan =  $this->input->post('isi_kegiatan');
+                $waktu = $this->input->post('waktu');
+                $tempat = $this->input->post('tempat');
+                $nama_user = $this->input->post('nama_user');
                 $tanggal =  date('Y-m-d h:i:s');
 
                 $data = array(
@@ -69,9 +70,10 @@ class Kegiatan  extends CI_Controller
                     'nama_kegiatan' => $nama_kegiatan,
                     'isi_kegiatan' => $isi_kegiatan,
                     'gambar' => $gambar,
-                    'status' => $status,
+                    'waktu' => $waktu,
+                    'tempat' => $tempat,
                     'tanggal' => $tanggal,
-                    'isi_kegiatan' => $isi_kegiatan
+                    'nama_user' => $nama_user
 
                 );
 
@@ -118,8 +120,9 @@ class Kegiatan  extends CI_Controller
                 $id_kegiatan = $this->input->post('id_kegiatan');
                 $nama_kegiatan = $this->input->post('nama_kegiatan');
                 $isi_kegiatan = $this->input->post('isi_kegiatan');
-                $status = $this->input->post('status');
-                $nama_lengkap = $this->input->post('nama_lengkap');
+                $waktu = $this->input->post('waktu');
+                $tempat = $this->input->post('tempat');
+                $nama_user = $this->input->post('nama_user');
                 $tanggal =  date('Y-m-d h:i:s');
 
                 $data = array(
@@ -127,9 +130,10 @@ class Kegiatan  extends CI_Controller
                     'nama_kegiatan' => $nama_kegiatan,
                     'isi_kegiatan' => $isi_kegiatan,
                     'gambar' => $gambar,
-                    'status' => $status,
+                    'waktu' => $waktu,
+                    'tempat' => $tempat,
                     'tanggal' => $tanggal,
-                    'nama_lengkap' => $nama_lengkap
+                    'nama_user' => $nama_user
 
                 );
 
@@ -141,7 +145,7 @@ class Kegiatan  extends CI_Controller
                 echo $this->session->set_flashdata('msg', 'success_update');
                 redirect('Admin/Kegiatan');
             } else {
-                echo $this->session->set_flashdata('msg', 'warning_update');
+                echo $this->session->set_flashdata('msg', 'warning');
                 redirect('Admin/Kegiatan');
             }
 
@@ -150,8 +154,9 @@ class Kegiatan  extends CI_Controller
           $id_kegiatan = $this->input->post('id_kegiatan');
           $nama_kegiatan = $this->input->post('nama_kegiatan');
           $isi_kegiatan = $this->input->post('isi_kegiatan');
-          $status = $this->input->post('status');
-          $nama_lengkap = $this->input->post('nama_lengkap');
+          $waktu = $this->input->post('waktu');
+          $tempat = $this->input->post('tempat');
+          $nama_user = $this->input->post('nama_user');
           $tanggal =  date('Y-m-d h:i:s');
 
 
@@ -159,9 +164,10 @@ class Kegiatan  extends CI_Controller
 
              'nama_kegiatan' => $nama_kegiatan,
              'isi_kegiatan' => $isi_kegiatan,
-             'status' => $status,
+             'waktu' => $waktu,
+             'tempat' => $tempat,
              'tanggal' => $tanggal,
-             'nama_lengkap' => $nama_lengkap
+             'nama_user' => $nama_user
 
          );
 

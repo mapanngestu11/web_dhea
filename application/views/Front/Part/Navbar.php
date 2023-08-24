@@ -23,7 +23,7 @@ data-bs-target="#navbarCollapse"
       <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pengajuan Surat</a
         >
         <div class="dropdown-menu bg-light m-0">
-          <a href="feature.html" class="dropdown-item">Pembuatan KTP Baru</a>
+          <a href="<?php echo base_url('Ktp/') ?>" class="dropdown-item">Pembuatan KTP Baru</a>
           <a href="#" class="dropdown-item">Surat Kelahiran</a>
           <a href="#" class="dropdown-item">Surat Pendatang</a>
 

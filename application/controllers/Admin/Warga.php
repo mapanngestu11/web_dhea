@@ -8,7 +8,9 @@ class Warga  extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_warga');
-
+        $this->load->helper('url');
+        $this->load->library('upload');
+        
         if ($this->session->userdata('masuk') != TRUE) {
             $this->session->set_flashdata('msg', '<div class="alert alert-warning" role="alert">Login Terlebih Dahulu ! </div>');
             $url = base_url('login');
@@ -57,7 +59,7 @@ class Warga  extends CI_Controller
         $config['upload_path'] = './assets/upload/'; //path folder
         $config['allowed_types'] = 'jpg|png|jpeg|pdf'; //type yang dapat diakses bisa anda sesuaikan
         $config['encrypt_name'] = TRUE; //nama yang terupload nantinya
-        $config['max_size']  = 10000; //Batas Ukuran
+        $config['max_size']  = 100000; //Batas Ukuran
 
         $this->upload->initialize($config);
         if (!empty($_FILES['file']['name'])) {
@@ -74,70 +76,217 @@ class Warga  extends CI_Controller
                 $this->image_lib->resize();
 
                 $file = $gbr['file_name'];
-                $nama_kegiatan = $this->input->post('nama_kegiatan');
-                $isi_kegiatan = $this->input->post('isi_kegiatan');
-                $status = '1';
-                $isi_kegiatan =  $this->input->post('isi_kegiatan');
+
+                $nik = $this->input->post('nik_baru');
+                $nama_lengkap = $this->input->post('nama_lengkap');   
+                $alamat = $this->input->post('alamat');             
+                $jenis_kelamin = $this->input->post('jenis_kelamin');   
+                $rt = $this->input->post('rt'); 
+
+                $rw = $this->input->post('rw'); 
+                $kelurahan = $this->input->post('kelurahan'); 
+                $kecamatan = $this->input->post('kecamatan'); 
+                $kota = $this->input->post('kota'); 
+                $provinsi = $this->input->post('provinsi'); 
+
+                $kode_pos = $this->input->post('kode_pos'); 
+                $telp = $this->input->post('telp'); 
+                $email = $this->input->post('email'); 
+                $jumlah_anggota_keluarga = $this->input->post('jumlah_anggota_keluarga'); 
+                $status = $this->input->post('status'); 
+
+                $nama_user = $this->input->post('nama_user'); 
                 $tanggal =  date('Y-m-d h:i:s');
 
+
                 $data = array(
+                    'nik' => $nik,
+                    'nama_lengkap' => $nama_lengkap,
+                    'alamat' => $alamat,
+                    'jenis_kelamin' => $jenis_kelamin,
+                    'rt' => $rt,
 
-                    'nama_kegiatan' => $nama_kegiatan,
-                    'isi_kegiatan' => $isi_kegiatan,
-                    'gambar' => $gambar,
+                    'rw' => $rw,
+                    'kelurahan' => $kelurahan,
+                    'kecamatan' => $kecamatan,
+                    'kota' => $kota,
+                    'provinsi' => $provinsi,
+
+                    'kode_pos' => $kode_pos,
+                    'telp' => $telp,
+                    'email' => $email,
+                    'jumlah_anggota_keluarga' => $jumlah_anggota_keluarga,
+                    'file' => $file,
+
                     'status' => $status,
-                    'tanggal' => $tanggal,
-                    'isi_kegiatan' => $isi_kegiatan
-
+                    'nama_user' => $nama_user,
+                    'tanggal' => $tanggal
+                    
                 );
 
 
 
-                $this->M_kegiatan->input_data($data, 'tbl_kegiatan');
+                $this->M_warga->input_data($data, 'tbl_warga');
                 echo $this->session->set_flashdata('msg', 'success');
-                redirect('Admin/Kegiatan');
+                redirect('Admin/Warga');
             } else {
                 echo $this->session->set_flashdata('msg', 'warning');
-                redirect('Admin/Kegiatan');
+                redirect('Admin/Warga');
             }
         } else {
 
-            redirect('Admin/Kegiatan');
+            redirect('Admin/Warga');
         }
     }
 
-    public function delete($id_user)
+    public function delete($id_warga)
     {
-        $id_user = $this->input->post('id_user');
-        $this->M_user->delete_data($id_user);
+        $id_warga = $this->input->post('id_warga');
+        $this->M_warga->delete_data($id_warga);
         echo $this->session->set_flashdata('msg', 'success-hapus');
-        redirect('Admin/User');
+        redirect('Admin/Warga');
     }
 
-    public function update($kode_pegawai)
+    public function update()
     {
         date_default_timezone_set("Asia/Jakarta");
-        $id_user = $this->input->post('id_user');
-        $nama_lengkap = $this->input->post('nama_lengkap');
-        $hak_akses = $this->input->post('hak_akses');
-        $username = $this->input->post('username');
-        $password = md5($this->input->post('password'));
-        $waktu =  date('Y-m-d h:i:s');
+        $config['upload_path'] = './assets/upload/'; //path folder
+        $config['allowed_types'] = 'jpg|png|jpeg|pdf'; //type yang dapat diakses bisa anda sesuaikan
+        $config['encrypt_name'] = TRUE; //nama yang terupload nantinya
+        $config['max_size']  = 1000000; //Batas Ukuran
 
-        $data = array(
+        $this->upload->initialize($config);
+        
+        if (!empty($_FILES['file']['name'] )) {
+
+            if ($this->upload->do_upload('file')) {
+                $gbr = $this->upload->data();
+                //Compress Image
+                $config['image_library'] = 'gd2';
+                $config['source_image'] = './assets/upload/' . $gbr['file_name'];
+                $config['create_thumb'] = FALSE;
+                $config['maintain_ratio'] = FALSE;
+                $config['quality'] = '100%';
+                $config['new_image'] = './assets/upload/' . $gbr['file_name'];
+                $this->load->library('image_lib', $config);
+                $this->image_lib->resize();
+
+                $file = $gbr['file_name'];
+                $id_warga = $this->input->post('id_warga');
+                $nik = $this->input->post('nik');
+                $nama_lengkap = $this->input->post('nama_lengkap');   
+                $alamat = $this->input->post('alamat');             
+                $jenis_kelamin = $this->input->post('jenis_kelamin');   
+                $rt = $this->input->post('rt'); 
+
+                $rw = $this->input->post('rw'); 
+                $kelurahan = $this->input->post('kelurahan'); 
+                $kecamatan = $this->input->post('kecamatan'); 
+                $kota = $this->input->post('kota'); 
+                $provinsi = $this->input->post('provinsi'); 
+
+                $kode_pos = $this->input->post('kode_pos'); 
+                $telp = $this->input->post('telp'); 
+                $email = $this->input->post('email'); 
+                $jumlah_anggota_keluarga = $this->input->post('jumlah_anggota_keluarga'); 
+                $status = $this->input->post('status'); 
+
+                $nama_user = $this->input->post('nama_user'); 
+                $tanggal =  date('Y-m-d h:i:s');
+
+
+                $data = array(
+                    'nik' => $nik,
+                    'nama_lengkap' => $nama_lengkap,
+                    'alamat' => $alamat,
+                    'jenis_kelamin' => $jenis_kelamin,
+                    'rt' => $rt,
+
+                    'rw' => $rw,
+                    'kelurahan' => $kelurahan,
+                    'kecamatan' => $kecamatan,
+                    'kota' => $kota,
+                    'provinsi' => $provinsi,
+
+                    'kode_pos' => $kode_pos,
+                    'telp' => $telp,
+                    'email' => $email,
+                    'jumlah_anggota_keluarga' => $jumlah_anggota_keluarga,
+                    'file' => $file,
+
+                    'status' => $status,
+                    'nama_user' => $nama_user,
+                    'tanggal' => $tanggal
+                    
+                );
+
+                $where = array(
+                    'id_warga' => $id_warga
+                );
+
+                $this->M_warga->update_data($where,$data,'tbl_warga');
+                echo $this->session->set_flashdata('msg', 'success_update');
+                redirect('Admin/Warga');
+            } else {
+                echo $this->session->set_flashdata('msg', 'warning');
+                redirect('Admin/Warga');
+            }
+
+        } else {
+
+         $id_warga = $this->input->post('id_warga');
+         $nik = $this->input->post('nik');
+         $nama_lengkap = $this->input->post('nama_lengkap');   
+         $alamat = $this->input->post('alamat');             
+         $jenis_kelamin = $this->input->post('jenis_kelamin');   
+         $rt = $this->input->post('rt'); 
+
+         $rw = $this->input->post('rw'); 
+         $kelurahan = $this->input->post('kelurahan'); 
+         $kecamatan = $this->input->post('kecamatan'); 
+         $kota = $this->input->post('kota'); 
+         $provinsi = $this->input->post('provinsi'); 
+
+         $kode_pos = $this->input->post('kode_pos'); 
+         $telp = $this->input->post('telp'); 
+         $email = $this->input->post('email'); 
+         $jumlah_anggota_keluarga = $this->input->post('jumlah_anggota_keluarga'); 
+         $status = $this->input->post('status'); 
+
+         $nama_user = $this->input->post('nama_user'); 
+         $tanggal =  date('Y-m-d h:i:s');
+
+         $data = array(
+            'nik' => $nik,
             'nama_lengkap' => $nama_lengkap,
-            'username' => $username,
-            'password' => $password,
-            'hak_akses' => $hak_akses,
-            'waktu' => $waktu
+            'alamat' => $alamat,
+            'jenis_kelamin' => $jenis_kelamin,
+            'rt' => $rt,
+
+            'rw' => $rw,
+            'kelurahan' => $kelurahan,
+            'kecamatan' => $kecamatan,
+            'kota' => $kota,
+            'provinsi' => $provinsi,
+
+            'kode_pos' => $kode_pos,
+            'telp' => $telp,
+            'email' => $email,
+            'jumlah_anggota_keluarga' => $jumlah_anggota_keluarga,
+
+            'status' => $status,
+            'nama_user' => $nama_user,
+            'tanggal' => $tanggal
+
         );
 
-        $where = array(
-            'id_user' => $id_user
+         $where = array(
+            'id_warga' => $id_warga
         );
 
-        $this->M_user->update_data($where, $data, 'tbl_user');
-        echo $this->session->set_flashdata('msg', 'info-update');
-        redirect('Admin/User');
-    }
+         $this->M_warga->update_data($where,$data,'tbl_warga');
+         echo $this->session->set_flashdata('msg', 'success_update');
+         redirect('Admin/Warga');
+     }
+ }
 }
