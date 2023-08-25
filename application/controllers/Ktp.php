@@ -52,34 +52,68 @@ class Ktp  extends CI_Controller
 
     }
 
-
-    public function cek_warga()
+    public function add()
     {
-        $data = (object)array();
-        $nik = $this->input->post('input_check_nik');
-        // $nis = '2022001';
-        $cek_nik = $this->M_warga->cek_warga($nik);
+        $nik = $this->input->post('nik');
+        $hasil = $this->M_ktp->cek_ktp($nik)->result();
 
-        $data_nik = json_encode($cek_nik);
+        if ($hasil) {
+         date_default_timezone_set("Asia/Jakarta");
+        $config['upload_path'] = './assets/upload/'; //path folder
+        $config['allowed_types'] = 'jpg|png|jpeg|pdf'; //type yang dapat diakses bisa anda sesuaikan
+        $config['encrypt_name'] = TRUE; //nama yang terupload nantinya
+        $config['max_size']  = 100000; //Batas Ukuran
 
-        $decode_nik = json_decode($data_nik);
+        $this->upload->initialize($config);
+        if (!empty($_FILES['file_pemohon']['name'])) {
+            if ($this->upload->do_upload('file_pemohon')) {
+                $gbr = $this->upload->data();
+                //Compress Image
+                $config['image_library'] = 'gd2';
+                $config['source_image'] = './assets/upload/' . $gbr['file_name'];
+                $config['create_thumb'] = FALSE;
+                $config['maintain_ratio'] = FALSE;
+                $config['quality'] = '100%';
+                $config['new_image'] = './assets/upload/' . $gbr['file_name'];
+                $this->load->library('image_lib', $config);
+                $this->image_lib->resize();
 
-        if ($decode_nik != NULL) {
+                $file = $gbr['file_name'];
+                $nik = $this->input->post('nik');
+                $kode_permohonan = $this->input->post('kode_permohonan');
+                $kebutuhan = $this->input->post('kebutuhan');
+                $tanggal =  date('Y-m-d h:i:s');
+                $status = '0';
 
-            $hasil = "Data Ada";
-            $data->result  = $decode_nik;
-            $data->success         = TRUE;
-            $data->message        = "True !";
 
-        }else{
+                $data = array(
+                   'kode_permohonan' => $kode_permohonan,
+                   'nik' => $nik,
+                   'kebutuhan' => $kebutuhan,
+                   'status' => $status,
+                   'file_pemohon' => $file,
+                   'tanggal' => $tanggal
+               );
 
-            $hasil = "Data Kosong";
-            $data->result = FALSE ;
-            $data->status = FALSE;
+                $this->M_ktp->input_data($data, 'tbl_permohonan_ktp_baru');
+                echo $this->session->set_flashdata('msg', 'success');
+                redirect('Ktp');
+            } else {
+                echo $this->session->set_flashdata('msg', 'warning');
+                redirect('Ktp');
+            }
+        } else {
+
+            redirect('Ktp');
         }
 
-        echo json_encode($data);
+    }else{
+      echo $this->session->set_flashdata('msg', 'gagal');
+      redirect('Ktp');
+  }
+}
 
-    }
+
+
 
 }

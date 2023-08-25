@@ -1,13 +1,13 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Ktp  extends CI_Controller
+class Kelahiran  extends CI_Controller
 {
 
 
     function __construct()
     {
         parent::__construct();
-        $this->load->model('M_ktp');
+        $this->load->model('M_kelahiran');
         $this->load->model('M_warga');
         $this->load->helper('url');
         $this->load->library('upload');
@@ -22,8 +22,8 @@ class Ktp  extends CI_Controller
 
     public function index()
     {
-        $data['ktp'] = $this->M_ktp->tampil_data();
-        $this->load->view('Admin/List.ktp.php', $data);
+        $data['kelahiran'] = $this->M_kelahiran->tampil_data();
+        $this->load->view('Admin/List.kelahiran.php', $data);
     }
 
     public function cek_warga()
@@ -55,12 +55,12 @@ class Ktp  extends CI_Controller
 
     }
 
-    public function delete($id_ktp_baru)
+    public function delete($id_surat_kelahiran) 
     {
-        $id_ktp_baru = $this->input->post('id_ktp_baru');
-        $this->M_ktp->delete_data($id_ktp_baru);
+        $id_surat_kelahiran = $this->input->post('id_surat_kelahiran');
+        $this->M_kelahiran->delete_data($id_surat_kelahiran);
         echo $this->session->set_flashdata('msg', 'success-hapus');
-        redirect('Admin/Ktp');
+        redirect('Admin/Kelahiran');
     }
 
     public function add()
@@ -105,16 +105,16 @@ class Ktp  extends CI_Controller
                    'tanggal' => $tanggal
                );
 
-                $this->M_ktp->input_data($data, 'tbl_permohonan_ktp_baru');
+                $this->M_kelahiran->input_data($data, 'tbl_permohonan_surat_kelahiran');
                 echo $this->session->set_flashdata('msg', 'success');
-                redirect('Admin/Ktp');
+                redirect('Admin/Kelahiran');
             } else {
                 echo $this->session->set_flashdata('msg', 'warning');
-                redirect('Admin/Ktp');
+                redirect('Admin/Kelahiran');
             }
         } else {
 
-            redirect('Admin/Ktp');
+            redirect('Admin/Kelahiran');
         }
     }
 
@@ -141,7 +141,7 @@ class Ktp  extends CI_Controller
                 $this->image_lib->resize();
 
                 $file = $gbr['file_name'];
-                $id_ktp_baru = $this->input->post('id_ktp_baru');
+                $id_surat_kelahiran = $this->input->post('id_surat_kelahiran');
                 $status = $this->input->post('status');
                 $keterangan = $this->input->post('keterangan');
                 $nama_user = $this->input->post('nama_user');
@@ -160,20 +160,20 @@ class Ktp  extends CI_Controller
 
 
                 $where = array(
-                    'id_ktp_baru' => $id_ktp_baru
+                    'id_surat_kelahiran' => $id_surat_kelahiran
                 );
 
-                $this->M_ktp->update_data($where,$data,'tbl_permohonan_ktp_baru');
+                $this->M_kelahiran->update_data($where,$data,'tbl_permohonan_surat_kelahiran');
                 echo $this->session->set_flashdata('msg', 'success_update');
-                redirect('Admin/Ktp');
+                redirect('Admin/Kelahiran');
             } else {
                 echo $this->session->set_flashdata('msg', 'warning');
-                redirect('Admin/Ktp');
+                redirect('Admin/Kelahiran');
             }
 
         } else {
 
-            $id_ktp_baru = $this->input->post('id_ktp_baru');
+            $id_surat_kelahiran = $this->input->post('id_surat_kelahiran');
             $status = $this->input->post('status');
             $keterangan = $this->input->post('keterangan');
             $nama_user = $this->input->post('nama_user');
@@ -189,12 +189,12 @@ class Ktp  extends CI_Controller
             
 
             $where = array(
-                'id_ktp_baru' => $id_ktp_baru
+                'id_surat_kelahiran' => $id_surat_kelahiran
             );
 
-            $this->M_ktp->update_data($where,$data,'tbl_permohonan_ktp_baru');
+            $this->M_kelahiran->update_data($where,$data,'tbl_permohonan_surat_kelahiran');
             echo $this->session->set_flashdata('msg', 'success_update');
-            redirect('Admin/Ktp');
+            redirect('Admin/Kelahiran');
         }
 
     }

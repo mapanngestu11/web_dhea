@@ -1,13 +1,13 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Ktp  extends CI_Controller
+class Pendatang  extends CI_Controller
 {
 
 
     function __construct()
     {
         parent::__construct();
-        $this->load->model('M_ktp');
+        $this->load->model('M_pendatang');
         $this->load->model('M_warga');
         $this->load->helper('url');
         $this->load->library('upload');
@@ -22,8 +22,8 @@ class Ktp  extends CI_Controller
 
     public function index()
     {
-        $data['ktp'] = $this->M_ktp->tampil_data();
-        $this->load->view('Admin/List.ktp.php', $data);
+        $data['pendatang'] = $this->M_pendatang->tampil_data();
+        $this->load->view('Admin/List.pendatang.php', $data);
     }
 
     public function cek_warga()
@@ -55,12 +55,12 @@ class Ktp  extends CI_Controller
 
     }
 
-    public function delete($id_ktp_baru)
+    public function delete($id_surat_pendatang)
     {
-        $id_ktp_baru = $this->input->post('id_ktp_baru');
-        $this->M_ktp->delete_data($id_ktp_baru);
+        $id_surat_pendatang = $this->input->post('id_surat_pendatang');
+        $this->M_pendatang->delete_data($id_surat_pendatang);
         echo $this->session->set_flashdata('msg', 'success-hapus');
-        redirect('Admin/Ktp');
+        redirect('Admin/Pendatang');
     }
 
     public function add()
@@ -105,16 +105,16 @@ class Ktp  extends CI_Controller
                    'tanggal' => $tanggal
                );
 
-                $this->M_ktp->input_data($data, 'tbl_permohonan_ktp_baru');
+                $this->M_pendatang->input_data($data, 'tbl_permohonan_surat_pendatang');
                 echo $this->session->set_flashdata('msg', 'success');
-                redirect('Admin/Ktp');
+                redirect('Admin/Pendatang');
             } else {
                 echo $this->session->set_flashdata('msg', 'warning');
-                redirect('Admin/Ktp');
+                redirect('Admin/pendatang');
             }
         } else {
 
-            redirect('Admin/Ktp');
+            redirect('Admin/pendatang');
         }
     }
 
@@ -141,7 +141,7 @@ class Ktp  extends CI_Controller
                 $this->image_lib->resize();
 
                 $file = $gbr['file_name'];
-                $id_ktp_baru = $this->input->post('id_ktp_baru');
+                $id_surat_pendatang = $this->input->post('id_surat_pendatang');
                 $status = $this->input->post('status');
                 $keterangan = $this->input->post('keterangan');
                 $nama_user = $this->input->post('nama_user');
@@ -160,20 +160,20 @@ class Ktp  extends CI_Controller
 
 
                 $where = array(
-                    'id_ktp_baru' => $id_ktp_baru
+                    'id_surat_pendatang' => $id_surat_pendatang
                 );
 
-                $this->M_ktp->update_data($where,$data,'tbl_permohonan_ktp_baru');
+                $this->M_pendatang->update_data($where,$data,'tbl_permohonan_surat_pendatang');
                 echo $this->session->set_flashdata('msg', 'success_update');
-                redirect('Admin/Ktp');
+                redirect('Admin/Pendatang');
             } else {
                 echo $this->session->set_flashdata('msg', 'warning');
-                redirect('Admin/Ktp');
+                redirect('Admin/Pendatang');
             }
 
         } else {
 
-            $id_ktp_baru = $this->input->post('id_ktp_baru');
+            $id_surat_pendatang = $this->input->post('id_surat_pendatang');
             $status = $this->input->post('status');
             $keterangan = $this->input->post('keterangan');
             $nama_user = $this->input->post('nama_user');
@@ -189,12 +189,12 @@ class Ktp  extends CI_Controller
             
 
             $where = array(
-                'id_ktp_baru' => $id_ktp_baru
+                'id_surat_pendatang' => $id_surat_pendatang
             );
 
-            $this->M_ktp->update_data($where,$data,'tbl_permohonan_ktp_baru');
+            $this->M_pendatang->update_data($where,$data,'tbl_permohonan_surat_pendatang');
             echo $this->session->set_flashdata('msg', 'success_update');
-            redirect('Admin/Ktp');
+            redirect('Admin/Pendatang');
         }
 
     }

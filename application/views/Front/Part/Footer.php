@@ -2,16 +2,19 @@
          class="container-fluid bg-dark footer mt-5 pt-5 wow fadeIn"
          data-wow-delay="0.1s"
          >
-         <div class="container py-5">
+
+         <style type="text/css">
+           .judul{
+            font-size: medium;
+          }
+        </style>
+        <div class="container py-5">
           <div class="row g-5">
             <div class="col-lg-3 col-md-6">
-              <h1 class="text-white mb-4">
-                <i class="fa fa-building text-primary me-3"></i>APEX
+              <h1 class="text-white mb-4 judul">
+                Kelurahan Karang Timur
               </h1>
-              <p>
-                Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat
-                ipsum et lorem et sit, sed stet lorem sit clita
-              </p>
+
               <div class="d-flex pt-2">
                 <a class="btn btn-square btn-outline-primary me-1" href=""
                 ><i class="fab fa-twitter"></i

@@ -15,10 +15,10 @@
         <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800"><span class="badge badge-primary">Permohonan KTP Baru</span></h1>
+            <h1 class="h3 mb-0 text-gray-800"><span class="badge badge-primary">Pendatang Baru</span></h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="<?php echo base_url('Admin/Homepage/') ?>">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Permohonan KTP Baru</li>
+              <li class="breadcrumb-item active" aria-current="page">Pendatang Baru</li>
             </ol>
           </div>
 
@@ -28,15 +28,15 @@
             <div class="col-lg-12">
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Permohonan KTP Baru</h6>
-                  <button class="btn btn-primary block" style=" float: right;" data-toggle="modal" data-target="#default" data-backdrop="static" data-keyboard="false">Tambah Permohonan KTP Baru</button>
+                  <h6 class="m-0 font-weight-bold text-primary">Permohonan Pendatang Baru</h6>
+                  <button class="btn btn-primary block" style=" float: right;" data-toggle="modal" data-target="#default" data-backdrop="static" data-keyboard="false">Tambah Pendatang Baru</button>
 
                   <!-- modal tambah -->
                   <div class="modal fade " id="default" role="dialog" aria-hidden="true" data-backdrop="static">>
                     <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="myModalLabel1">Tambah Permohonan KTP Baru</h5>
+                          <h5 class="modal-title" id="myModalLabel1">Tambah Pendatang Baru</h5>
                           <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
                             <i data-feather="x"></i>
                           </button>
@@ -66,7 +66,7 @@
                                 <button onclick="check_nik()" id="cek_nik" class="btn btn-primary btn-cek">Cek</button>
                               </div>
                             </div>
-                            <form action="<?php echo base_url() . 'Admin/Ktp/add'; ?>" method="post" enctype="multipart/form-data" id="tambah_warga" class="tambah_warga">
+                            <form action="<?php echo base_url() . 'Admin/Pendatang/add'; ?>" method="post" enctype="multipart/form-data" id="tambah_warga" class="tambah_warga">
                               <div class="row">
                                 <div class="col-md-6">
                                   <label>Nik</label>
@@ -163,10 +163,10 @@
                    <tbody>
                     <?php
                     $no = 0;
-                    foreach ($ktp->result_array() as $row) :
+                    foreach ($pendatang->result_array() as $row) :
 
                       $no++;
-                      $id_ktp_baru           = $row['id_ktp_baru'];
+                      $id_surat_pendatang           = $row['id_surat_pendatang'];
                       $nik     = $row['nik'];
                       $nama_lengkap = $row['nama_lengkap'];
                       $kode_permohonan = $row['kode_permohonan'];
@@ -187,8 +187,8 @@
                        </td>
                        <td>
                         <div class="form-button-action">
-                          <a class="btn btn-link btn-primary btn-lg" data-toggle="modal" data-target="#ModalEdit<?php echo $id_ktp_baru; ?>"><span class="fa fa-edit" style="color:white;"></span></a>
-                          <a class="btn btn-link btn-danger btn-lg" data-toggle="modal" data-target="#ModalHapus<?php echo $id_ktp_baru; ?>"><i class=" fa fa-times" data-original-title="Edit Task" style="color:white;"></i></a>
+                          <a class="btn btn-link btn-primary btn-lg" data-toggle="modal" data-target="#ModalEdit<?php echo $id_surat_pendatang; ?>"><span class="fa fa-edit" style="color:white;"></span></a>
+                          <a class="btn btn-link btn-danger btn-lg" data-toggle="modal" data-target="#ModalHapus<?php echo $id_surat_pendatang; ?>"><i class=" fa fa-times" data-original-title="Edit Task" style="color:white;"></i></a>
                         </div>
                       </td>
                     <?php endforeach; ?>
@@ -218,20 +218,20 @@
 
 
       <!-- modal hapus -->
-      <?php foreach ($ktp->result_array() as $row) :
-        $id_ktp_baru = $row['id_ktp_baru'];
+      <?php foreach ($pendatang->result_array() as $row) :
+        $id_surat_pendatang = $row['id_surat_pendatang'];
         $nama_lengkap = $row['nama_lengkap'];
         ?>
-        <div class="modal fade" id="ModalHapus<?php echo $id_ktp_baru; ?>" tabindex="-1" role="dialog" aria-labelledby="">
+        <div class="modal fade" id="ModalHapus<?php echo $id_surat_pendatang; ?>" tabindex="-1" role="dialog" aria-labelledby="">
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
                 <!--    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button> -->
                 <h4 class="modal-title" id="myModalLabel">Hapus Data</h4>
               </div>
-              <form class="form-horizontal" action="<?php echo base_url() . 'Admin/Ktp/delete' ?>" method="post">
+              <form class="form-horizontal" action="<?php echo base_url() . 'Admin/Pendatang/delete' ?>" method="post">
                 <div class="modal-body">
-                  <input type="hidden" name="id_ktp_baru" value="<?php echo $id_ktp_baru; ?>" />
+                  <input type="hidden" name="id_surat_pendatang" value="<?php echo $id_surat_pendatang; ?>" />
 
                   <p>Apakah Anda yakin mau menghapus <b><?php echo $nama_lengkap; ?></b> ?</p>
 
@@ -252,8 +252,8 @@
 
 
       <!-- modal edit -->
-      <?php foreach ($ktp->result_array() as $row) :
-        $id_ktp_baru = $row['id_ktp_baru'];
+      <?php foreach ($pendatang->result_array() as $row) :
+        $id_surat_pendatang = $row['id_surat_pendatang'];
         $nama_lengkap = $row['nama_lengkap'];
         $kode_permohonan = $row['kode_permohonan'];
         $nik  = $row['nik'];
@@ -265,11 +265,11 @@
 
 
         ?>
-        <div class="modal fade " id="ModalEdit<?php echo $id_ktp_baru; ?>" role="dialog" aria-hidden="true" data-backdrop="static">>
+        <div class="modal fade " id="ModalEdit<?php echo $id_surat_pendatang; ?>" role="dialog" aria-hidden="true" data-backdrop="static">>
           <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel1">Update Permohonan KTP</h5>
+                <h5 class="modal-title" id="myModalLabel1">Update Data</h5>
                 <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
                   <i data-feather="x"></i>
                 </button>
@@ -282,13 +282,13 @@
 
               <div class="modal-body">
                 <div class="modal-body">
-                  <form action="<?php echo base_url() . 'Admin/Ktp/update'; ?>" method="post" enctype="multipart/form-data">
+                  <form action="<?php echo base_url() . 'Admin/Pendatang/update'; ?>" method="post" enctype="multipart/form-data">
                     <div class="row">
                       <div class="col-md-12">
                         <label>Kode Permohonan</label>
                         <div class="form-group form-input">
                           <input type="text" name="kode_permohonan" value="<?php echo $row['kode_permohonan']; ?>" class="form-control" readonly>
-                          <input type="hidden" name="id_ktp_baru" value="<?php echo $id_ktp_baru;?>">
+                          <input type="hidden" name="id_surat_pendatang" value="<?php echo $id_surat_pendatang;?>">
                         </div>
                       </div>
                     </div>
