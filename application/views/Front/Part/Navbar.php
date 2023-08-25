@@ -24,8 +24,8 @@ data-bs-target="#navbarCollapse"
         >
         <div class="dropdown-menu bg-light m-0">
           <a href="<?php echo base_url('Ktp/') ?>" class="dropdown-item">Pembuatan KTP Baru</a>
-          <a href="#" class="dropdown-item">Surat Kelahiran</a>
-          <a href="#" class="dropdown-item">Surat Pendatang</a>
+          <a href="<?php echo base_url('Kelahiran/') ?>" class="dropdown-item">Surat Kelahiran</a>
+          <a href="<?php echo base_url('Pengajuan/') ?>" class="dropdown-item">Surat Pendatang</a>
 
         </div>
       </div>
