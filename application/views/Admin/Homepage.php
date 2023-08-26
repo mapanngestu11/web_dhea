@@ -97,6 +97,7 @@
                 </div>
               </div>
             </div>
+            
 
             <!-- Area Chart -->
 
@@ -118,32 +119,32 @@
                           <th>Customer</th>
                           <th>Item</th>
                           <th>Status</th>
-                          
+
                         </tr>
                       </thead>
                       <tbody>
                         <?php foreach ($warga->result_array() as $data_warga) {
-                          $nik =  $data_warga['nik'];
-                          $nama_lengkap = $data_warga['nama_lengkap'];
-                          $alamat = $data_warga['alamat'];
-                          $status = $data_warga['status'];
-                          ?>
+                        $nik =  $data_warga['nik'];
+                        $nama_lengkap = $data_warga['nama_lengkap'];
+                        $alamat = $data_warga['alamat'];
+                        $status = $data_warga['status'];
+                        ?>
 
-                          <tr>
-                            <td><?php echo $nik;?></td>
-                            <td><?php echo $nama_lengkap;?></td>
-                            <td><?php echo $alamat;?></td>
-                            <td>
-                              <?php if ($status == '1') { ?>
-                                <span class="badge badge-success">Sudah Verif</span></td>
-                              <?php }elseif ($status == '2') { ?>
-                                <span class="badge badge-warning">Pending</span></td>
-                              <?php }else{ ?>
-                                <span class="badge badge-danger">Tolak</span></td>
-                              <?php } ?>
+                        <tr>
+                          <td><?php echo $nik;?></td>
+                          <td><?php echo $nama_lengkap;?></td>
+                          <td><?php echo $alamat;?></td>
+                          <td>
+                            <?php if ($status == '1') { ?>
+                            <span class="badge badge-success">Sudah Verif</span></td>
+                            <?php }elseif ($status == '2') { ?>
+                            <span class="badge badge-warning">Pending</span></td>
+                            <?php }else{ ?>
+                            <span class="badge badge-danger">Tolak</span></td>
+                            <?php } ?>
 
 
-                            </tr>
+                          </tr>
 
                           <?php } ?>
                         </tbody>
@@ -152,6 +153,7 @@
                     <div class="card-footer"></div>
                   </div>
                 </div>
+
                 <!-- Message From Customer-->
 
                 <!--Row-->

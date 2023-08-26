@@ -25,6 +25,8 @@ class Ktp  extends CI_Controller
         $this->load->view('Front/Ktp.php');
     }
 
+    
+
     public function cek_permohonan()
     {
         $kode_permohonan = $this->input->post('kode_permohonan');

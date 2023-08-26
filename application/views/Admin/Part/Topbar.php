@@ -13,18 +13,6 @@
       <span class="ml-2 d-none d-lg-inline text-white small">Administrator</span>
     </a>
     <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-      <a class="dropdown-item" href="#">
-        <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-        Profile
-      </a>
-      <a class="dropdown-item" href="#">
-        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-        Settings
-      </a>
-      <a class="dropdown-item" href="#">
-        <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-        Activity Log
-      </a>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="<?php echo base_url() . 'Login/logout'; ?>" data-toggle="modal" data-target="#logoutModal">
         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -52,7 +40,7 @@ aria-hidden="true">
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-      <a href="login.html" class="btn btn-primary">Logout</a>
+      <a href="<?php echo base_url() . 'Login/logout'; ?>" class="btn btn-primary">Logout</a>
     </div>
   </div>
 </div>

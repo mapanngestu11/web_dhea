@@ -26,47 +26,65 @@ class Pendatang  extends CI_Controller
         $this->load->view('Admin/List.pendatang.php', $data);
     }
 
-    public function cek_warga()
+    public function laporan_pendatang()
     {
-        $data = (object)array();
-        $nik = $this->input->post('input_check_nik');
+        $data['pendatang'] = $this->M_pendatang->tampil_data();
+        $this->load->view('Admin/List.laporan.pendatang.php', $data);
+    }
+
+    public function cetak_laporan_pendatang ()
+    {
+     $tanggal = $this->input->post('tanggal');
+     $bulan = date('m', strtotime($tanggal));
+
+     $data['keterangan'] = 'Permohonan Pendatang Baru';
+     $data['laporan'] = $this->M_pendatang->cetak_laporan($bulan);
+     $this->load->view('Admin/Cetak_laporan.php',$data);
+
+ }
+
+
+ public function cek_warga()
+ {
+    $data = (object)array();
+    $nik = $this->input->post('input_check_nik');
         // $nis = '2022001';
-        $cek_nik = $this->M_warga->cek_warga($nik);
+    $cek_nik = $this->M_warga->cek_warga($nik);
 
-        $data_nik = json_encode($cek_nik);
+    $data_nik = json_encode($cek_nik);
 
-        $decode_nik = json_decode($data_nik);
+    $decode_nik = json_decode($data_nik);
 
-        if ($decode_nik != NULL) {
+    if ($decode_nik != NULL) {
 
-            $hasil = "Data Ada";
-            $data->result  = $decode_nik;
-            $data->success         = TRUE;
-            $data->message        = "True !";
+        $hasil = "Data Ada";
+        $data->result  = $decode_nik;
+        $data->success         = TRUE;
+        $data->message        = "True !";
 
-        }else{
+    }else{
 
-            $hasil = "Data Kosong";
-            $data->result = FALSE ;
-            $data->status = FALSE;
-        }
-
-        echo json_encode($data);
-
+        $hasil = "Data Kosong";
+        $data->result = FALSE ;
+        $data->status = FALSE;
     }
 
-    public function delete($id_surat_pendatang)
-    {
-        $id_surat_pendatang = $this->input->post('id_surat_pendatang');
-        $this->M_pendatang->delete_data($id_surat_pendatang);
-        echo $this->session->set_flashdata('msg', 'success-hapus');
-        redirect('Admin/Pendatang');
-    }
+    echo json_encode($data);
 
-    public function add()
-    {
+}
 
-        date_default_timezone_set("Asia/Jakarta");
+public function delete($id_surat_pendatang)
+{
+    $id_surat_pendatang = $this->input->post('id_surat_pendatang');
+    $this->M_pendatang->delete_data($id_surat_pendatang);
+    echo $this->session->set_flashdata('msg', 'success-hapus');
+    redirect('Admin/Pendatang');
+}
+
+public function add()
+{
+
+    date_default_timezone_set("Asia/Jakarta");
         $config['upload_path'] = './assets/upload/'; //path folder
         $config['allowed_types'] = 'jpg|png|jpeg|pdf'; //type yang dapat diakses bisa anda sesuaikan
         $config['encrypt_name'] = TRUE; //nama yang terupload nantinya

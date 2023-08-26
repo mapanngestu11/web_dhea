@@ -71,4 +71,23 @@ class M_kelahiran extends CI_Model
     return $query;
 
 }
+function cetak_laporan($bulan)
+{
+    $this->db->select('
+        a.id_surat_kelahiran,
+        a.nik,
+        b.nama_lengkap,
+        a.status,
+        a.kode_permohonan,
+        a.kebutuhan,
+        a.file_pemohon,
+        a.keterangan,
+        a.tanggal');
+    $this->db->from('tbl_permohonan_surat_kelahiran as a');
+    $this->db->join('tbl_warga as b', 'b.nik = a.nik','left');
+    $this->db->where('MONTH(a.tanggal)',$bulan);
+    $query = $this->db->get()->result();
+    return $query;
+}
+
 }
