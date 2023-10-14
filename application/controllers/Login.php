@@ -50,8 +50,8 @@ class Login extends CI_Controller {
 					'logged_in' => TRUE
 				);
 				redirect('Admin/Homepage', $data);
-			} elseif ($xcadmin['hak_akses'] == 'Pln') {
-				$this->session->set_userdata('akses', 'pln');
+			} elseif ($xcadmin['hak_akses'] == 'lurah') {
+				$this->session->set_userdata('akses', 'lurah');
 				$id = $xcadmin['id'];
 				$nama_lengkap = $xcadmin['nama_lengkap'];
 				$hak_akses = $xcadmin['hak_akses'];
@@ -60,10 +60,11 @@ class Login extends CI_Controller {
 				$this->session->set_userdata('hak_akses', $hak_akses);
 				$data = array(
 					'hak_akses'     => $hak_akses,
+					'nama_lengkap'     => $nama_lengkap,
 					'logged_in' => TRUE
 				);
 
-				redirect('Homepage', $data);
+				redirect('Admin/Homepage', $data);
 			}
 		} else {
 

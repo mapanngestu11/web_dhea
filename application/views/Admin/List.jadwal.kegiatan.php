@@ -15,10 +15,10 @@
         <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800"><span class="badge badge-primary">Data Kegiatan</span></h1>
+            <h1 class="h3 mb-0 text-gray-800"><span class="badge badge-primary">Data Jadwal Kegiatan</span></h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="<?php echo base_url('Admin/Homepage/') ?>">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Data Kegiatan</li>
+              <li class="breadcrumb-item active" aria-current="page">Data Jadwal Kegiatan</li>
             </ol>
           </div>
 
@@ -28,14 +28,14 @@
             <div class="col-lg-12">
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Data Kegiatan</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Data Jadwal Kegiatan</h6>
                   <button class="btn btn-primary block" style=" float: right;" data-toggle="modal" data-target="#default" data-backdrop="static" data-keyboard="false">Tambah Kegiatan</button>
                   <!-- modal tambah -->
                   <div class="modal fade " id="default" role="dialog" aria-hidden="true" data-backdrop="static">>
                     <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="myModalLabel1">Tambah Data Kegiatan</h5>
+                          <h5 class="modal-title" id="myModalLabel1">Tambah Data Jadwal Kegiatan</h5>
                           <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
                             <i data-feather="x"></i>
                           </button>
@@ -48,7 +48,7 @@
                         <!-- tambah -->
                         <div class="modal-body">
                           <div class="modal-body">
-                            <form action="<?php echo base_url() . 'Admin/Kegiatan/add'; ?>" method="post" enctype="multipart/form-data">
+                            <form action="<?php echo base_url() . 'Admin/Jadwal_kegiatan/add'; ?>" method="post" enctype="multipart/form-data">
                               <div class="row">
                                 <div class="col-md-12">
                                   <label>Nama Kegiatan</label>
@@ -120,7 +120,7 @@
                         <th>Nama Kegiatan</th>
                         <th>Kegiatan</th>
 
-                        <th>Tempat</th>
+                        <th>Waktu</th>
                         <th>Dibuat Oleh</th>
                         <th>Action</th>
                       </tr>
@@ -132,7 +132,7 @@
                         <th>Nama Kegiatan</th>
                         <th>Kegiatan</th>
                         
-                        <th>Tempat</th>
+                        <th>Waktu</th>
                         <th>Dibuat Oleh</th>
                         <th>Action</th>
                       </tr>
@@ -143,7 +143,7 @@
                       foreach ($kegiatan->result_array() as $row) :
 
                         $no++;
-                        $id_kegiatan           = $row['id_kegiatan'];
+                        $id_jadwal           = $row['id_jadwal'];
                         $gambar = $row['gambar'];
                         $nama_kegiatan     = $row['nama_kegiatan'];
                         $isi_kegiatan = $row['isi_kegiatan'];
@@ -156,12 +156,12 @@
                           <td><img src="<?php echo base_url() . "assets/upload/"; ?><?php echo $gambar;?>" style="width: 30px;"></td>
                           <td><?php echo $nama_kegiatan ?></td>
                           <td><?php echo $isi_kegiatan ?></td>
-                          <td><?php echo $tempat ?></td>
+                          <td><?php echo $waktu ?></td>
                           <td><?php echo $nama_user ?></td>
                           <td>
                             <div class="form-button-action">
-                              <a class="btn btn-link btn-primary btn-lg" data-toggle="modal" data-target="#ModalEdit<?php echo $id_kegiatan; ?>"><span class="fa fa-edit" style="color:white;"></span></a>
-                              <a class="btn btn-link btn-danger btn-lg" data-toggle="modal" data-target="#ModalHapus<?php echo $id_kegiatan; ?>"><i class=" fa fa-times" data-original-title="Edit Task" style="color:white;"></i></a>
+                              <a class="btn btn-link btn-primary btn-lg" data-toggle="modal" data-target="#ModalEdit<?php echo $id_jadwal; ?>"><span class="fa fa-edit" style="color:white;"></span></a>
+                              <a class="btn btn-link btn-danger btn-lg" data-toggle="modal" data-target="#ModalHapus<?php echo $id_jadwal; ?>"><i class=" fa fa-times" data-original-title="Edit Task" style="color:white;"></i></a>
                             </div>
                           </td>
                         <?php endforeach; ?>
@@ -185,7 +185,7 @@
 
         <!-- modal edit -->
         <?php foreach ($kegiatan->result_array() as $row) :
-          $id_kegiatan = $row['id_kegiatan'];
+          $id_jadwal = $row['id_jadwal'];
           $nama_kegiatan = $row['nama_kegiatan'];
           $isi_kegiatan = $row['isi_kegiatan'];
           $waktu = $row['waktu'];
@@ -193,7 +193,7 @@
           $nama_user = $row['nama_user'];
 
           ?>
-          <div class="modal fade " id="ModalEdit<?php echo $id_kegiatan; ?>" role="dialog" aria-hidden="true" data-backdrop="static">
+          <div class="modal fade " id="ModalEdit<?php echo $id_jadwal; ?>" role="dialog" aria-hidden="true" data-backdrop="static">
             <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
               <div class="modal-content">
                 <div class="modal-header">
@@ -210,13 +210,13 @@
 
                 <div class="modal-body">
                   <div class="modal-body">
-                    <form action="<?php echo base_url() . 'Admin/Kegiatan/update'; ?>" method="post" enctype="multipart/form-data">
+                    <form action="<?php echo base_url() . 'Admin/Jadwal_kegiatan/update'; ?>" method="post" enctype="multipart/form-data">
 
                      <div class="row">
                       <div class="col-md-12">
                         <label>Nama Kegiatan</label>
                         <div class="form-group form-input">
-                          <input type="hidden" name="id_kegiatan" value="<?php echo $id_kegiatan;?>">
+                          <input type="hidden" name="id_jadwal" value="<?php echo $id_jadwal;?>">
                           <input type="text" name="nama_kegiatan" placeholder="Nama Kegiatan" class="form-control" required value="<?php echo $nama_kegiatan;?>" >
                         </div>
                       </div>
@@ -253,7 +253,7 @@
                       <?php
                       $nama_lengkap = $this->session->userdata('nama_lengkap'); 
                       ?>
-                      <input type="text" name="nama_lengkap" class="form-control" value="<?php echo $nama_lengkap ?>" readonly>
+                      <input type="text" name="nama_user" class="form-control" value="<?php echo $nama_lengkap ?>" readonly>
                     </div>
                   </div>
                 </div>
@@ -282,19 +282,19 @@
 
   <!-- modal hapus -->
   <?php foreach ($kegiatan->result_array() as $row) :
-    $id_kegiatan = $row['id_kegiatan'];
+    $id_jadwal = $row['id_jadwal'];
     $nama_kegiatan = $row['nama_kegiatan'];
     ?>
-    <div class="modal fade" id="ModalHapus<?php echo $id_kegiatan; ?>" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal fade" id="ModalHapus<?php echo $id_jadwal; ?>" tabindex="-1" role="dialog" aria-labelledby="">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <!--    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button> -->
             <h4 class="modal-title" id="myModalLabel">Hapus Kegiatan</h4>
           </div>
-          <form class="form-horizontal" action="<?php echo base_url() . 'Admin/Kegiatan/delete' ?>" method="post">
+          <form class="form-horizontal" action="<?php echo base_url() . 'Admin/Jadwal_kegiatan/delete' ?>" method="post">
             <div class="modal-body">
-              <input type="hidden" name="id_kegiatan" value="<?php echo $id_kegiatan; ?>" />
+              <input type="hidden" name="id_jadwal" value="<?php echo $id_jadwal; ?>" />
 
               <p>Apakah Anda yakin mau menghapus <b><?php echo $nama_kegiatan; ?></b> ?</p>
 

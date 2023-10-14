@@ -13,30 +13,72 @@
 <!-- Spinner End -->
 
 <!-- Navbar Start -->
-<?php include 'Part/Navbar.php'?>;
-<!-- Navbar End -->
-
-<!-- Page Header Start -->
-<div
-class="container-fluid page-header py-5 mb-5 wow fadeIn"
-data-wow-delay="0.1s"
+<nav
+class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 py-lg-0"
 >
-<div class="container text-center py-5">
-  <h1 class="display-4 text-white animated slideInDown mb-4">About Us</h1>
-  <nav aria-label="breadcrumb animated slideInDown">
-    <ol class="breadcrumb justify-content-center mb-0">
-      <li class="breadcrumb-item">
-        <a class="text-white" href="#">Home</a>
-      </li>
-      <li class="breadcrumb-item">
-        <a class="text-white" href="#">Pages</a>
-      </li>
-      <li class="breadcrumb-item text-primary active" aria-current="page">
-        About
-      </li>
-    </ol>
+<a href="index.html" class="navbar-brand d-flex align-items-center">
+  <h3 class="m-0">
+    Kelurahan Karang Timur
+  </h3>
+</a>
+<button
+type="button"
+class="navbar-toggler"
+data-bs-toggle="collapse"
+data-bs-target="#navbarCollapse"
+>
+<span class="navbar-toggler-icon"></span>
+</button>
+<div class="collapse navbar-collapse" id="navbarCollapse">
+  <div class="navbar-nav ms-auto py-3 py-lg-0">
+    <a href="<?php echo base_url('Homepage/') ?>" class="nav-item nav-link ">Home</a>
+    <a href="<?php echo base_url('Profil/') ?>" class="nav-item nav-link active">Profil</a>
+    <div class="nav-item dropdown">
+      <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Info Kegiatan</a
+        >
+        <div class="dropdown-menu bg-light m-0">
+          <a href="<?php echo base_url('Kegiatan/') ?>" class="dropdown-item">Data Kegiatan</a>
+          <a href="<?php echo base_url('Jadwal/') ?>" class="dropdown-item">Jadwal Kegiatan</a>
+        </div>
+      </div>
+      <div class="nav-item dropdown">
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pengajuan Surat</a
+          >
+          <div class="dropdown-menu bg-light m-0">
+            <a href="<?php echo base_url('Ktp/') ?>" class="dropdown-item">Pembuatan KTP Baru</a>
+            <a href="<?php echo base_url('Kelahiran/') ?>" class="dropdown-item">Surat Kelahiran</a>
+            <a href="<?php echo base_url('Pengajuan/') ?>" class="dropdown-item">Surat Pendatang</a>
+
+          </div>
+        </div>
+        <!-- <a href="<?php echo base_url('Warga/') ?>" class="nav-item nav-link">Daftar Warga</a> -->
+        <a href="<?php echo base_url('Contact/') ?>" class="nav-item nav-link">Kontak Kami</a>
+      </div>
+    </div>
   </nav>
-</div>
+  <!-- Navbar End -->
+
+  <!-- Page Header Start -->
+  <div
+  class="container-fluid page-header py-5 mb-5 wow fadeIn"
+  data-wow-delay="0.1s"
+  >
+  <div class="container text-center py-5">
+    <h1 class="display-4 text-white animated slideInDown mb-4">Profil</h1>
+    <nav aria-label="breadcrumb animated slideInDown">
+      <ol class="breadcrumb justify-content-center mb-0">
+        <li class="breadcrumb-item">
+          <a class="text-white" href="#">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+          <a class="text-white" href="#">Profil</a>
+        </li>
+        <li class="breadcrumb-item text-primary active" aria-current="page">
+          Kelurahan Karang Timur
+        </li>
+      </ol>
+    </nav>
+  </div>
 </div>
 <!-- Page Header End -->
 
@@ -51,7 +93,7 @@ data-wow-delay="0.1s"
         >
         <img
         class="position-absolute w-100 h-100"
-        src="<?php echo base_url() . "assets/Front/"; ?>img/iconpurpose.png"
+        src="<?php echo base_url() . "assets/Front/"; ?>img/kantor karang timur.jpg"
         alt=""
         style="object-fit: cover"
         />
@@ -70,36 +112,37 @@ data-wow-delay="0.1s"
 <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
   <div class="h-100">
     <div class="border-start border-5 border-primary ps-4 mb-5">
-      <h6 class="text-body text-uppercase mb-2">Informasi Website</h6>
+      <h6 class="text-body text-uppercase mb-2">Profil Kelurahan</h6>
       <h1 class="display-6 mb-0">
-        Permohonan Surat
+        Kelurahan Karang Timur
       </h1>
     </div>
     <p>
-     Website permohonan surat merupakan platform digital yang dirancang untuk memfasilitasi proses pengajuan surat-surat resmi atau permohonan secara online.
-   </p>
-   <p class="mb-4">
-    Fungsi utamanya adalah untuk meningkatkan efisiensi, kenyamanan, dan aksesibilitas dalam mengajukan surat atau permohonan kepada instansi yang berwenang. 
-  </p>
-  <div class="border-top mt-4 pt-4">
-    <div class="row g-4">
-      <div class="col-sm-4 d-flex wow fadeIn" data-wow-delay="0.1s">
-        <i
-        class="fa fa-check fa-2x text-primary flex-shrink-0 me-3"
-        ></i>
-        <h6 class="mb-0">Kemudahan Akses</h6>
-      </div>
-      <div class="col-sm-4 d-flex wow fadeIn" data-wow-delay="0.3s">
-        <i
-        class="fa fa-check fa-2x text-primary flex-shrink-0 me-3"
-        ></i>
-        <h6 class="mb-0">Efisiensi Proses</h6>
-      </div>
-      <div class="col-sm-4 d-flex wow fadeIn" data-wow-delay="0.5s">
-        <i
-        class="fa fa-check fa-2x text-primary flex-shrink-0 me-3"
-        ></i>
-        <h6 class="mb-0">Dokumentasi Digital</h6>
+      Kelurahan Karang Timur adalah kelurahan yang berada di Kecamatan Karang Tengah, Kota Tangerang, Banten, Indonesia. Kelurahan ini terbagi atas 44 Rukun Tetangga dan 14 Rukun Warga. Jumlah penduduk di Kelurahan Karang timur sebanyak 14.303 jiwa. Luas wilayah Kelurahan Karang Timur 1,1 km2, 
+    </p>
+    <p class="mb-4">
+      Jumlah kepadatan 13.003 jiwa/km2. Alamat kantor; Kelurahan Karang Timur berada di RT.002/RW.014. Kelurahan Karang Timur Kecamatan: Karang Tengah Kota: Tangerang, Banten. Kode pos: 15157.
+    </p>
+    <div class="border-top mt-4 pt-4">
+      <div class="row g-4">
+        <div class="col-sm-4 d-flex wow fadeIn" data-wow-delay="0.1s">
+          <i
+          class="fa fa-check fa-2x text-primary flex-shrink-0 me-3"
+          ></i>
+          <h6 class="mb-0">Kemudahan Akses</h6>
+        </div>
+        <div class="col-sm-4 d-flex wow fadeIn" data-wow-delay="0.3s">
+          <i
+          class="fa fa-check fa-2x text-primary flex-shrink-0 me-3"
+          ></i>
+          <h6 class="mb-0">Efisiensi Proses</h6>
+        </div>
+        <div class="col-sm-4 d-flex wow fadeIn" data-wow-delay="0.5s">
+          <i
+          class="fa fa-check fa-2x text-primary flex-shrink-0 me-3"
+          ></i>
+          <h6 class="mb-0">Dokumentasi Digital</h6>
+        </div>
       </div>
     </div>
   </div>
@@ -107,53 +150,9 @@ data-wow-delay="0.1s"
 </div>
 </div>
 </div>
-</div>
 <!-- About End -->
 <!-- data kegiatan -->
-<div class="container-xxl py-5">
-  <div class="container">
-    <div class="row g-5 align-items-end mb-5">
-      <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="border-start border-5 border-primary ps-4">
-          <h6 class="text-body text-uppercase mb-2">Informasi Kegiatan</h6>
-          <h1 class="display-6 mb-0">
-            Kelurahan Karang Timur
-          </h1>
-        </div>
-      </div>
-      <div class="col-lg-6 text-lg-end wow fadeInUp" data-wow-delay="0.3s">
-        <a class="btn btn-primary py-3 px-5" href="<?php echo base_url('Kontak/') ?>">Kontak Kami</a>
-      </div>
-    </div>
-    <div class="row g-4 justify-content-center">
-      <?php foreach ($kegiatan->result_array() as $data) {
-        $nama_kegiatan = $data['nama_kegiatan'];
-        $isi_kegiatan  = $data['isi_kegiatan'];
-        $gambar = $data['gambar'];
-        ?>
 
-        <style type="text/css">
-          .gambar_kegiatan{
-            height: 300px !important; 
-            width : 350px !important;
-          }
-        </style>
-        <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-          <div class="service-item bg-light overflow-hidden h-100">
-            <img class="img-fluid gambar_kegiatan" src="<?php echo base_url() . "assets/upload/"; ?><?php echo $gambar;?>" alt="" />
-            <div class="service-text position-relative text-center h-100 p-4">
-              <h5 class="mb-3"><?php echo $nama_kegiatan;?></h5>
-              <p style="text-align: left;">
-               <?php echo $isi_kegiatan; ?>
-             </p>
-           </div>
-         </div>
-       </div>
-     <?php }?>
-
-   </div>
- </div>
-</div>
 </div>
 <!-- Service End -->
 <!-- end data kegiatan -->

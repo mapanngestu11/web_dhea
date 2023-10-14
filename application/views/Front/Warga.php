@@ -3,8 +3,13 @@
 <?php include 'Part/Head.php';?>
 <!-- sweetalerts -->
 <link rel="stylesheet" href="<?php echo base_url() . "assets/Admin/"; ?>vendor/sweetalert2/sweetalert2.min.css">
+<!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css"> -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+
+
 
 <body>
+
   <!-- Spinner Start -->
   <div
   id="spinner"
@@ -54,73 +59,32 @@
 <!-- Topbar End -->
 
 <!-- Navbar Start -->
-<nav
-class="navbar navbar-expand-lg bg-white navbar-light sticky-top px-4 px-lg-5 py-lg-0"
->
-<a href="index.html" class="navbar-brand d-flex align-items-center">
-  <h3 class="m-0">
-    Kelurahan Karang Timur
-  </h3>
-</a>
-<button
-type="button"
-class="navbar-toggler"
-data-bs-toggle="collapse"
-data-bs-target="#navbarCollapse"
->
-<span class="navbar-toggler-icon"></span>
-</button>
-<div class="collapse navbar-collapse" id="navbarCollapse">
-  <div class="navbar-nav ms-auto py-3 py-lg-0">
-    <a href="<?php echo base_url('Homepage/') ?>" class="nav-item nav-link ">Home</a>
-    <a href="<?php echo base_url('Profil/') ?>" class="nav-item nav-link">Profil</a>
-    <div class="nav-item dropdown">
-      <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Info Kegiatan</a
-        >
-        <div class="dropdown-menu bg-light m-0">
-          <a href="<?php echo base_url('Kegiatan/') ?>" class="dropdown-item">Data Kegiatan</a>
-          <a href="<?php echo base_url('Jadwal/') ?>" class="dropdown-item">Jadwal Kegiatan</a>
-        </div>
-      </div>
-      <div class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pengajuan Surat</a
-          >
-          <div class="dropdown-menu bg-light m-0">
-            <a href="<?php echo base_url('Ktp/') ?>" class="dropdown-item">Pembuatan KTP Baru</a>
-            <a href="<?php echo base_url('Kelahiran/') ?>" class="dropdown-item">Surat Kelahiran</a>
-            <a href="<?php echo base_url('Pengajuan/') ?>" class="dropdown-item">Surat Pendatang</a>
+<?php include 'Part/Navbar.php';?>
+<!-- Navbar End -->
 
-          </div>
-        </div>
-        <!-- <a href="<?php echo base_url('Warga/') ?>" class="nav-item nav-link">Daftar Warga</a> -->
-        <a href="<?php echo base_url('Contact/') ?>" class="nav-item nav-link">Kontak Kami</a>
-      </div>
-    </div>
-  </nav><!-- Navbar End -->
-
-  <!-- Page Header Start -->
-  <div
-  class="container-fluid page-header py-5 mb-5 wow fadeIn"
-  data-wow-delay="0.1s"
-  >
-  <div class="container text-center py-5">
-    <h1 class="display-4 text-white animated slideInDown mb-4">
-      Permohonan Surat Kelahiran
-    </h1>
-    <nav aria-label="breadcrumb animated slideInDown">
-      <ol class="breadcrumb justify-content-center mb-0">
-        <li class="breadcrumb-item">
-          <a class="text-white" href="#">Home</a>
-        </li>
-        <li class="breadcrumb-item">
-          <a class="text-white" href="#">Pengajuan Surat</a>
-        </li>
-        <li class="breadcrumb-item text-primary active" aria-current="page">
-         Kelahiran
-       </li>
-     </ol>
-   </nav>
- </div>
+<!-- Page Header Start -->
+<div
+class="container-fluid page-header py-5 mb-5 wow fadeIn"
+data-wow-delay="0.1s"
+>
+<div class="container text-center py-5">
+  <h1 class="display-4 text-white animated slideInDown mb-4">
+    Data Warga
+  </h1>
+  <nav aria-label="breadcrumb animated slideInDown">
+    <ol class="breadcrumb justify-content-center mb-0">
+      <li class="breadcrumb-item">
+        <a class="text-white" href="#">Home</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a class="text-white" href="#">Data Warga</a>
+      </li>
+      <li class="breadcrumb-item text-primary active" aria-current="page">
+        Data Warga
+      </li>
+    </ol>
+  </nav>
+</div>
 </div>
 <!-- Page Header End -->
 
@@ -143,36 +107,58 @@ data-bs-target="#navbarCollapse"
 </div>
 </div>
 <!-- Service End -->
-<div class="container-xxl py-5">
-  <div class="container">
-    <div class="row g-5">
-      <div class="col-lg-5 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-        <div class="border-start border-5 border-primary ps-4 mb-5">
-          <h6 class="text-body text-uppercase mb-2">Cek Permohonan</h6>
-          <h1 class="display-6 mb-0">
-            Permohonan Kelahiran
-          </h1>
+<div class="container-xxl">
+  <table id="example" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>NIK</th>
+        <th>Nama Lengkap</th>
+        <th>Status</th>
+        <th>Nama Petugas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php
+      $no = 0;
+      foreach ($warga->result_array() as $row) :
 
-        </div>
+        $no++;
+        $nik           = $row['nik'];
+        $nama_lengkap = $row['nama_lengkap'];
+        $status     = $row['status'];
+        $nama_user = $row['nama_user'];
 
-      </div>
-      <div class="col-lg-7 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-        <form action="<?php echo base_url('Kelahiran/cek_permohonan') ?>" method="POST">
-          <div class="row g-3">
-            <div class="col-sm-8">
-              <div class="form-floating">
-                <input type="text" class="form-control bg-light border-0" name="kode_permohonan" placeholder="Kode Permohonan"
-                />
-                <label for="gname">Kode Permohonan</label>
-              </div>
-            </div>
-            <div class="col-sm-4">
-              <button type="submit" class="btn btn-primary">Cek Permohonan</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+        ?>
+        <tr>
+          <td><?php echo $no ?></td>
+          <td><?php echo $nik ?></td>
+          <td><?php echo $nama_lengkap ?></td>
+          <td>
+            <?php if ($status == '0') { ?>
+              <p>Di Tolak</p>
+            <?php }elseif ( $status == '1') {?>
+              <p>Terdaftar</p>
+            <?php }else{ ?>
+              <p>Dalam Proses</p>
+            <?php } ?>
+          </td>
+          <td><?php echo $nama_user ?></td>
+
+        <?php endforeach; ?>
+
+
+      </tbody>
+      <tfoot>
+        <tr>
+          <th>No.</th>
+          <th>NIK</th>
+          <th>Nama Lengkap</th>
+          <th>Status</th>
+          <th>Nama Petugas</th>
+        </tr>
+      </tfoot>
+    </table>
   </div>
   <!-- Appointment Start -->
   <div class="container-xxl py-5">
@@ -182,20 +168,20 @@ data-bs-target="#navbarCollapse"
           <div class="border-start border-5 border-primary ps-4 mb-5">
             <h6 class="text-body text-uppercase mb-2">Persyaratan</h6>
             <h1 class="display-6 mb-0">
-              Permohonan Kelahiran
+              Pendataan Warga BARU
             </h1>
           </div>
           <p class="mb-0">
             <ul>
               <li>Warga Kelurahan Karang Timur</li>
               <li>Terdata di aplikasi website kelurahan karang timur</li>
-              <li>Syarat 1</li>
+
             </ul>
           </p>
         </div>
         <div class="col-lg-7 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
 
-          <form action="<?php echo base_url('Kelahiran/add') ?>" method="POST" enctype="multipart/form-data">
+          <form action="<?php echo base_url('Ktp/add') ?>" method="POST" enctype="multipart/form-data">
             <div class="row g-3">
               <div class="col-sm-6">
                 <div class="form-floating">
@@ -209,28 +195,36 @@ data-bs-target="#navbarCollapse"
                   <label for="gname">Nama Lengkap</label>
                 </div>
               </div>
+            </div>
+            <br>
+            <div class="row g-3 mt-8">
               <div class="col-sm-6">
                 <div class="form-floating">
-                 <?php
-                 $angka_acak = mt_rand(1, 999999); // Menghasilkan angka acak 6 digit antara 100000 dan 999999
-                 ?>
-                 <input type="text" class="form-control bg-light border-0" name="kode_permohonan" value="<?php echo $angka_acak;?>" readonly >
-                 <label for="gname">Kode Permohonan</label>
-               </div>
-             </div>
+                  <input type="text" class="form-control bg-light border-0" name="alamat" >
+                  <label for="gname">Alamat</label>
+                </div>
+              </div>
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <select class="form-control bg-light border-0" required="" name="jenis_kelamin">
+                    <option value="">Pilih</option>
+                    <option value="Laki-Laki">Laki-Laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                  </select>
+                  <label for="gname">Jenis Kelamin</label>
+                </div>
+              </div>
+            </div>
 
-             <div class="col-sm-6">
-              <div class="form-floating">
-                <input type="file" class="form-control bg-light border-0" name="file_pemohon" >
-                <label for="gname">File Pemohon</label>
+            <div class="row g-3 mt-8">
+              <div class="col-sm-6">
+                <div class="form-floating">
+                  <input type="text" name="rt" class="form-control bg-light border-0" required="">
+                  <label>RT</label>
+                </div>
               </div>
             </div>
-            <div class="col-sm-12">
-              <div class="form-floating">
-                <textarea class="form-control bg-light border-0" name="kebutuhan"></textarea>
-                <label for="gname">Keperluan</label>
-              </div>
-            </div>
+            <br>
             <div class="col-12">
               <button class="btn btn-primary w-100 py-3" type="submit">
                 Get Appointment
@@ -259,7 +253,7 @@ data-bs-target="#navbarCollapse"
     var input_check_nik = $('[name="nik"]').val();
 
     $.ajax({
-      url: "<?= site_url('Pengajuan/cek_warga/') ?>",
+      url: "<?= site_url('Ktp/cek_warga/') ?>",
       type: "POST",
       dataType: "JSON",
       data: {
@@ -286,6 +280,15 @@ data-bs-target="#navbarCollapse"
   }
 </script>
 
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#example').DataTable();
+  });
+</script>
 <!-- msg -->
 <?php if ($this->session->flashData('msg') == 'proses') : ?>
   <script type="text/javascript">

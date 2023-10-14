@@ -8,6 +8,12 @@ class M_kegiatan extends CI_Model
     {
         return $this->db->get('tbl_kegiatan');
     }
+    function detail_kegiatan($id_kegiatan)
+    {
+        $this->db->where('id_kegiatan',$id_kegiatan);
+        return $this->db->get('tbl_kegiatan');
+    }
+
 
     function input_data($data, $table)
     {

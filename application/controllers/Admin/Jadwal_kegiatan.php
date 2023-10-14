@@ -1,13 +1,13 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Kegiatan  extends CI_Controller
+class Jadwal_kegiatan  extends CI_Controller
 {
 
 
     function __construct()
     {
         parent::__construct();
-        $this->load->model('M_kegiatan');
+        $this->load->model('M_jadwal');
         $this->load->helper('url');
         $this->load->library('upload');
 
@@ -21,21 +21,21 @@ class Kegiatan  extends CI_Controller
 
     public function index()
     {
-        $data['kegiatan'] = $this->M_kegiatan->tampil_data();
-        $this->load->view('Admin/List.kegiatan.php', $data);
+        $data['kegiatan'] = $this->M_jadwal->tampil_data();
+        $this->load->view('Admin/List.jadwal.kegiatan.php', $data);
     }
 
-    public function delete($id_kegiatan)
+    public function delete($id_jadwal)
     {
-        $id_kegiatan = $this->input->post('id_kegiatan');
-        $this->M_kegiatan->delete_data($id_kegiatan);
+        $id_jadwal = $this->input->post('id_jadwal');
+        $this->M_jadwal->delete_data($id_jadwal);
         echo $this->session->set_flashdata('msg', 'success-hapus');
-        redirect('Admin/Kegiatan');
+        redirect('Admin/Jadwal_kegiatan');
     }
 
     public function add()
     {
-     date_default_timezone_set("Asia/Jakarta");
+       date_default_timezone_set("Asia/Jakarta");
         $config['upload_path'] = './assets/upload/'; //path folder
         $config['allowed_types'] = 'jpg|png|jpeg'; //type yang dapat diakses bisa anda sesuaikan
         $config['encrypt_name'] = TRUE; //nama yang terupload nantinya
@@ -72,23 +72,23 @@ class Kegiatan  extends CI_Controller
                     'gambar' => $gambar,
                     'waktu' => $waktu,
                     'tempat' => $tempat,
-                    'tanggal' => $tanggal,
+
                     'nama_user' => $nama_user
 
                 );
 
 
 
-                $this->M_kegiatan->input_data($data, 'tbl_kegiatan');
+                $this->M_jadwal->input_data($data, 'tbl_jadwal_kegiatan');
                 echo $this->session->set_flashdata('msg', 'success');
-                redirect('Admin/Kegiatan');
+                redirect('Admin/Jadwal_kegiatan');
             } else {
                 echo $this->session->set_flashdata('msg', 'warning');
-                redirect('Admin/Kegiatan');
+                redirect('Admin/Jadwal_kegiatan');
             }
         } else {
 
-            redirect('Admin/Kegiatan');
+            redirect('Admin/Jadwal_kegiatan');
         }
     }
 
@@ -117,7 +117,7 @@ class Kegiatan  extends CI_Controller
                 $this->image_lib->resize();
 
                 $gambar = $gbr['file_name'];
-                $id_kegiatan = $this->input->post('id_kegiatan');
+                $id_jadwal = $this->input->post('id_jadwal');
                 $nama_kegiatan = $this->input->post('nama_kegiatan');
                 $isi_kegiatan = $this->input->post('isi_kegiatan');
                 $waktu = $this->input->post('waktu');
@@ -132,54 +132,54 @@ class Kegiatan  extends CI_Controller
                     'gambar' => $gambar,
                     'waktu' => $waktu,
                     'tempat' => $tempat,
-                    'tanggal' => $tanggal,
+
                     'nama_user' => $nama_user
 
                 );
 
                 $where = array(
-                    'id_kegiatan' => $id_kegiatan
+                    'id_jadwal' => $id_jadwal
                 );
 
-                $this->M_kegiatan->update_data($where,$data,'tbl_kegiatan');
+                $this->M_jadwal->update_data($where,$data,'tbl_jadwal_kegiatan');
                 echo $this->session->set_flashdata('msg', 'success_update');
-                redirect('Admin/Kegiatan');
+                redirect('Admin/Jadwal_kegiatan');
             } else {
                 echo $this->session->set_flashdata('msg', 'warning');
-                redirect('Admin/Kegiatan');
+                redirect('Admin/Jadwal_kegiatan');
             }
 
         } else {
 
-          $id_kegiatan = $this->input->post('id_kegiatan');
+          $id_jadwal = $this->input->post('id_jadwal');
           $nama_kegiatan = $this->input->post('nama_kegiatan');
           $isi_kegiatan = $this->input->post('isi_kegiatan');
           $waktu = $this->input->post('waktu');
           $tempat = $this->input->post('tempat');
           $nama_user = $this->input->post('nama_user');
-          $tanggal =  date('Y-m-d h:i:s');
+          
 
 
           $data = array(
 
-           'nama_kegiatan' => $nama_kegiatan,
-           'isi_kegiatan' => $isi_kegiatan,
-           'waktu' => $waktu,
-           'tempat' => $tempat,
-           'tanggal' => $tanggal,
-           'nama_user' => $nama_user
+             'nama_kegiatan' => $nama_kegiatan,
+             'isi_kegiatan' => $isi_kegiatan,
+             'waktu' => $waktu,
+             'tempat' => $tempat,
 
-       );
+             'nama_user' => $nama_user
+
+         );
 
 
 
           $where = array(
-            'id_kegiatan' => $id_kegiatan
+            'id_jadwal' => $id_jadwal
         );
 
-          $cek = $this->M_kegiatan->update_data($where,$data,'tbl_kegiatan');
+          $cek = $this->M_jadwal->update_data($where,$data,'tbl_jadwal_kegiatan');
           echo $this->session->set_flashdata('msg', 'success_update');
-          redirect('Admin/Kegiatan');
+          redirect('Admin/Jadwal_kegiatan');
       }
   }
 }

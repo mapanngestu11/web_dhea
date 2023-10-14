@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-class Ktp  extends CI_Controller
+class Warga  extends CI_Controller
 {
 
     function __construct()
@@ -22,45 +22,20 @@ class Ktp  extends CI_Controller
     {
 
         // $data['banner'] = $this->M_banner->tampil_data();
-        $this->load->view('Front/Ktp.php');
-    }
-
-    
-
-    public function cek_permohonan()
-    {
-        $kode_permohonan = $this->input->post('kode_permohonan');
-        $hasil = $this->M_ktp->cek_kode_permohonan($kode_permohonan)->result();
-
-        $status = $hasil[0]->status;
-        $keterangan = $hasil[0]->keterangan;
-        $file_surat = $hasil[0]->file_surat;
+      $data['warga'] = $this->M_warga->tampil_data();
+      $this->load->view('Front/Warga.php',$data);
+  }
 
 
 
-        if ($status == '1') {   
-            $data['hasil'] = array(
-                'status' => $status,
-                'keterangan' => $keterangan,
-                'file_surat' => $file_surat
 
-            );
-            $this->load->view('Front/Hasil_ktp.php',$data);
+  public function add()
+  {
+    $nik = $this->input->post('nik');
+    $hasil = $this->M_ktp->cek_ktp($nik)->result();
 
-        }else{
-            echo $this->session->set_flashdata('msg', 'proses');
-            redirect('Ktp');
-        }
-
-    }
-
-    public function add()
-    {
-        // $nik = $this->input->post('nik');
-        // // $hasil = $this->M_ktp->cek_ktp($nik)->result();
-
-
-       date_default_timezone_set("Asia/Jakarta");
+    if ($hasil) {
+     date_default_timezone_set("Asia/Jakarta");
         $config['upload_path'] = './assets/upload/'; //path folder
         $config['allowed_types'] = 'jpg|png|jpeg|pdf'; //type yang dapat diakses bisa anda sesuaikan
         $config['encrypt_name'] = TRUE; //nama yang terupload nantinya
@@ -81,8 +56,7 @@ class Ktp  extends CI_Controller
                 $this->image_lib->resize();
 
                 $file = $gbr['file_name'];
-                // $nik = $this->input->post('nik');
-                $nama_lengkap = $this->input->post('nama_lengkap');
+                $nik = $this->input->post('nik');
                 $kode_permohonan = $this->input->post('kode_permohonan');
                 $kebutuhan = $this->input->post('kebutuhan');
                 $tanggal =  date('Y-m-d h:i:s');
@@ -90,14 +64,13 @@ class Ktp  extends CI_Controller
 
 
                 $data = array(
-                 'kode_permohonan' => $kode_permohonan,
-                 'nama_lengkap' => $nama_lengkap,
-                 // 'nik' => $nik,
-                 'kebutuhan' => $kebutuhan,
-                 'status' => $status,
-                 'file_pemohon' => $file,
-                 'tanggal' => $tanggal
-             );
+                   'kode_permohonan' => $kode_permohonan,
+                   'nik' => $nik,
+                   'kebutuhan' => $kebutuhan,
+                   'status' => $status,
+                   'file_pemohon' => $file,
+                   'tanggal' => $tanggal
+               );
 
                 $this->M_ktp->input_data($data, 'tbl_permohonan_ktp_baru');
                 echo $this->session->set_flashdata('msg', 'success');
@@ -111,8 +84,11 @@ class Ktp  extends CI_Controller
             redirect('Ktp');
         }
 
-    }
-
+    }else{
+      echo $this->session->set_flashdata('msg', 'gagal');
+      redirect('Ktp');
+  }
+}
 
 
 

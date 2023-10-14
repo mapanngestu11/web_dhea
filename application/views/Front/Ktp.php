@@ -6,12 +6,12 @@
 
 <body>
   <!-- Spinner Start -->
-  <div
+<!--   <div
   id="spinner"
   class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center"
   >
   <div class="spinner-grow text-primary" role="status"></div>
-</div>
+</div> -->
 <!-- Spinner End -->
 <style type="text/css">
   .modal {
@@ -148,7 +148,7 @@ data-wow-delay="0.1s"
             <ul>
               <li>Warga Kelurahan Karang Timur</li>
               <li>Terdata di aplikasi website kelurahan karang timur</li>
-              <li>Syarat 1</li>
+              <!-- <li>Syarat 1</li> -->
             </ul>
           </p>
         </div>
@@ -156,16 +156,16 @@ data-wow-delay="0.1s"
 
           <form action="<?php echo base_url('Ktp/add') ?>" method="POST" enctype="multipart/form-data">
             <div class="row g-3">
-              <div class="col-sm-6">
+    <!--           <div class="col-sm-6">
                 <div class="form-floating">
                   <input type="text" class="form-control bg-light border-0" name="nik" required="">
                   <label for="gname">Nik</label>
                 </div>
-              </div>
-              <div class="col-sm-6">
+              </div> -->
+              <div class="col-sm-12">
                 <div class="form-floating">
                   <input type="text" class="form-control bg-light border-0" name="nama_lengkap" >
-                  <label for="gname">Nama Lengkap</label>
+                  <label for="gname">Nama Pemohon</label>
                 </div>
               </div>
               <div class="col-sm-6">

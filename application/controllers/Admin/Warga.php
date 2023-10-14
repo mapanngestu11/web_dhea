@@ -55,7 +55,7 @@ class Warga  extends CI_Controller
     }
     public function add()
     {
-     date_default_timezone_set("Asia/Jakarta");
+       date_default_timezone_set("Asia/Jakarta");
         $config['upload_path'] = './assets/upload/'; //path folder
         $config['allowed_types'] = 'jpg|png|jpeg|pdf'; //type yang dapat diakses bisa anda sesuaikan
         $config['encrypt_name'] = TRUE; //nama yang terupload nantinya
@@ -234,29 +234,29 @@ class Warga  extends CI_Controller
 
         } else {
 
-         $id_warga = $this->input->post('id_warga');
-         $nik = $this->input->post('nik');
-         $nama_lengkap = $this->input->post('nama_lengkap');   
-         $alamat = $this->input->post('alamat');             
-         $jenis_kelamin = $this->input->post('jenis_kelamin');   
-         $rt = $this->input->post('rt'); 
+           $id_warga = $this->input->post('id_warga');
+           $nik = $this->input->post('nik');
+           $nama_lengkap = $this->input->post('nama_lengkap');   
+           $alamat = $this->input->post('alamat');             
+           $jenis_kelamin = $this->input->post('jenis_kelamin');   
+           $rt = $this->input->post('rt'); 
 
-         $rw = $this->input->post('rw'); 
-         $kelurahan = $this->input->post('kelurahan'); 
-         $kecamatan = $this->input->post('kecamatan'); 
-         $kota = $this->input->post('kota'); 
-         $provinsi = $this->input->post('provinsi'); 
+           $rw = $this->input->post('rw'); 
+           $kelurahan = $this->input->post('kelurahan'); 
+           $kecamatan = $this->input->post('kecamatan'); 
+           $kota = $this->input->post('kota'); 
+           $provinsi = $this->input->post('provinsi'); 
 
-         $kode_pos = $this->input->post('kode_pos'); 
-         $telp = $this->input->post('telp'); 
-         $email = $this->input->post('email'); 
-         $jumlah_anggota_keluarga = $this->input->post('jumlah_anggota_keluarga'); 
-         $status = $this->input->post('status'); 
+           $kode_pos = $this->input->post('kode_pos'); 
+           $telp = $this->input->post('telp'); 
+           $email = $this->input->post('email'); 
+           $jumlah_anggota_keluarga = $this->input->post('jumlah_anggota_keluarga'); 
+           $status = $this->input->post('status'); 
 
-         $nama_user = $this->input->post('nama_user'); 
-         $tanggal =  date('Y-m-d h:i:s');
+           $nama_user = $this->input->post('nama_user'); 
+           $tanggal =  date('Y-m-d h:i:s');
 
-         $data = array(
+           $data = array(
             'nik' => $nik,
             'nama_lengkap' => $nama_lengkap,
             'alamat' => $alamat,
@@ -280,13 +280,13 @@ class Warga  extends CI_Controller
 
         );
 
-         $where = array(
+           $where = array(
             'id_warga' => $id_warga
         );
 
-         $this->M_warga->update_data($where,$data,'tbl_warga');
-         echo $this->session->set_flashdata('msg', 'success_update');
-         redirect('Admin/Warga');
-     }
- }
+           $this->M_warga->update_data($where,$data,'tbl_warga');
+           echo $this->session->set_flashdata('msg', 'success_update');
+           redirect('Admin/Warga');
+       }
+   }
 }
