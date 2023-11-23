@@ -7,6 +7,7 @@ class Login extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('M_login');
+		$this->load->model('M_warga');
 	}
 
 
@@ -23,7 +24,17 @@ class Login extends CI_Controller {
 		$u = $username;
 		$p = $password;
 		$cadmin = $this->M_login->cekadmin($u, $p);
-		json_encode($cadmin);
+		$cekadmin = $cadmin->num_rows();
+		
+		if ($cekadmin == '') {
+			$cadmin = $this->M_warga->cekadmin($u,$p);
+
+			json_encode($cadmin);
+
+		}else{
+			json_encode($cadmin);
+		}
+		
 
 
 		if ($cadmin->num_rows() > 0) {
@@ -65,6 +76,22 @@ class Login extends CI_Controller {
 				);
 
 				redirect('Admin/Homepage', $data);
+			}elseif ($xcadmin['hak_akses'] == 'warga') {
+				$this->session->set_userdata('akses', 'warga');
+				$id = $xcadmin['id_warga'];
+				$nama_lengkap = $xcadmin['nama_lengkap'];
+				$hak_akses = $xcadmin['hak_akses'];
+				$this->session->set_userdata('id', $id);
+				$this->session->set_userdata('nama_lengkap', $nama_lengkap);
+				$this->session->set_userdata('hak_akses', $hak_akses);
+				$data = array(
+					'hak_akses'     => $hak_akses,
+					'nama_lengkap'     => $nama_lengkap,
+					'logged_in' => TRUE
+				);
+
+
+				redirect('Admin/Homepage_warga', $data);
 			}
 		} else {
 

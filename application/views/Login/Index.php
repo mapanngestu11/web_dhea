@@ -51,6 +51,9 @@
 							</div>
 							<div class="form-group">
 								<button type="submit" class="form-control btn btn-primary rounded submit px-3">Login</button>
+								<center>
+									<a href="<?php echo base_url('Homepage/') ?>" class="mt-10">Kembali</a>
+								</center>
 							</div>
 						</form>
 					</div>

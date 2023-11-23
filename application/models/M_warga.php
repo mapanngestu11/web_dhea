@@ -9,6 +9,12 @@ class M_warga extends CI_Model
         return $this->db->get('tbl_warga');
     }
 
+    function cek_login_warga($nama)
+    {
+        $this->db->where('nama_lengkap',$nama);
+        return $this->db->get('tbl_warga');
+    }
+
     function input_data($data, $table)
     {
         $this->db->insert($table, $data);
@@ -63,5 +69,12 @@ class M_warga extends CI_Model
   {
     $this->db->limit('5');
     return $this->db->get('tbl_warga');
+}
+
+function cekadmin($u, $p)
+{
+
+    $hasil = $this->db->query("SELECT * FROM tbl_warga WHERE nik='$u' AND password =md5('$p')");
+    return $hasil;
 }
 }

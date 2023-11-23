@@ -38,6 +38,7 @@ data-bs-target="#navbarCollapse"
         </div>
         <!-- <a href="<?php echo base_url('Warga/') ?>" class="nav-item nav-link">Daftar Warga</a> -->
         <a href="<?php echo base_url('Contact/') ?>" class="nav-item nav-link">Kontak Kami</a>
+        <a href="<?php echo base_url('Login/') ?>" class="nav-item nav-link">Login Warga</a>
       </div>
     </div>
   </nav>

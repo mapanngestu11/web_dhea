@@ -21,6 +21,24 @@ class M_ktp extends CI_Model
         return $query;
     }
 
+    function tampil_data_warga($nama)
+    {
+        $this->db->select('
+            a.id_ktp_baru,
+            a.nik,
+            b.nama_lengkap,
+            a.status,
+            a.kode_permohonan,
+            a.kebutuhan,
+            a.file_pemohon,
+            a.keterangan');
+        $this->db->from('tbl_permohonan_ktp_baru as a');
+        $this->db->join('tbl_warga as b', 'b.nik = a.nik','left');
+        $this->db->where('b.nama_lengkap',$nama);
+        $query = $this->db->get();
+        return $query;
+    }
+
     function input_data($data, $table)
     {
         $this->db->insert($table, $data);
