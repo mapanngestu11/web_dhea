@@ -213,7 +213,26 @@
         </div>
       </li>
       <hr class="sidebar-divider">
-      <div class="version" id="version-ruangadmin"></div>
-    </ul>
+      <div class="sidebar-heading">
+        Data Kegiatan
+      </div>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#DataKegiatan" aria-expanded="true"
+        aria-controls="DataKegiatan">
+        <i class="fas fa-fw fa-envelope"></i>
+        <span>Informasi Kegiatan</span>
+      </a>
+      <div id="DataKegiatan" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Informasi Kegiatan</h6>
+          <a class="collapse-item" href="<?php echo base_url('Kegiatan/') ?>">Data Kegiatan</a>
+          <a class="collapse-item" href="<?php echo base_url('Jadwal/') ?>">Jadwal Kegiatan</a>
 
-    <?php endif;?>
+        </div>
+      </div>
+    </li>
+    <hr class="sidebar-divider">
+    <div class="version" id="version-ruangadmin"></div>
+  </ul>
+
+  <?php endif;?>
