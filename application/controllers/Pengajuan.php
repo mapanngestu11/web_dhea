@@ -21,8 +21,8 @@ class Pengajuan  extends CI_Controller
     public function index()
     {
 
-        // $data['banner'] = $this->M_banner->tampil_data();
-        $this->load->view('Front/Pengajuan.php');
+        $data['pengajuan'] = $this->M_pendatang->tampil_data();
+        $this->load->view('Front/Pengajuan.php',$data);
     }
 
     public function cek_permohonan()
@@ -58,7 +58,7 @@ class Pengajuan  extends CI_Controller
         $hasil = $this->M_pendatang->cek_ktp($nik)->result();
 
         if ($hasil) {
-         date_default_timezone_set("Asia/Jakarta");
+           date_default_timezone_set("Asia/Jakarta");
         $config['upload_path'] = './assets/upload/'; //path folder
         $config['allowed_types'] = 'jpg|png|jpeg|pdf'; //type yang dapat diakses bisa anda sesuaikan
         $config['encrypt_name'] = TRUE; //nama yang terupload nantinya
@@ -87,13 +87,13 @@ class Pengajuan  extends CI_Controller
 
 
                 $data = array(
-                   'kode_permohonan' => $kode_permohonan,
-                   'nik' => $nik,
-                   'kebutuhan' => $kebutuhan,
-                   'status' => $status,
-                   'file_pemohon' => $file,
-                   'tanggal' => $tanggal
-               );
+                 'kode_permohonan' => $kode_permohonan,
+                 'nik' => $nik,
+                 'kebutuhan' => $kebutuhan,
+                 'status' => $status,
+                 'file_pemohon' => $file,
+                 'tanggal' => $tanggal
+             );
 
                 $this->M_pendatang->input_data($data, 'tbl_permohonan_surat_pendatang');
                 echo $this->session->set_flashdata('msg', 'success');

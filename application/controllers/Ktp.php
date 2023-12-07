@@ -21,11 +21,11 @@ class Ktp  extends CI_Controller
     public function index()
     {
 
-        // $data['banner'] = $this->M_banner->tampil_data();
-        $this->load->view('Front/Ktp.php');
+        $data['ktp'] = $this->M_ktp->tampil_data();
+        $this->load->view('Front/Ktp.php',$data);
     }
 
-    
+
 
     public function cek_permohonan()
     {
@@ -60,7 +60,7 @@ class Ktp  extends CI_Controller
         // // $hasil = $this->M_ktp->cek_ktp($nik)->result();
 
 
-     date_default_timezone_set("Asia/Jakarta");
+       date_default_timezone_set("Asia/Jakarta");
         $config['upload_path'] = './assets/upload/'; //path folder
         $config['allowed_types'] = 'jpg|png|jpeg|pdf'; //type yang dapat diakses bisa anda sesuaikan
         $config['encrypt_name'] = TRUE; //nama yang terupload nantinya
@@ -90,14 +90,14 @@ class Ktp  extends CI_Controller
 
 
                 $data = array(
-                   'kode_permohonan' => $kode_permohonan,
-                   'nama_lengkap' => $nama_lengkap,
+                 'kode_permohonan' => $kode_permohonan,
+                 'nama_lengkap' => $nama_lengkap,
                  // 'nik' => $nik,
-                   'kebutuhan' => $kebutuhan,
-                   'status' => $status,
-                   'file_pemohon' => $file,
-                   'tanggal' => $tanggal
-               );
+                 'kebutuhan' => $kebutuhan,
+                 'status' => $status,
+                 'file_pemohon' => $file,
+                 'tanggal' => $tanggal
+             );
 
                 $this->M_ktp->input_data($data, 'tbl_permohonan_ktp_baru');
                 echo $this->session->set_flashdata('msg', 'success');

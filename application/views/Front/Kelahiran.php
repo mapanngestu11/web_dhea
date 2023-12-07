@@ -243,11 +243,73 @@ data-bs-target="#navbarCollapse"
   </div>
 </div>
 <!-- Appointment End -->
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap.min.css">
+<!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+<!-- Appointment End -->
+<div class="container table">
+  <table id="example" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+      <tr>
+        <th>Kode Permohonan</th>
+        <th>Nama Warga</th>
+        <th>Tanggal Pengajuan</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($kelahiran->result_array() as $row ) :
 
+        $kode_permohonan =  $row['kode_permohonan'];
+        $nama_warga      =  $row['nama_lengkap'];
+        $tanggal         =  $row['tanggal'];
+        $status          =  $row['status'];
+        ?>
+
+        <tr>
+          <td><?php echo $kode_permohonan;?></td>
+          <td><?php echo $nama_warga;?></td>
+          <td><?php echo $tanggal;?></td>
+          <td>
+            <?php if ($status == 1) { ?>
+              Dalam Progres
+            <?php  } else { ?>
+              Selesai
+            <?php } ?>
+          </td>
+
+        </tr>
+
+      <?php endforeach;?>
+    </tbody>
+    <tfoot>
+      <tr>
+        <th>Kode Permohonan</th>
+        <th>Nama Warga</th>
+        <th>Tanggal Pengajuan</th>
+        <th>Status</th>
+      </tr>
+    </tfoot>
+  </table>
+</div>
 <!-- Footer Start -->
 <?php include 'Part/Footer.php';?>
 
 <?php include 'Part/Js.php';?>
+
+<!-- datatable -->
+<script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap.min.js"></script>
+<!-- end -->
+<script type="text/javascript">
+  $(document).ready(function () {
+   new DataTable('#example',{
+                  // info: false,
+                  ordering: false,
+                  paging: false
+                });
+ });
+</script>
 <!-- sweetalerts -->
 <script src="<?php echo base_url() . "assets/Admin/"; ?>js/main.js"></script>
 <script src="<?php echo base_url() . "assets/Admin/"; ?>js/extensions/sweetalert2.js"></script>
