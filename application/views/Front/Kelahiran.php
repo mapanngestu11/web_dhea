@@ -83,7 +83,7 @@ data-bs-target="#navbarCollapse"
         </div>
       </div>
       <div class="nav-item dropdown">
-        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pengajuan Surat</a
+        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">Pelayanan Publik</a
           >
           <div class="dropdown-menu bg-light m-0">
             <a href="<?php echo base_url('Ktp/') ?>" class="dropdown-item">Pembuatan KTP Baru</a>
