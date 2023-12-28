@@ -2,12 +2,31 @@
 class M_pendatang extends CI_Model
 {
 
-    private $_table = "tbl_permohonan_surat_pendatang";
+    private $_table = "tbl_surat_datang";
 
     function tampil_data()
     {
+        $this->db->select('*');
+        $this->db->from('tbl_surat_datang');
+        $query = $this->db->get();
+        return $query;
+    } 
+
+    function cek_data_surat($id_surat_datang)
+    { 
+
+        $this->db->select('*');
+        $this->db->from('tbl_surat_datang');
+        $this->db->where('id_surat_datang',$id_surat_datang);
+        $query = $this->db->get();
+        return $query;
+
+    }
+
+    function tampil_data_1()
+    {
         $this->db->select('
-            a.id_surat_pendatang,
+            a.id_surat_datang,
             a.nik,
             b.nama_lengkap,
             a.status,
@@ -16,7 +35,7 @@ class M_pendatang extends CI_Model
             a.file_pemohon,
             a.keterangan,
             a.tanggal');
-        $this->db->from('tbl_permohonan_surat_pendatang as a');
+        $this->db->from('tbl_surat_datang as a');
         $this->db->join('tbl_warga as b', 'b.nik = a.nik','left');
         $query = $this->db->get();
         return $query;
@@ -25,7 +44,7 @@ class M_pendatang extends CI_Model
     function tampil_data_warga($nama)
     {
         $this->db->select('
-            a.id_surat_pendatang,
+            a.id_surat_datang,
             a.nik,
             b.nama_lengkap,
             a.status,
@@ -33,7 +52,7 @@ class M_pendatang extends CI_Model
             a.kebutuhan,
             a.file_pemohon,
             a.keterangan');
-        $this->db->from('tbl_permohonan_surat_pendatang as a');
+        $this->db->from('tbl_surat_datang as a');
         $this->db->join('tbl_warga as b', 'b.nik = a.nik','left');
         $this->db->where('b.nama_lengkap',$nama);
         $query = $this->db->get();
@@ -45,9 +64,40 @@ class M_pendatang extends CI_Model
         $this->db->insert($table, $data);
     }
 
-    function delete_data($id_surat_pendatang)
+    function input_data_surat_pendatang($data, $table)
     {
-        $hsl = $this->db->query("DELETE FROM tbl_permohonan_surat_pendatang WHERE id_surat_pendatang='$id_surat_pendatang'");
+        $this->db->insert($table, $data);
+    }
+
+    function input_data_surat_pindah($data, $table)
+    {
+        $this->db->insert($table, $data);
+    }
+
+    function cek_kodepermohonan_pendatang($kode_permohonan)
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_surat_datang');
+        $this->db->where('kode_permohonan',$kode_permohonan);
+        $query = $this->db->get();
+        return $query;
+    }
+
+
+    function cek_kodepermohonan_pindah($kode_permohonan)
+    {
+        $this->db->select('*');
+        $this->db->from('tbl_surat_pindah');
+        $this->db->where('kode_permohonan',$kode_permohonan);
+        $query = $this->db->get();
+        return $query;
+    }
+
+
+
+    function delete_data($id_surat_datang)
+    {
+        $hsl = $this->db->query("DELETE FROM tbl_surat_datang WHERE id_surat_datang='$id_surat_datang'");
         return $hsl;
     }
 
@@ -58,14 +108,14 @@ class M_pendatang extends CI_Model
     }
     function jumlah_data()
     {
-        $this->db->select('count(tbl_permohonan_surat_pendatang.id_surat_pendatang) as jumlah');
-        $hsl = $this->db->get('tbl_permohonan_surat_pendatang');
+        $this->db->select('count(tbl_surat_datang.id_surat_datang) as jumlah');
+        $hsl = $this->db->get('tbl_surat_datang');
         return $hsl;
     }
     function cek_kode_permohonan($kode_permohonan)
     {
        $this->db->select('
-        a.id_surat_pendatang,
+        a.id_surat_datang,
         a.nik,
         b.nama_lengkap,
         a.status,
@@ -74,7 +124,7 @@ class M_pendatang extends CI_Model
         a.file_pemohon,
         a.keterangan,
         a.file_surat');
-       $this->db->from('tbl_permohonan_surat_pendatang as a');
+       $this->db->from('tbl_surat_datang as a');
        $this->db->join('tbl_warga as b', 'b.nik = a.nik','left');
        $this->db->where('kode_permohonan',$kode_permohonan);
        $query = $this->db->get();
@@ -93,7 +143,7 @@ class M_pendatang extends CI_Model
 function cetak_laporan($bulan)
 {
     $this->db->select('
-        a.id_surat_pendatang,
+        a.id_surat_datang,
         a.nik,
         b.nama_lengkap,
         a.status,
@@ -102,7 +152,7 @@ function cetak_laporan($bulan)
         a.file_pemohon,
         a.keterangan,
         a.tanggal');
-    $this->db->from('tbl_permohonan_surat_pendatang as a');
+    $this->db->from('tbl_surat_datang as a');
     $this->db->join('tbl_warga as b', 'b.nik = a.nik','left');
     $this->db->where('MONTH(a.tanggal)',$bulan);
     $query = $this->db->get()->result();

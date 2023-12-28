@@ -131,22 +131,22 @@ class Ktp  extends CI_Controller
                                 $this->load->view('Front/Info.php',$data);
 
                             } else {
-                                echo $this->session->set_flashdata('msg', 'warning');
-                                redirect('Admin/Ktp');
+                                echo $this->session->set_flashdata('msg', 'warning-surat');
+                                $this->load->view('Front/Homepage.php');
                             }
                         } 
 
 
 
                     } else {
-                        echo $this->session->set_flashdata('msg', 'warning');
-                        redirect('Admin/Ktp');
+                        echo $this->session->set_flashdata('msg', 'warning-surat');
+                        $this->load->view('Front/Homepage.php');
                     }
                 } 
 
             } else {
-                echo $this->session->set_flashdata('msg', 'warning');
-                redirect('Admin/Ktp');
+                echo $this->session->set_flashdata('msg', 'warning-surat');
+                $this->load->view('Front/Homepage.php');
             }
         } 
     }

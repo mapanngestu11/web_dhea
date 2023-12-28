@@ -29,7 +29,7 @@
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Permohonan Kelahiran</h6>
-                  <button class="btn btn-primary block" style=" float: right;" data-toggle="modal" data-target="#default" data-backdrop="static" data-keyboard="false">Tambah Kelahiran</button>
+                  <!--  <button class="btn btn-primary block" style=" float: right;" data-toggle="modal" data-target="#default" data-backdrop="static" data-keyboard="false">Tambah Kelahiran</button> -->
 
                   <!-- modal tambah -->
                   <div class="modal fade " id="default" role="dialog" aria-hidden="true" data-backdrop="static">>
@@ -143,9 +143,10 @@
                     <thead class="thead-light">
                       <tr>
                         <th>No</th>
+                        <th>Kode Permohonan</th>
                         <th>Nik</th>
                         <th>Nama</th>
-                        <th>Kode Permohonan</th>
+
                         <th>Status</th>
                         <th>Action</th>
                       </tr>
@@ -153,9 +154,10 @@
                     <tfoot>
                       <tr>
                        <th>No</th>
+                       <th>Kode Permohonan</th>
                        <th>Nik</th>
                        <th>Nama</th>
-                       <th>Kode Permohonan</th>
+
                        <th>Status</th>
                        <th>Action</th>
                      </tr>
@@ -167,16 +169,17 @@
 
                       $no++;
                       $id_surat_kelahiran           = $row['id_surat_kelahiran'];
-                      $nik     = $row['nik'];
-                      $nama_lengkap = $row['nama_lengkap'];
+                      $nama_anak     = $row['nama_anak'];
+                      $jenis_kelamin = $row['jenis_kelamin'];
                       $kode_permohonan = $row['kode_permohonan'];
                       $status = $row['status'];
                       ?>
                       <tr>
                         <td><?php echo $no ?></td>
-                        <td><?php echo $nik ?></td>
-                        <td><?php echo $nama_lengkap ?></td>
                         <td><?php echo $kode_permohonan ?></td>
+                        <td><?php echo $nama_anak ?></td>
+                        <td><?php echo $jenis_kelamin ?></td>
+
                         <td>
                           <?php if ($status == '1') { ?>
                             <span class="badge badge-success">Sudah</span>
@@ -189,6 +192,7 @@
                         <div class="form-button-action">
                           <a class="btn btn-link btn-primary btn-lg" data-toggle="modal" data-target="#ModalEdit<?php echo $id_surat_kelahiran; ?>"><span class="fa fa-edit" style="color:white;"></span></a>
                           <a class="btn btn-link btn-danger btn-lg" data-toggle="modal" data-target="#ModalHapus<?php echo $id_surat_kelahiran; ?>"><i class=" fa fa-times" data-original-title="Edit Task" style="color:white;"></i></a>
+                          <a class="btn btn-link btn-warning btn-lg" data-toggle="modal" data-target="#ModalEmail<?php echo $id_surat_kelahiran; ?>"><i class=" fa fa-envelope" data-original-title="Edit Task" style="color:white;"></i></a>
                         </div>
                       </td>
                     <?php endforeach; ?>
@@ -220,7 +224,7 @@
       <!-- modal hapus -->
       <?php foreach ($kelahiran->result_array() as $row) :
         $id_surat_kelahiran = $row['id_surat_kelahiran'];
-        $nama_lengkap = $row['nama_lengkap'];
+        $nama_anak = $row['nama_anak'];
         ?>
         <div class="modal fade" id="ModalHapus<?php echo $id_surat_kelahiran; ?>" tabindex="-1" role="dialog" aria-labelledby="">
           <div class="modal-dialog" role="document">
@@ -233,7 +237,7 @@
                 <div class="modal-body">
                   <input type="hidden" name="id_surat_kelahiran" value="<?php echo $id_surat_kelahiran; ?>" />
 
-                  <p>Apakah Anda yakin mau menghapus <b><?php echo $nama_lengkap; ?></b> ?</p>
+                  <p>Apakah Anda yakin mau menghapus <b><?php echo $nama_anak; ?></b> ?</p>
 
                 </div>
                 <div class="modal-footer">
@@ -254,13 +258,40 @@
       <!-- modal edit -->
       <?php foreach ($kelahiran->result_array() as $row) :
         $id_surat_kelahiran = $row['id_surat_kelahiran'];
-        $nama_lengkap = $row['nama_lengkap'];
+        $nama_anak = $row['nama_anak'];
+        $jenis_kelamin = $row['jenis_kelamin'];
         $kode_permohonan = $row['kode_permohonan'];
-        $nik  = $row['nik'];
+
         $keterangan =  $row['keterangan'];
         $status = $row['status'];
-        $kebutuhan = $row['kebutuhan'];
-        $file_pemohon = $row['file_pemohon'];
+
+        $tempat_lahir_anak = $row['tempat_lahir_anak'];
+        $tgl_lahir_anak = $row['tgl_lahir_anak'];
+        $waktu_lahir = $row['waktu_lahir'];
+        $nama_rs = $row['nama_rs'];
+        $alamat_rs = $row['alamat_rs'];
+
+        $nik_ayah = $row['nik_ayah'];
+        $nama_ayah = $row['nama_ayah'];
+        $tempat_lahir_ayah = $row['tempat_lahir_ayah'];
+        $tgl_lahir_ayah = $row['tgl_lahir_ayah'];
+        $no_telp = $row['no_telp'];
+
+        $email = $row['email'];
+        $pekerjaan_ayah = $row['pekerjaan_ayah'];
+        $alamat_ayah = $row['alamat_ayah'];
+
+        $nik_ibu = $row['nik_ibu'];
+        $nama_ibu = $row['nama_ibu'];
+        $tempat_lahir_ibu = $row['tempat_lahir_ibu'];
+        $tgl_lahir_ibu = $row['tempat_lahir_ibu'];
+        $pekerjaan_ibu = $row['pekerjaan_ibu'];
+        $alamat_ibu = $row['pekerjaan_ibu'];
+
+        $kk = $row['kk'];
+        $ktp_ayah = $row['ktp_ayah'];
+        $ktp_ibu = $row['ktp_ibu'];
+
 
 
 
@@ -294,26 +325,189 @@
                     </div>
                     <div class="row">
                       <div class="col-md-6">
-                        <label>Nik</label>
+                        <label>Nama Anak</label>
                         <div class="form-group form-input">
-                          <input type="text" name="nik" value="<?php echo $row['nik']; ?>" class="form-control" readonly>
+                          <input type="text" name="nama_anak" value="<?php echo $row['nama_anak']; ?>" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-6">
-                        <label>Nama Lengkap</label>
+                        <label>Jenis Kelamin</label>
                         <div class="form-group form-input">
-                          <input type="text" name="nama_lengkap" value="<?php echo $row['nama_lengkap']; ?>" class="form-control" readonly>
+                          <select class="form-control" name="jenis_kelamin">
+                            <option value="<?php echo $jenis_kelamin;?>"> <?php echo $jenis_kelamin;?></option>
+                            <option value="Laki-Laki">Laki-Laki</option>
+                            <option value="Perempuan">Perempuan</option>
+                          </select>
                         </div>
                       </div>
                     </div>
                     <div class="row">
                       <div class="col-md-6">
-                        <label>Kebutuhan</label>
+                        <label>Tempat Lahir</label>
                         <div class="form-group form-input">
-                          <textarea class="form-control" name="kebutuhan" rows="6" readonly=""><?php echo $kebutuhan;?></textarea>
+                          <input type="text" name="tempat_lahir_anak" value="<?php echo $row['tempat_lahir_anak']; ?>" class="form-control">
                         </div>
                       </div>
                       <div class="col-md-6">
+                        <label>Tanggal Lahir</label>
+                        <div class="form-group form-input">
+                          <input type="date" name="tgl_lahir_anak" value="<?php echo $row['tgl_lahir_anak']; ?>" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <label>Waktu Kelahiran</label>
+                        <div class="form-group form-input">
+                          <input type="time" name="waktu_lahir" value="<?php echo $row['waktu_lahir']; ?>" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>Nama Rumah Sakit</label>
+                        <div class="form-group form-input">
+                          <input type="text" name="nama_rs" value="<?php echo $row['nama_rs']; ?>" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label>Jenis Kelamin</label>
+                        <div class="form-group form-input">
+                          <input type="text" name="alamat_rs" value="<?php echo $row['alamat_rs']; ?>" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
+                    <strong class="mb-8">Data Ayah</strong>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>Nik Ayah</label>
+                        <div class="form-group form-input">
+                          <input type="text" name="nik_ayah" value="<?php echo $row['nik_ayah']; ?>" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label>Nama Ayah</label>
+                        <div class="form-group form-input">
+                          <input type="text" name="nama_ayah" value="<?php echo $row['nama_ayah']; ?>" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>Tempat Lahir Ayah</label>
+                        <div class="form-group form-input">
+                          <input type="text" name="tempat_lahir_ayah" value="<?php echo $row['tempat_lahir_ayah']; ?>" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label>Tgl Lahir Ayah</label>
+                        <div class="form-group form-input">
+                          <input type="date" name="tgl_lahir_ayah" value="<?php echo $row['tgl_lahir_ayah']; ?>" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>No Telp</label>
+                        <div class="form-group form-input">
+                          <input type="text" name="no_telp" value="<?php echo $row['no_telp']; ?>" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label>Email</label>
+                        <div class="form-group form-input">
+                          <input type="email" name="email" value="<?php echo $row['email']; ?>" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>Pekerjaan Ayah</label>
+                        <div class="form-group form-input">
+                          <input type="text" name="pekerjaan_ayah" value="<?php echo $row['pekerjaan_ayah']; ?>" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label>Alamat Ayah</label>
+                        <div class="form-group form-input">
+                          <input type="text" name="alamat_ayah" value="<?php echo $row['alamat_ayah']; ?>" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+                    <strong class="mb-8">Data Ibu</strong>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>NIK Ibu</label>
+                        <div class="form-group form-input">
+                          <input type="text" name="nik_ibu" value="<?php echo $row['nik_ibu']; ?>" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label>Nama Ibu</label>
+                        <div class="form-group form-input">
+                          <input type="text" name="nama_ibu" value="<?php echo $row['nama_ibu']; ?>" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>Tempat Lahir Ibu</label>
+                        <div class="form-group form-input">
+                          <input type="text" name="tempat_lahir_ibu" value="<?php echo $row['tempat_lahir_ibu']; ?>" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label>Tgl Lahir Ibu</label>
+                        <div class="form-group form-input">
+                          <input type="date" name="tgl_lahir_ibu" value="<?php echo $row['tgl_lahir_ibu']; ?>" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>Pekerjaan Ibu</label>
+                        <div class="form-group form-input">
+                          <input type="text" name="pekerjaan_ibu" value="<?php echo $row['pekerjaan_ibu']; ?>" class="form-control">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <label>Alamat Ibu</label>
+                        <div class="form-group form-input">
+                          <input type="date" name="alamat_ibu" value="<?php echo $row['alamat_ibu']; ?>" class="form-control">
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>File KK</label>
+                        <div class="form-group form-input">
+                          <a href="<?php echo base_url() . "assets/upload/"; ?><?php echo $row['kk'];?>" target="_blank" class="btn btn-primary">File KK</a>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>File KTP Ayah</label>
+                        <div class="form-group form-input">
+                          <a href="<?php echo base_url() . "assets/upload/"; ?><?php echo $row['ktp_ayah'];?>" target="_blank" class="btn btn-primary">File KTP Ayah</a>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>File KTP Ibu</label>
+                        <div class="form-group form-input">
+                          <a href="<?php echo base_url() . "assets/upload/"; ?><?php echo $row['ktp_ibu'];?>" target="_blank" class="btn btn-primary">File KTP Ibu</a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row">
+
+                      <div class="col-md-12">
                         <label>Status</label>
                         <div class="form-group form-input">
                           <select class="form-control" name="status">
@@ -330,10 +524,7 @@
                         </select>
                       </div>
 
-                      <label>File Pemohon</label>
-                      <div class="form-group form-input">
-                        <a href="<?php echo base_url() . "assets/upload/"; ?><?php echo $file_pemohon;?>" target="_blank" class="btn btn-primary">Lihat File</a>
-                      </div>
+
                     </div>
                   </div>
                   <div class="row">
@@ -378,6 +569,49 @@
     <!-- Footer -->
   </div>
 </div>
+
+
+<!-- modal edit -->
+<?php foreach ($kelahiran->result_array() as $row) :
+  $id_surat_kelahiran = $row['id_surat_kelahiran'];
+  $nama_ayah = $row['nama_ayah'];
+  ?>
+  <div class="modal fade" id="ModalEmail<?php echo $id_surat_kelahiran; ?>" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <!--    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button> -->
+          <h4 class="modal-title" id="myModalLabel">Kirim Data Email</h4>
+        </div>
+        <form class="form-horizontal" action="<?php echo base_url() . 'Admin/Kelahiran/kirim_email' ?>" method="post">
+          <div class="modal-body">
+            <input type="hidden" name="id_surat_kelahiran" value="<?php echo $id_surat_kelahiran; ?>" />
+            <div class="row">
+              <div class="col-md-12 mb-2">
+                <label>Nama Pengirim</label>
+                <?php $nama_user = $this->session->userdata('nama_lengkap'); ?>
+                <input type="text" name="nama_pengirim" class="form-control" value="<?php echo $nama_user;?>" readonly>
+              </div>
+              <div class="col-md-12">
+                <label>Pesan</label>
+                <input type="text" name="pesan" class="form-control" required="">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" data-dismiss="modal">
+              <i class="bx bx-x d-block d-sm-none"></i>
+              <span class="d-none d-sm-block">Batal</span>
+            </button>
+            <button type="submit" class="btn btn-primary btn-flat" id="simpan">Kirim Email</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<?php endforeach; ?>
+<!-- end modal hapus -->
+
 
 <!-- Scroll to top -->
 <a class="scroll-to-top rounded" href="#page-top">

@@ -46,14 +46,13 @@ data-bs-target="#navbarCollapse"
           >
           <div class="dropdown-menu bg-light m-0">
             <a href="<?php echo base_url('Ktp/') ?>" class="dropdown-item">Pembuatan KTP Baru</a>
-            <a href="<?php echo base_url('Kelahiran/') ?>" class="dropdown-item">Surat Kelahiran</a>
-            <a href="<?php echo base_url('Pengajuan/') ?>" class="dropdown-item">Surat Pendatang</a>
-
+            <a href="<?php echo base_url('Kelahiran/') ?>" class="dropdown-item">Surat Kelahiran / Kematian</a>
+            <a href="<?php echo base_url('Pengajuan/') ?>" class="dropdown-item">Surat Pendatang / Pindah</a>
           </div>
         </div>
         <!-- <a href="<?php echo base_url('Warga/') ?>" class="nav-item nav-link">Daftar Warga</a> -->
         <a href="<?php echo base_url('Contact/') ?>" class="nav-item nav-link">Kontak Kami</a>
-        <a href="<?php echo base_url('Login/') ?>" class="nav-item nav-link">Login Warga</a>
+        <a href="<?php echo base_url('Informasi/') ?>" class="nav-item nav-link">Cek Informasi Surat</a>
       </div>
     </div>
   </nav>

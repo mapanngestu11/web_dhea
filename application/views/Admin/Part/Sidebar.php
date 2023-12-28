@@ -53,7 +53,9 @@
             <h6 class="collapse-header">Data Surat</h6>
             <a class="collapse-item" href="<?php echo base_url('Admin/Ktp/') ?>">KTP Baru</a>
             <a class="collapse-item" href="<?php echo base_url('Admin/Pendatang/') ?>">Surat Pendatang</a>
+            <a class="collapse-item" href="<?php echo base_url('Admin/Pindah/') ?>">Surat Pindah</a>
             <a class="collapse-item" href="<?php echo base_url('Admin/Kelahiran/') ?>">Surat Kelahiran</a>
+            <a class="collapse-item" href="<?php echo base_url('Admin/Kematian/') ?>">Surat Kematian</a>
           </div>
         </div>
       </li>

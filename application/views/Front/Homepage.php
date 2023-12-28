@@ -3,6 +3,10 @@
 
 <?php include 'Part/Head.php';?>
 
+<!-- sweet alert -->
+<!-- sweetalerts -->
+<link rel="stylesheet" href="<?php echo base_url() . "assets/Admin/"; ?>vendor/sweetalert2/sweetalert2.min.css">
+
 <body>
   <!-- Spinner Start -->
   <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -44,14 +48,14 @@
           >
           <div class="dropdown-menu bg-light m-0">
             <a href="<?php echo base_url('Ktp/') ?>" class="dropdown-item">Pembuatan KTP Baru</a>
-            <a href="<?php echo base_url('Kelahiran/') ?>" class="dropdown-item">Surat Kelahiran</a>
-            <a href="<?php echo base_url('Pengajuan/') ?>" class="dropdown-item">Surat Pendatang</a>
+            <a href="<?php echo base_url('Kelahiran/') ?>" class="dropdown-item">Surat Kelahiran / Kematian</a>
+            <a href="<?php echo base_url('Pengajuan/') ?>" class="dropdown-item">Surat Pendatang / Pindah</a>
 
           </div>
         </div>
         <!-- <a href="<?php echo base_url('Warga/') ?>" class="nav-item nav-link">Daftar Warga</a> -->
         <a href="<?php echo base_url('Contact/') ?>" class="nav-item nav-link">Kontak Kami</a>
-        <a href="<?php echo base_url('Login/') ?>" class="nav-item nav-link">Login Warga</a>
+        <a href="<?php echo base_url('Informasi/') ?>" class="nav-item nav-link">Cek Informasi Surat</a>
       </div>
     </div>
   </nav>
@@ -153,5 +157,70 @@
 <?php include 'Part/Footer.php';?>
 <!-- JavaScript Libraries -->
 <?php include 'Part/Js.php';?>
-</body>
-</html>
+
+<!-- sweetalerts -->
+<script src="<?php echo base_url() . "assets/Admin/"; ?>js/main.js"></script>
+<script src="<?php echo base_url() . "assets/Admin/"; ?>js/extensions/sweetalert2.js"></script>
+<script src="<?php echo base_url() . "assets/Admin/"; ?>vendor/sweetalert2/sweetalert2.all.min.js"></script>
+
+
+<!-- msg -->
+<?php if ($this->session->flashData('msg') == 'warning') : ?>
+  <script type="text/javascript">
+    Swal.fire({
+      type: 'warning',
+      title: 'Perhatian !',
+      heading: 'Success',
+      text: "Data Sudah ada .",
+      showHideTransition: 'slide',
+      icon: 'warning',
+      hideAfter: false,
+      bgColor: '#7EC857'
+    });
+  </script>
+
+  <?php elseif ($this->session->flashData('msg') == 'success') : ?>
+    <script type="text/javascript">
+      Swal.fire({
+        type: 'success',
+        title: 'Sukses',
+        heading: 'Success',
+        text: "Data Berhasil Di Tambahkan.",
+        showHideTransition: 'slide',
+        icon: 'success',
+        hideAfter: false,
+        bgColor: '#7EC857'
+      });
+    </script>
+    <?php elseif ($this->session->flashData('msg') == 'warning-surat') : ?>
+      <script type="text/javascript">
+        Swal.fire({
+          type: 'warning',
+          title: 'Perhatian !',
+          heading: 'Perhatian',
+          text: "Data tidak terkirim mohon periksa ulang type file upload.",
+          showHideTransition: 'slide',
+          icon: 'warning',
+          hideAfter: false,
+          bgColor: '#7EC857'
+        });
+      </script>
+      <?php elseif ($this->session->flashData('msg') == 'success-hapus') : ?>
+        <script type="text/javascript">
+          Swal.fire({
+            type: 'success',
+            title: 'Sukses',
+            heading: 'Success',
+            text: "Data Berhasil dihapus.",
+            showHideTransition: 'slide',
+            icon: 'success',
+            hideAfter: false,
+            bgColor: '#7EC857'
+          });
+        </script>
+        <?php else : ?>
+
+        <?php endif; ?>
+
+      </body>
+      </html>
