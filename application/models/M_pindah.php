@@ -6,10 +6,20 @@ class M_pindah extends CI_Model
 
     function tampil_data()
     {
-        $this->db->select('*');
-        $this->db->from('tbl_surat_pindah');
-        $query = $this->db->get();
-        return $query;
+        $cek_akses = $this->session->userdata('hak_akses');
+        if ($cek_akses == 'lurah') {
+            $this->db->select('*');
+            $this->db->from('tbl_surat_pindah');
+            $this->db->where('status','1');
+            $query = $this->db->get();
+            return $query;
+        }else{
+
+            $this->db->select('*');
+            $this->db->from('tbl_surat_pindah');
+            $query = $this->db->get();
+            return $query;
+        }
     } 
 
     function cek_data_surat($id_surat_pindah)
@@ -114,7 +124,7 @@ class M_pindah extends CI_Model
     }
     function cek_kode_permohonan($kode_permohonan)
     {
-     $this->db->select('
+       $this->db->select('
         a.id_surat_pindah,
         a.nik,
         b.nama_lengkap,
@@ -124,14 +134,14 @@ class M_pindah extends CI_Model
         a.file_pemohon,
         a.keterangan,
         a.file_surat');
-     $this->db->from('tbl_surat_pindah as a');
-     $this->db->join('tbl_warga as b', 'b.nik = a.nik','left');
-     $this->db->where('kode_permohonan',$kode_permohonan);
-     $query = $this->db->get();
-     return $query;
- }
- function cek_ktp($nik)
- {
+       $this->db->from('tbl_surat_pindah as a');
+       $this->db->join('tbl_warga as b', 'b.nik = a.nik','left');
+       $this->db->where('kode_permohonan',$kode_permohonan);
+       $query = $this->db->get();
+       return $query;
+   }
+   function cek_ktp($nik)
+   {
     $this->db->select('*');
     $this->db->from('tbl_warga');
     $this->db->where('status','1');
