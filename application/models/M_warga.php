@@ -47,26 +47,38 @@ class M_warga extends CI_Model
     }
     function jumlah_ktp()
     {
-        $this->db->select('count(tbl_permohonan_ktp_baru.id_ktp_baru) as jumlah');
-        $hsl = $this->db->get('tbl_permohonan_ktp_baru');
+        $this->db->select('count(tbl_ktp.id_ktp) as jumlah');
+        $hsl = $this->db->get('tbl_ktp');
         return $hsl;
     }
     function jumlah_kelahiran()
     {
-        $this->db->select('count(tbl_permohonan_surat_kelahiran.id_surat_kelahiran) as jumlah');
-        $hsl = $this->db->get('tbl_permohonan_surat_kelahiran');
+        $this->db->select('count(tbl_surat_kelahiran.id_surat_kelahiran) as jumlah');
+        $hsl = $this->db->get('tbl_surat_kelahiran');
+        return $hsl;
+    }
+    function jumlah_kematian()
+    {
+        $this->db->select('count(tbl_surat_kematian.id_surat_kematian) as jumlah');
+        $hsl = $this->db->get('tbl_surat_kematian');
         return $hsl;
     }
     function jumlah_pendatang()
     {
-      $this->db->select('count(tbl_permohonan_surat_pendatang.id_surat_pendatang) as jumlah');
-      $hsl = $this->db->get('tbl_permohonan_surat_pendatang');
+      $this->db->select('count(tbl_surat_datang.id_surat_datang) as jumlah');
+      $hsl = $this->db->get('tbl_surat_datang');
       return $hsl;   
   }
-
-
-  function tampil_data_limit()
+  function jumlah_pindah()
   {
+    $this->db->select('count(tbl_surat_pindah.id_surat_pindah) as jumlah');
+    $hsl = $this->db->get('tbl_surat_pindah');
+    return $hsl;   
+}
+
+
+function tampil_data_limit()
+{
     $this->db->limit('5');
     return $this->db->get('tbl_warga');
 }

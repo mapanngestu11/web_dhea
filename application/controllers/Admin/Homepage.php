@@ -28,7 +28,9 @@ class Homepage  extends CI_Controller
         $data['jumlah_warga'] = $this->M_warga->jumlah_warga()->result();
         $data['jumlah_ktp'] = $this->M_warga->jumlah_ktp()->result();
         $data['jumlah_kelahiran'] = $this->M_warga->jumlah_kelahiran()->result();
+        $data['jumlah_kematian'] = $this->M_warga->jumlah_kematian()->result();
         $data['jumlah_pendatang'] = $this->M_warga->jumlah_pendatang()->result();
+        $data['jumlah_pindah'] = $this->M_warga->jumlah_pindah()->result();
 
         $data['warga'] = $this->M_warga->tampil_data_limit();
 
