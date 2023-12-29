@@ -15,10 +15,10 @@
         <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800"><span class="badge badge-primary">Laporan Kelahiran</span></h1>
+            <h1 class="h3 mb-0 text-gray-800"><span class="badge badge-primary">Laporan Kematian Warga</span></h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="<?php echo base_url('Admin/Homepage/') ?>">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Laporan Kelahiran</li>
+              <li class="breadcrumb-item active" aria-current="page">Laporan Kematian Warga</li>
             </ol>
           </div>
 
@@ -28,14 +28,14 @@
             <div class="col-lg-12">
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Laporan Kelahiran</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Laporan Kematian Warga</h6>
                   <style type="text/css">
                     .btn-cetak{
                       margin-top: 36px;
                     }
                   </style>
 
-                  <form action="<?php echo base_url() . 'Admin/Kelahiran/cetak_laporan_kelahiran'; ?>" method="POST">
+                  <form action="<?php echo base_url() . 'Admin/Kematian/cetak_laporan_kematian'; ?>" method="POST">
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
@@ -58,11 +58,10 @@
                         <tr>
                          <th>No</th>
                          <th>Kode Permohonan</th>
-                         <th>Nama Anak</th>
+                         <th>Nama warga</th>
                          <th>Jenis Kelamin</th>
-                         <th>Nama Ayah</th>
-                         <th>Nama Ibu</th>
-                         
+                         <th>Tanggal Kematian</th>
+                         <th>Nama Anggota Keluarga</th>
                          <th>Status</th>
                        </tr>
                      </thead>
@@ -70,27 +69,26 @@
                       <tr>
                        <th>No</th>
                        <th>Kode Permohonan</th>
-                       <th>Nama Anak</th>
+                       <th>Nama warga</th>
                        <th>Jenis Kelamin</th>
-                       <th>Nama Ayah</th>
-                       <th>Nama Ibu</th>
-
+                       <th>Tanggal Kematian</th>
+                       <th>Nama Anggota Keluarga</th>
                        <th>Status</th>
-
                      </tr>
                    </tfoot>
                    <tbody>
                     <?php
                     $no = 0;
-                    foreach ($kelahiran->result_array() as $row) :
+                    foreach ($kematian->result_array() as $row) :
 
                       $no++;
-                      $id_surat_kelahiran           = $row['id_surat_kelahiran'];
+                      $id_surat_kematian           = $row['id_surat_kematian'];
                       $kode_permohonan = $row['kode_permohonan'];
-                      $nama = $row['nama_anak'];
+                      $nama = $row['nama'];
+                      $tgl_kematian = $row['tgl_kematian'];
                       $jenis_kelamin = $row['jenis_kelamin'];
-                      $nama_ayah = $row['nama_ayah'];
-                      $nama_ibu = $row['nama_ibu'];
+                      $nama_pelapor = $row['nama_pelapor'];
+
 
                       $status = $row['status'];
                       ?>
@@ -99,8 +97,9 @@
                         <td><?php echo $kode_permohonan ?></td>
                         <td><?php echo $nama ?></td>
                         <td><?php echo $jenis_kelamin ?></td>
-                        <td><?php echo $nama_ayah ?></td>
-                        <td><?php echo $nama_ibu ?></td>
+                        <td><?php echo $tgl_kematian ?></td>
+                        <td><?php echo $nama_pelapor ?></td>
+
                         <td>
                           <?php if ($status == '1') { ?>
                             <span class="badge badge-success">Sudah</span>

@@ -57,11 +57,14 @@
 
 	<table>
 		<tr>
-			<th>No.</th>
+			<th>No</th>
 			<th>Kode Permohonan</th>
-			<th>Nama Lengkap</th>
-			<!-- <th>Jenis Kelamin</th> -->
-			<th>Keterangan</th>
+			<th>Nama Anak</th>
+			<th>Jenis Kelamin</th>
+			<th>Nama Ayah</th>
+			<th>Nama Ibu</th>
+
+			<th>Status</th>
 			<th>Tanggal</th>
 
 		</tr>
@@ -69,12 +72,12 @@
 		$no = 0 ;
 		foreach ($laporan as $data) { 
 			$no++;
-
-			$nama = $data->nama;
+			$nama = $data->nama_anak;
 			$kode_permohonan = $data->kode_permohonan;
-
 			$tanggal = $data->tanggal;
-			// $jenis_kelamin = $data->jenis_kelamin;
+			$jenis_kelamin = $data->jenis_kelamin;
+			$nama_ayah = $data->nama_ayah;
+			$nama_ibu = $data->nama_ibu;
 			$status = $data->status;
 
 			if ($status == '1') {
@@ -85,13 +88,14 @@
 
 			?>
 			<tr>
-				<td><?php echo $no;?></td>
-				<td><?php echo $kode_permohonan;?></td>
-				<td><?php echo $nama;?></td>
-				
-				<!-- <td><?php echo $jenis_kelamin;?></td> -->
-				<td><?php echo $keterangan;?></td>
-				<td><?php echo $tanggal; ?></td>
+				<td><?php echo $no ?></td>
+				<td><?php echo $kode_permohonan ?></td>
+				<td><?php echo $nama ?></td>
+				<td><?php echo $jenis_kelamin ?></td>
+				<td><?php echo $nama_ayah ?></td>
+				<td><?php echo $nama_ibu ?></td>
+				<td><?php echo $keterangan;?>
+				<td><?php echo $tanggal;?></td>
 			</tr>
 		<?php } ?>
 	</table>

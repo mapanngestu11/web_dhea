@@ -54,9 +54,10 @@
                       <thead class="thead-light">
                         <tr>
                           <th>No</th>
+                          <th>Kode Permohonan</th>
                           <th>Nik</th>
                           <th>Nama</th>
-                          <th>Kode Permohonan</th>
+
                           <th>Status</th>
 
                         </tr>
@@ -64,9 +65,10 @@
                       <tfoot>
                         <tr>
                          <th>No</th>
+                         <th>Kode Permohonan</th>
                          <th>Nik</th>
                          <th>Nama</th>
-                         <th>Kode Permohonan</th>
+
                          <th>Status</th>
 
                        </tr>
@@ -77,17 +79,18 @@
                       foreach ($pendatang->result_array() as $row) :
 
                         $no++;
-                        $id_surat_pendatang           = $row['id_surat_pendatang'];
+                        $id_surat_datang           = $row['id_surat_datang'];
                         $nik     = $row['nik'];
-                        $nama_lengkap = $row['nama_lengkap'];
+                        $nama = $row['nama'];
                         $kode_permohonan = $row['kode_permohonan'];
                         $status = $row['status'];
                         ?>
                         <tr>
                           <td><?php echo $no ?></td>
-                          <td><?php echo $nik ?></td>
-                          <td><?php echo $nama_lengkap ?></td>
                           <td><?php echo $kode_permohonan ?></td>
+                          <td><?php echo $nik ?></td>
+                          <td><?php echo $nama ?></td>
+
                           <td>
                             <?php if ($status == '1') { ?>
                               <span class="badge badge-success">Sudah</span>
@@ -122,196 +125,41 @@
         </div>
 
 
-        <!-- modal hapus -->
-        <?php foreach ($pendatang->result_array() as $row) :
-          $id_surat_pendatang = $row['id_surat_pendatang'];
-          $nama_lengkap = $row['nama_lengkap'];
-          ?>
-          <div class="modal fade" id="ModalHapus<?php echo $id_surat_pendatang; ?>" tabindex="-1" role="dialog" aria-labelledby="">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <!--    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button> -->
-                  <h4 class="modal-title" id="myModalLabel">Hapus Data</h4>
-                </div>
-                <form class="form-horizontal" action="<?php echo base_url() . 'Admin/Pendatang/delete' ?>" method="post">
-                  <div class="modal-body">
-                    <input type="hidden" name="id_surat_pendatang" value="<?php echo $id_surat_pendatang; ?>" />
-
-                    <p>Apakah Anda yakin mau menghapus <b><?php echo $nama_lengkap; ?></b> ?</p>
-
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn" data-dismiss="modal">
-                      <i class="bx bx-x d-block d-sm-none"></i>
-                      <span class="d-none d-sm-block">Batal</span>
-                    </button>
-                    <button type="submit" class="btn btn-primary btn-flat" id="simpan">Hapus</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        <?php endforeach; ?>
-        <!-- end modal hapus -->
-
-
-        <!-- modal edit -->
-        <?php foreach ($pendatang->result_array() as $row) :
-          $id_surat_pendatang = $row['id_surat_pendatang'];
-          $nama_lengkap = $row['nama_lengkap'];
-          $kode_permohonan = $row['kode_permohonan'];
-          $nik  = $row['nik'];
-          $keterangan =  $row['keterangan'];
-          $status = $row['status'];
-          $kebutuhan = $row['kebutuhan'];
-          $file_pemohon = $row['file_pemohon'];
-
-
-
-          ?>
-          <div class="modal fade " id="ModalEdit<?php echo $id_surat_pendatang; ?>" role="dialog" aria-hidden="true" data-backdrop="static">>
-            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="myModalLabel1">Update Data</h5>
-                  <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
-                    <i data-feather="x"></i>
-                  </button>
-                </div>
-                <style>
-                  .form-input {
-                    padding-top: 5px;
-                  }
-                </style>
-
-                <div class="modal-body">
-                  <div class="modal-body">
-                    <form action="<?php echo base_url() . 'Admin/Pendatang/update'; ?>" method="post" enctype="multipart/form-data">
-                      <div class="row">
-                        <div class="col-md-12">
-                          <label>Kode Permohonan</label>
-                          <div class="form-group form-input">
-                            <input type="text" name="kode_permohonan" value="<?php echo $row['kode_permohonan']; ?>" class="form-control" readonly>
-                            <input type="hidden" name="id_surat_pendatang" value="<?php echo $id_surat_pendatang;?>">
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <label>Nik</label>
-                          <div class="form-group form-input">
-                            <input type="text" name="nik" value="<?php echo $row['nik']; ?>" class="form-control" readonly>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <label>Nama Lengkap</label>
-                          <div class="form-group form-input">
-                            <input type="text" name="nama_lengkap" value="<?php echo $row['nama_lengkap']; ?>" class="form-control" readonly>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
-                          <label>Kebutuhan</label>
-                          <div class="form-group form-input">
-                            <textarea class="form-control" name="kebutuhan" rows="6" readonly=""><?php echo $kebutuhan;?></textarea>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <label>Status</label>
-                          <div class="form-group form-input">
-                            <select class="form-control" name="status">
-                             <option value="<?php echo $status;?>">
-                              <?php 
-                              if ($status == '0') { ?>
-                                Proses
-                              <?php }else{ ?>
-                                Selesai
-                              <?php }  ?>
-                            </option>
-                            <option value="1">Setuju</option>
-                            <option value="0">Proses</option>
-                          </select>
-                        </div>
-
-                        <label>File Pemohon</label>
-                        <div class="form-group form-input">
-                          <a href="<?php echo base_url() . "assets/upload/"; ?><?php echo $file_pemohon;?>" target="_blank" class="btn btn-primary">Lihat File</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <label>Keterangan</label>
-                        <div class="form-group form-input">
-                          <textarea class="form-control" name="keterangan" required=""><?php echo $keterangan;?></textarea>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <label>File Surat</label>
-                        <input type="file" name="file_surat" class="form-control">
-                      </div>
-                      <div class="col-md-6">
-                        <label>Nama User</label>
-                        <?php $nama_user = $this->session->userdata('nama_lengkap'); ?>
-                        <input type="text" name="nama_user" class="form-control" value="<?php echo $nama_user;?>" readonly="">
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn" data-dismiss="modal">
-                    <i class="bx bx-x d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">Batal</span>
-                  </button>
-                  <button type="submit" class="btn btn-primary ml-1">
-                    <i class="bx bx-check d-block d-sm-none"></i>
-                    <span class="d-none d-sm-block">Simpan</span>
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-      <?php endforeach; ?>
-      <!-- end modal -->
-      <!-- Footer -->
-      <?php include 'Part/Footer.php';?>
-      <!-- Footer -->
+        
+        <!-- Footer -->
+        <?php include 'Part/Footer.php';?>
+        <!-- Footer -->
+      </div>
     </div>
-  </div>
 
-  <!-- Scroll to top -->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+    <!-- Scroll to top -->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
 
-  <?php include 'Part/Js.php';?>
+    <?php include 'Part/Js.php';?>
 
-  <!-- Page level custom scripts -->
-  <script type="text/javascript">
-    function check_nik() {
+    <!-- Page level custom scripts -->
+    <script type="text/javascript">
+      function check_nik() {
 
-      var input_check_nik = $('[name="nik"]').val();
+        var input_check_nik = $('[name="nik"]').val();
 
-      $.ajax({
-        url: "<?= site_url('admin/ktp/cek_warga/') ?>",
-        type: "POST",
-        dataType: "JSON",
-        data: {
-          input_check_nik: input_check_nik
-        },
+        $.ajax({
+          url: "<?= site_url('admin/ktp/cek_warga/') ?>",
+          type: "POST",
+          dataType: "JSON",
+          data: {
+            input_check_nik: input_check_nik
+          },
 
-        success: function(data) {
+          success: function(data) {
 
-          if (data.result != '' ) {
+            if (data.result != '' ) {
                // alert(data.result[0].nik);
                document.getElementById("tambah_warga").style.display = "block";      
                $('#nik').val(data.result[0].nik);
-               $('#nama_lengkap').val(data.result[0].nama_lengkap);
+               $('#nama').val(data.result[0].nama);
                 // console.log(data.result[0].nik);
               }else{
                alert("Nik Tidak Ditemukan");
@@ -322,11 +170,11 @@
 
            }
          })
-    }
-  </script>
+      }
+    </script>
 
-  <script>
-    $(document).ready(function () {
+    <script>
+      $(document).ready(function () {
       $('#dataTable').DataTable(); // ID From dataTable 
       $('#dataTableHover').DataTable(); // ID From dataTable with Hover
     });

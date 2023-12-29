@@ -16,6 +16,7 @@ class Pendatang  extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_pendatang');
+        $this->load->model('M_pindah');
         $this->load->model('M_warga');
         $this->load->helper('url');
         $this->load->library('upload');
@@ -84,6 +85,12 @@ class Pendatang  extends CI_Controller
         $this->load->view('Admin/List.laporan.pendatang.php', $data);
     }
 
+    public function laporan_pindah()
+    {
+        $data['pindah'] = $this->M_pindah->tampil_data();
+        $this->load->view('Admin/List.laporan.pindah.php', $data);
+    }
+
     public function cetak_laporan_pendatang ()
     {
        $tanggal = $this->input->post('tanggal');
@@ -94,7 +101,16 @@ class Pendatang  extends CI_Controller
        $this->load->view('Admin/Cetak_laporan.php',$data);
 
    }
+   public function cetak_laporan_pindah ()
+   {
+       $tanggal = $this->input->post('tanggal');
+       $bulan = date('m', strtotime($tanggal));
 
+       $data['keterangan'] = 'Permohonan Pindah';
+       $data['laporan'] = $this->M_pindah->cetak_laporan($bulan);
+       $this->load->view('Admin/Cetak_laporan.php',$data);
+
+   }
 
    public function cek_warga()
    {

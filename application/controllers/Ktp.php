@@ -128,6 +128,33 @@ class Ktp  extends CI_Controller
                                  'nama' => $nama
 
                              );
+
+
+                                $curl = curl_init();
+
+                                curl_setopt_array($curl, array(
+                                  CURLOPT_URL => 'https://api.fonnte.com/send',
+                                  CURLOPT_RETURNTRANSFER => true,
+                                  CURLOPT_ENCODING => '',
+                                  CURLOPT_MAXREDIRS => 10,
+                                  CURLOPT_TIMEOUT => 0,
+                                  CURLOPT_FOLLOWLOCATION => true,
+                                  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                                  CURLOPT_CUSTOMREQUEST => 'POST',
+                                  CURLOPT_POSTFIELDS => array(
+                                    'target' => $no_telp,
+                                    'message' => 'Terimakasih Sudah Membuat Permohonan KTP Melalui Website Kelurahan Karang Timur, anda bisa mengecek surat pada kode permohonan '.$kode_permohonan.' dan akan mendapatkan pemberitahuan lanjutan melalui email yang di daftarkan '.$email.'.', 
+                                    'countryCode' => '62', 
+                                ),
+                                  CURLOPT_HTTPHEADER => array(
+                                    'Authorization: aE5+Bgjuvd57N@_3r_PK' 
+                                ),
+                              ));
+
+                                $response = curl_exec($curl);
+
+                                curl_close($curl);
+                                echo $response;
                                 $this->load->view('Front/Info.php',$data);
 
                             } else {

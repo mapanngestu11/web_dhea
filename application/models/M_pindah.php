@@ -152,19 +152,9 @@ class M_pindah extends CI_Model
 }
 function cetak_laporan($bulan)
 {
-    $this->db->select('
-        a.id_surat_pindah,
-        a.nik,
-        b.nama_lengkap,
-        a.status,
-        a.kode_permohonan,
-        a.kebutuhan,
-        a.file_pemohon,
-        a.keterangan,
-        a.tanggal');
-    $this->db->from('tbl_surat_pindah as a');
-    $this->db->join('tbl_warga as b', 'b.nik = a.nik','left');
-    $this->db->where('MONTH(a.tanggal)',$bulan);
+    $this->db->select('*');
+    $this->db->from('tbl_surat_pindah');
+    $this->db->where('MONTH(tanggal)',$bulan);
     $query = $this->db->get()->result();
     return $query;
 }

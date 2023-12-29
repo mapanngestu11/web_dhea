@@ -69,9 +69,9 @@ class Kelahiran  extends CI_Controller
             $mail->Body    = '<h1>Halo,' .$nama. '.</h1> <p> Permohonan Surat kamu dengan nomor : <strong>' .$kode_permohonan. ' </strong>, Sudah selesai anda bisa langsung untuk mengambilnya di Kelurahan Karang Timur. Note Pesan : ' .$pesan. '</p> ';
 
             if ($mail->send()) {
-               echo $this->session->set_flashdata('msg', 'success');
-               redirect('Admin/Kelahiran');
-           } else {
+             echo $this->session->set_flashdata('msg', 'success');
+             redirect('Admin/Kelahiran');
+         } else {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
 
@@ -86,17 +86,17 @@ class Kelahiran  extends CI_Controller
 
     public function cetak_laporan_kelahiran ()
     {
-     $tanggal = $this->input->post('tanggal');
-     $bulan = date('m', strtotime($tanggal));
+       $tanggal = $this->input->post('tanggal');
+       $bulan = date('m', strtotime($tanggal));
 
-     $data['keterangan'] = 'Permohonan Surat Kelahiran';
-     $data['laporan'] = $this->M_kelahiran->cetak_laporan($bulan);
-     $this->load->view('Admin/Cetak_laporan.php',$data);
+       $data['keterangan'] = 'Permohonan Surat Kelahiran';
+       $data['laporan'] = $this->M_kelahiran->cetak_laporan($bulan);
+       $this->load->view('Admin/Cetak_laporan_kelahiran.php',$data);
 
- }
+   }
 
- public function cek_warga()
- {
+   public function cek_warga()
+   {
     $data = (object)array();
     $nik = $this->input->post('input_check_nik');
         // $nis = '2022001';
@@ -165,14 +165,14 @@ public function add()
 
 
                 $data = array(
-                 'kode_permohonan' => $kode_permohonan,
-                 'nik' => $nik,
-                 'kebutuhan' => $kebutuhan,
-                 'status' => $status,
-                 'file_pemohon' => $file,
-                 'nama_user' => $nama_user,
-                 'tanggal' => $tanggal
-             );
+                   'kode_permohonan' => $kode_permohonan,
+                   'nik' => $nik,
+                   'kebutuhan' => $kebutuhan,
+                   'status' => $status,
+                   'file_pemohon' => $file,
+                   'nama_user' => $nama_user,
+                   'tanggal' => $tanggal
+               );
 
                 $this->M_kelahiran->input_data($data, 'tbl_surat_kelahiran');
                 echo $this->session->set_flashdata('msg', 'success');

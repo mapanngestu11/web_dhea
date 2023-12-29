@@ -74,7 +74,9 @@
           <h6 class="collapse-header">Cetak Laporan</h6>
           <a class="collapse-item" href="<?php echo base_url('Admin/Ktp/laporan_ktp') ?>">KTP Baru</a>
           <a class="collapse-item" href="<?php echo base_url('Admin/Pendatang/laporan_pendatang') ?>">Surat Pendatang</a>
+          <a class="collapse-item" href="<?php echo base_url('Admin/Pendatang/laporan_pindah') ?>">Surat Pindah</a>
           <a class="collapse-item" href="<?php echo base_url('Admin/Kelahiran/laporan_kelahiran') ?>">Surat Kelahiran</a>
+          <a class="collapse-item" href="<?php echo base_url('Admin/Kematian/laporan_kematian') ?>">Surat Kematian</a>
         </div>
       </div>
     </li>

@@ -15,10 +15,10 @@
         <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800"><span class="badge badge-primary">Laporan Kelahiran</span></h1>
+            <h1 class="h3 mb-0 text-gray-800"><span class="badge badge-primary">Laporan Pindah</span></h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="<?php echo base_url('Admin/Homepage/') ?>">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Laporan Kelahiran</li>
+              <li class="breadcrumb-item active" aria-current="page">Laporan Pindah</li>
             </ol>
           </div>
 
@@ -28,14 +28,14 @@
             <div class="col-lg-12">
               <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Laporan Kelahiran</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Laporan Pindah</h6>
                   <style type="text/css">
                     .btn-cetak{
                       margin-top: 36px;
                     }
                   </style>
 
-                  <form action="<?php echo base_url() . 'Admin/Kelahiran/cetak_laporan_kelahiran'; ?>" method="POST">
+                  <form action="<?php echo base_url() . 'Admin/Pendatang/cetak_laporan_pindah'; ?>" method="POST">
                     <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
@@ -48,129 +48,118 @@
                       </div>
                     </div>
 
-
-
-                    <!-- end modal -->
                   </div>
                   <div class="table-responsive p-3">
                     <table class="table align-items-center table-flush" id="dataTable">
                       <thead class="thead-light">
                         <tr>
+                          <th>No</th>
+                          <th>Kode Permohonan</th>
+                          <th>Nik</th>
+                          <th>Nama</th>
+
+                          <th>Status</th>
+
+                        </tr>
+                      </thead>
+                      <tfoot>
+                        <tr>
                          <th>No</th>
                          <th>Kode Permohonan</th>
-                         <th>Nama Anak</th>
-                         <th>Jenis Kelamin</th>
-                         <th>Nama Ayah</th>
-                         <th>Nama Ibu</th>
-                         
+                         <th>Nik</th>
+                         <th>Nama</th>
+
                          <th>Status</th>
+
                        </tr>
-                     </thead>
-                     <tfoot>
-                      <tr>
-                       <th>No</th>
-                       <th>Kode Permohonan</th>
-                       <th>Nama Anak</th>
-                       <th>Jenis Kelamin</th>
-                       <th>Nama Ayah</th>
-                       <th>Nama Ibu</th>
+                     </tfoot>
+                     <tbody>
+                      <?php
+                      $no = 0;
+                      foreach ($pindah->result_array() as $row) :
 
-                       <th>Status</th>
+                        $no++;
+                        $id_surat_pindah           = $row['id_surat_pindah'];
+                        $nik     = $row['nik'];
+                        $nama = $row['nama'];
+                        $kode_permohonan = $row['kode_permohonan'];
+                        $status = $row['status'];
+                        ?>
+                        <tr>
+                          <td><?php echo $no ?></td>
+                          <td><?php echo $kode_permohonan ?></td>
+                          <td><?php echo $nik ?></td>
+                          <td><?php echo $nama ?></td>
 
-                     </tr>
-                   </tfoot>
-                   <tbody>
-                    <?php
-                    $no = 0;
-                    foreach ($kelahiran->result_array() as $row) :
+                          <td>
+                            <?php if ($status == '1') { ?>
+                              <span class="badge badge-success">Sudah</span>
+                            <?php }else{ ?>
+                             <span class="badge badge-warning">Proses</span>
+                           <?php }?>
 
-                      $no++;
-                      $id_surat_kelahiran           = $row['id_surat_kelahiran'];
-                      $kode_permohonan = $row['kode_permohonan'];
-                      $nama = $row['nama_anak'];
-                      $jenis_kelamin = $row['jenis_kelamin'];
-                      $nama_ayah = $row['nama_ayah'];
-                      $nama_ibu = $row['nama_ibu'];
+                         </td>
+                       <?php endforeach; ?>
 
-                      $status = $row['status'];
-                      ?>
-                      <tr>
-                        <td><?php echo $no ?></td>
-                        <td><?php echo $kode_permohonan ?></td>
-                        <td><?php echo $nama ?></td>
-                        <td><?php echo $jenis_kelamin ?></td>
-                        <td><?php echo $nama_ayah ?></td>
-                        <td><?php echo $nama_ibu ?></td>
-                        <td>
-                          <?php if ($status == '1') { ?>
-                            <span class="badge badge-success">Sudah</span>
-                          <?php }else{ ?>
-                           <span class="badge badge-warning">Proses</span>
-                         <?php }?>
-
-                       </td>
-
-                     <?php endforeach; ?>
-
-                   </tbody>
-                 </table>
+                     </tbody>
+                   </table>
+                 </div>
                </div>
              </div>
+
            </div>
+           <!--Row-->
 
-         </div>
-         <!--Row-->
-
-         <!-- Documentation Link -->
-         <div class="row">
-          <div class="col-lg-12">
-            <p>DataTables is a third party plugin that is used to generate the demo table below. For more information
-              about DataTables, please visit the official <a href="https://datatables.net/" target="_blank">DataTables
-              documentation.</a></p>
+           <!-- Documentation Link -->
+           <div class="row">
+            <div class="col-lg-12">
+              <p>DataTables is a third party plugin that is used to generate the demo table below. For more information
+                about DataTables, please visit the official <a href="https://datatables.net/" target="_blank">DataTables
+                documentation.</a></p>
+              </div>
             </div>
+
+
           </div>
-
-
+          <!---Container Fluid-->
         </div>
-        <!---Container Fluid-->
+
+
+        
+        <!-- Footer -->
+        <?php include 'Part/Footer.php';?>
+        <!-- Footer -->
       </div>
-
-
-
-      <!-- Footer -->
-      <?php include 'Part/Footer.php';?>
-      <!-- Footer -->
     </div>
-  </div>
 
-  <!-- Scroll to top -->
-  <a class="scroll-to-top rounded" href="#page-top">
-    <i class="fas fa-angle-up"></i>
-  </a>
+    <!-- Scroll to top -->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
 
-  <?php include 'Part/Js.php';?>
+    <?php include 'Part/Js.php';?>
 
-  <!-- Page level custom scripts -->
-  <script type="text/javascript">
-    function check_nik() {
+    <!-- Page level custom scripts -->
+    <script type="text/javascript">
+      function check_nik() {
 
-      var input_check_nik = $('[name="nik"]').val();
+        var input_check_nik = $('[name="nik"]').val();
 
-      $.ajax({
-        url: "<?= site_url('admin/ktp/cek_warga/') ?>",
-        type: "POST",
-        dataType: "JSON",
-        data: {
-          input_check_nik: input_check_nik
-        },
+        $.ajax({
+          url: "<?= site_url('admin/ktp/cek_warga/') ?>",
+          type: "POST",
+          dataType: "JSON",
+          data: {
+            input_check_nik: input_check_nik
+          },
 
-        success: function(data) {
+          success: function(data) {
 
-          if (data.result != '' ) {
+            if (data.result != '' ) {
                // alert(data.result[0].nik);
                document.getElementById("tambah_warga").style.display = "block";      
                $('#nik').val(data.result[0].nik);
-               $('#nama_lengkap').val(data.result[0].nama_lengkap);
+               $('#nama').val(data.result[0].nama);
                 // console.log(data.result[0].nik);
               }else{
                alert("Nik Tidak Ditemukan");
@@ -181,11 +170,11 @@
 
            }
          })
-    }
-  </script>
+      }
+    </script>
 
-  <script>
-    $(document).ready(function () {
+    <script>
+      $(document).ready(function () {
       $('#dataTable').DataTable(); // ID From dataTable 
       $('#dataTableHover').DataTable(); // ID From dataTable with Hover
     });

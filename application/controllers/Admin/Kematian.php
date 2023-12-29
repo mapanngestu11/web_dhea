@@ -92,7 +92,7 @@ class Kematian  extends CI_Controller
 
      $data['keterangan'] = 'Permohonan Surat Kematian';
      $data['laporan'] = $this->M_kematian->cetak_laporan($bulan);
-     $this->load->view('Admin/Cetak_laporan.php',$data);
+     $this->load->view('Admin/Cetak_laporan_kematian.php',$data);
 
  }
 
