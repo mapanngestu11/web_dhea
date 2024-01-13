@@ -1,7 +1,17 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+// Load Composer's autoloader
+require 'vendor/autoload.php';
+
+
 class Kematian  extends CI_Controller
 {
+
 
   function __construct()
   {

@@ -71,9 +71,9 @@ class Pendatang  extends CI_Controller
             $mail->Body    = '<h1>Halo,' .$nama. '.</h1> <p> Permohonan Surat kamu dengan nomor : <strong>' .$kode_permohonan. ' </strong>, Sudah selesai anda bisa langsung untuk mengambilnya di Kelurahan Karang Timur. Note Pesan : ' .$pesan. '</p> ';
 
             if ($mail->send()) {
-               echo $this->session->set_flashdata('msg', 'success');
-               redirect('Admin/Pendatang');
-           } else {
+             echo $this->session->set_flashdata('msg', 'success');
+             redirect('Admin/Pendatang');
+         } else {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
 
@@ -82,6 +82,8 @@ class Pendatang  extends CI_Controller
     public function laporan_pendatang()
     {
         $data['pendatang'] = $this->M_pendatang->tampil_data();
+        // var_dump($data);
+
         $this->load->view('Admin/List.laporan.pendatang.php', $data);
     }
 
@@ -93,27 +95,62 @@ class Pendatang  extends CI_Controller
 
     public function cetak_laporan_pendatang ()
     {
-       $tanggal = $this->input->post('tanggal');
-       $bulan = date('m', strtotime($tanggal));
+     $tanggal = $this->input->post('tanggal');
+     $bulan = date('m', strtotime($tanggal));
 
-       $data['keterangan'] = 'Permohonan Pendatang Baru';
-       $data['laporan'] = $this->M_pendatang->cetak_laporan($bulan);
-       $this->load->view('Admin/Cetak_laporan.php',$data);
+     $cek_bulan = date('F', strtotime($tanggal));
 
-   }
-   public function cetak_laporan_pindah ()
-   {
-       $tanggal = $this->input->post('tanggal');
-       $bulan = date('m', strtotime($tanggal));
+     $data['keterangan'] = 'Permohonan Surat Pendatang';
+     $data['laporan'] = $this->M_pendatang->cetak_laporan($bulan);
+     $jumlah = $this->M_pendatang->cetak_laporan_jumlah ($bulan);
+     $setuju = $this->M_pendatang->cetak_laporan_setuju ($bulan);
+     $proses = $this->M_pendatang->cetak_laporan_proses ($bulan);
+     $tolak = $this->M_pendatang->cetak_laporan_tolak ($bulan);
 
-       $data['keterangan'] = 'Permohonan Pindah';
-       $data['laporan'] = $this->M_pindah->cetak_laporan($bulan);
-       $this->load->view('Admin/Cetak_laporan.php',$data);
 
-   }
 
-   public function cek_warga()
-   {
+     $data['informasi'] = array( 
+        'bulan' => $cek_bulan,
+        'jumlah' => $jumlah,
+        'setuju' => $setuju,
+        'proses' => $proses,
+        'tolak' => $tolak,
+
+    );
+
+
+     $this->load->view('Admin/Cetak_laporan.php',$data);
+
+ }
+ public function cetak_laporan_pindah ()
+ {
+     $tanggal = $this->input->post('tanggal');
+     $bulan = date('m', strtotime($tanggal));
+     $cek_bulan = date('F', strtotime($tanggal));
+
+     $data['keterangan'] = 'Permohonan Surat Pindah';
+     $data['laporan'] = $this->M_pindah->cetak_laporan($bulan);
+     $jumlah = $this->M_pindah->cetak_laporan_jumlah ($bulan);
+     $setuju = $this->M_pindah->cetak_laporan_setuju ($bulan);
+     $proses = $this->M_pindah->cetak_laporan_proses ($bulan);
+     $tolak = $this->M_pindah->cetak_laporan_tolak ($bulan);
+
+
+
+     $data['informasi'] = array( 
+        'bulan' => $cek_bulan,
+        'jumlah' => $jumlah,
+        'setuju' => $setuju,
+        'proses' => $proses,
+        'tolak' => $tolak,
+
+    );
+     $this->load->view('Admin/Cetak_laporan.php',$data);
+
+ }
+
+ public function cek_warga()
+ {
     $data = (object)array();
     $nik = $this->input->post('input_check_nik');
         // $nis = '2022001';
@@ -182,14 +219,14 @@ public function add()
 
 
                 $data = array(
-                 'kode_permohonan' => $kode_permohonan,
-                 'nik' => $nik,
-                 'kebutuhan' => $kebutuhan,
-                 'status' => $status,
-                 'file_pemohon' => $file,
-                 'nama_user' => $nama_user,
-                 'tanggal' => $tanggal
-             );
+                   'kode_permohonan' => $kode_permohonan,
+                   'nik' => $nik,
+                   'kebutuhan' => $kebutuhan,
+                   'status' => $status,
+                   'file_pemohon' => $file,
+                   'nama_user' => $nama_user,
+                   'tanggal' => $tanggal
+               );
 
                 $this->M_pendatang->input_data($data, 'tbl_surat_datang');
                 echo $this->session->set_flashdata('msg', 'success');
@@ -303,7 +340,59 @@ public function add()
                 'id_surat_datang' => $id_surat_datang
             );
 
+
+
+
             $this->M_pendatang->update_data($where,$data,'tbl_surat_datang');
+
+            $data = $this->M_pendatang->cek_data_surat($id_surat_datang)->result();
+
+            $cek_email = $data['0']->email;
+            $kode_permohonan =  $data['0']->kode_permohonan;
+            $nama = $data['0']->nama;
+
+            
+
+            $mail = new PHPMailer(true);
+
+            $pesan              = $keterangan;
+            $nama_pengirim      = $this->input->post('nama_pengirim');
+            $email              =  $cek_email;
+            if ($status  == '1') {
+                $cek_status = 'Di Setujui';
+            } elseif ($status == '2') {
+                $cek_status = 'Di Tolak';
+            } elseif ($status == '0') {
+                $cek_status = 'Masih Menunggu';
+            }
+
+
+            $mail->isSMTP();      
+
+            $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+            $mail->Username   = 'Maulanaagung543@gmail.com';   
+            $mail->Password   = 'axsxzmeoojdrtzop';                  // SMTP username
+            
+            // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->Port       = 587;                                    // TCP port to connect to, use 465 for 
+            $mail->setFrom('Maulanaagung543@gmail.com');
+            $mail->addAddress($email, $nama_pengirim);     // Add a recipient
+
+            $mail->addReplyTo('Maulanaagung543@gmail.com');
+
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = 'Informasi Permohonan Pendatang Kelurahan Karang Timur';
+            $mail->Body    = '<h1>Halo,' .$nama. '.</h1> <p> Permohonan Surat kamu dengan nomor : <strong>' .$kode_permohonan. ' </strong>, Saat ini sedang tahap : <strong> '.$cek_status.' </strong> , Keterangan lebih lanjut sebagai berikut : ' .$pesan. '</p> ';
+
+            if ($mail->send()) {
+             // echo $this->session->set_flashdata('msg', 'success');
+             // redirect('Admin/Ktp');
+            } else {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+
+
             echo $this->session->set_flashdata('msg', 'success_update');
             redirect('Admin/Pendatang');
         }

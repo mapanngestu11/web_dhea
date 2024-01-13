@@ -1,5 +1,13 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+// Load Composer's autoloader
+require 'vendor/autoload.php';
+
+
 class Kelahiran  extends CI_Controller
 {
 
@@ -161,32 +169,61 @@ class Kelahiran  extends CI_Controller
                      'kode_permohonan' => $kode_permohonan,
                      'nama' => $nama_ayah
                    );
-                    $this->load->view('Front/Info.php',$data);
-
-                  } else {
-                    echo $this->session->set_flashdata('msg', 'warning-surat');
-                    $this->load->view('Front/Homepage.php');
-                  }
-                } 
-
-              } else {
-               echo $this->session->set_flashdata('msg', 'warning-surat');
-               $this->load->view('Front/Homepage.php');
-             }
-           } 
-
-         } else {
-          echo $this->session->set_flashdata('msg', 'warning-surat');
-          $this->load->view('Front/Homepage.php');
-        }
-      } 
-    }
-
-    public function input_data_surat_kematian()
-    {
 
 
-      date_default_timezone_set("Asia/Jakarta");
+                    $mail = new PHPMailer(true);
+
+                    $nama_pengirim =  'Admin Kelurahan Karang Timur';
+                    $mail->isSMTP();      
+
+            $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+            $mail->Username   = 'Maulanaagung543@gmail.com';   
+            $mail->Password   = 'axsxzmeoojdrtzop';                  // SMTP username
+            
+            // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->Port       = 587;                                    // TCP port to connect to, use 465 for 
+            $mail->setFrom('Maulanaagung543@gmail.com');
+            $mail->addAddress($email, $nama_pengirim);     // Add a recipient
+
+            $mail->addReplyTo('Maulanaagung543@gmail.com');
+
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = 'Informasi Permohonan Surat Kelahiran Kelurahan Karang Timur';
+            $mail->Body    = '<h1>Terima Kasih, <strong>' .$nama. ' </strong> .</h1> <p>Informasi anda sudah dikirmkan ke dalam database kami, Mohon untuk menunggu 2 - 3 Hari untuk proses pengajuan. Anda bisa melihat status pada pengajuan surat pada kode : <strong>' .$kode_permohonan. '</strong> dan kami akan menghubungi melalui email / nomor handphone yang sudah ada cantumkan. </p>';
+
+            if ($mail->send()) {
+                // echo "yee sukses";
+            } else {
+              echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
+
+            $this->load->view('Front/Info.php',$data);
+
+          } else {
+            echo $this->session->set_flashdata('msg', 'warning-surat');
+            $this->load->view('Front/Homepage.php');
+          }
+        } 
+
+      } else {
+       echo $this->session->set_flashdata('msg', 'warning-surat');
+       $this->load->view('Front/Homepage.php');
+     }
+   } 
+
+ } else {
+  echo $this->session->set_flashdata('msg', 'warning-surat');
+  $this->load->view('Front/Homepage.php');
+}
+} 
+}
+
+public function input_data_surat_kematian()
+{
+
+
+  date_default_timezone_set("Asia/Jakarta");
         $config['upload_path'] = './assets/upload/'; //path folder
         $config['allowed_types'] = 'jpg|png|jpeg|pdf'; //type yang dapat diakses bisa anda sesuaikan
         $config['encrypt_name'] = TRUE; //nama yang terupload nantinya
@@ -310,63 +347,89 @@ class Kelahiran  extends CI_Controller
 
                   $response = curl_exec($curl);
 
-                  
-                  $this->load->view('Front/Info.php',$data);
+                  $mail = new PHPMailer(true);
 
-                } else {
-                  echo $this->session->set_flashdata('msg', 'warning-surat');
-                  $this->load->view('Front/Homepage.php');
-                }
-              } 
+                  $nama_pengirim =  'Admin Kelurahan Karang Timur';
+                  $mail->isSMTP();      
 
+            $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+            $mail->Username   = 'Maulanaagung543@gmail.com';   
+            $mail->Password   = 'axsxzmeoojdrtzop';                  // SMTP username
+            
+            // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->Port       = 587;                                    // TCP port to connect to, use 465 for 
+            $mail->setFrom('Maulanaagung543@gmail.com');
+            $mail->addAddress($email, $nama_pengirim);     // Add a recipient
+
+            $mail->addReplyTo('Maulanaagung543@gmail.com');
+
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = 'Informasi Permohonan Surat Kematian Kelurahan Karang Timur';
+            $mail->Body    = '<h1>Terima Kasih, <strong>' .$nama. ' </strong> .</h1> <p>Informasi anda sudah dikirmkan ke dalam database kami, Mohon untuk menunggu 2 - 3 Hari untuk proses pengajuan. Anda bisa melihat status pada pengajuan surat pada kode : <strong>' .$kode_permohonan. '</strong> dan kami akan menghubungi melalui email / nomor handphone yang sudah ada cantumkan. </p>';
+
+            if ($mail->send()) {
+                // echo "yee sukses";
             } else {
-             echo $this->session->set_flashdata('msg', 'warning-surat');
-             $this->load->view('Front/Homepage.php');
-           }
-         } 
+              echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
 
-       } else {
-        echo $this->session->set_flashdata('msg', 'warning-surat');
-        $this->load->view('Front/Homepage.php');
-      }
-    } 
+            $this->load->view('Front/Info.php',$data);
+
+          } else {
+            echo $this->session->set_flashdata('msg', 'warning-surat');
+            $this->load->view('Front/Homepage.php');
+          }
+        } 
+
+      } else {
+       echo $this->session->set_flashdata('msg', 'warning-surat');
+       $this->load->view('Front/Homepage.php');
+     }
+   } 
+
+ } else {
+  echo $this->session->set_flashdata('msg', 'warning-surat');
+  $this->load->view('Front/Homepage.php');
+}
+} 
+}
+
+
+public function cek_permohonan()
+{
+  $kode_permohonan = $this->input->post('kode_permohonan');
+  $hasil = $this->M_kelahiran->cek_kode_permohonan($kode_permohonan)->result();
+
+  $status = $hasil[0]->status;
+  $keterangan = $hasil[0]->keterangan;
+  $file_surat = $hasil[0]->file_surat;
+
+
+
+  if ($status == '1') {   
+    $data['hasil'] = array(
+      'status' => $status,
+      'keterangan' => $keterangan,
+      'file_surat' => $file_surat
+
+    );
+    $this->load->view('Front/Hasil_ktp.php',$data);
+
+  }else{
+    echo $this->session->set_flashdata('msg', 'proses');
+    redirect('Kelahiran');
   }
 
+}
 
-  public function cek_permohonan()
-  {
-    $kode_permohonan = $this->input->post('kode_permohonan');
-    $hasil = $this->M_kelahiran->cek_kode_permohonan($kode_permohonan)->result();
+public function add()
+{
+  $nik = $this->input->post('nik');
+  $hasil = $this->M_kelahiran->cek_ktp($nik)->result();
 
-    $status = $hasil[0]->status;
-    $keterangan = $hasil[0]->keterangan;
-    $file_surat = $hasil[0]->file_surat;
-
-
-
-    if ($status == '1') {   
-      $data['hasil'] = array(
-        'status' => $status,
-        'keterangan' => $keterangan,
-        'file_surat' => $file_surat
-
-      );
-      $this->load->view('Front/Hasil_ktp.php',$data);
-
-    }else{
-      echo $this->session->set_flashdata('msg', 'proses');
-      redirect('Kelahiran');
-    }
-
-  }
-
-  public function add()
-  {
-    $nik = $this->input->post('nik');
-    $hasil = $this->M_kelahiran->cek_ktp($nik)->result();
-
-    if ($hasil) {
-     date_default_timezone_set("Asia/Jakarta");
+  if ($hasil) {
+   date_default_timezone_set("Asia/Jakarta");
         $config['upload_path'] = './assets/upload/'; //path folder
         $config['allowed_types'] = 'jpg|png|jpeg|pdf'; //type yang dapat diakses bisa anda sesuaikan
         $config['encrypt_name'] = TRUE; //nama yang terupload nantinya

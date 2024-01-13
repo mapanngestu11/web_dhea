@@ -103,7 +103,18 @@
                 <div class="col-2">
                    <div class="input-group">
                     <label class="label">Pendidikan</label>
-                    <input class="input--style-4" type="text" name="pendidikan" required="">
+                    <div class="rs-select2 js-select-simple select--no-search">
+                        <select name="pendidikan" required="">
+                            <option disabled="disabled" selected="selected"> Pilih</option>
+                            <option value="SD"> SD </option>
+                            <option value="SMP"> SMP </option>
+                            <option value="SMA"> SMA </option>
+                            <option value="DIPLOMA"> DIPLOMA </option>
+                            <option value="S1"> S1 </option>
+
+                        </select>
+                        <div class="select-dropdown"></div>
+                    </div>
                 </div>
             </div>
         </div>

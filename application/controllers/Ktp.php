@@ -1,5 +1,13 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+// Load Composer's autoloader
+require 'vendor/autoload.php';
+
 class Ktp  extends CI_Controller
 {
 
@@ -121,6 +129,8 @@ class Ktp  extends CI_Controller
                                  'tanggal' => $tanggal
                              );
 
+
+
                                 $this->M_ktp->input_data($data, 'tbl_ktp');
 
                                 $data['informasi'] = array(
@@ -152,68 +162,100 @@ class Ktp  extends CI_Controller
                               ));
 
                                 $response = curl_exec($curl);
-
+                                // var_dump($response);
+                                // die();
                                 curl_close($curl);
-                                echo $response;
-                                $this->load->view('Front/Info.php',$data);
-
-                            } else {
-                                echo $this->session->set_flashdata('msg', 'warning-surat');
-                                $this->load->view('Front/Homepage.php');
-                            }
-                        } 
+                                // echo $response;
 
 
 
-                    } else {
-                        echo $this->session->set_flashdata('msg', 'warning-surat');
-                        $this->load->view('Front/Homepage.php');
-                    }
-                } 
 
+                                $mail = new PHPMailer(true);
+
+                                $nama_pengirim =  'Admin Kelurahan Karang Timur';
+                                $mail->isSMTP();      
+
+            $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+            $mail->Username   = 'Maulanaagung543@gmail.com';   
+            $mail->Password   = 'axsxzmeoojdrtzop';                  // SMTP username
+            
+            // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->Port       = 587;                                    // TCP port to connect to, use 465 for 
+            $mail->setFrom('Maulanaagung543@gmail.com');
+            $mail->addAddress($email, $nama_pengirim);     // Add a recipient
+
+            $mail->addReplyTo('Maulanaagung543@gmail.com');
+
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = 'Informasi Permohonan KTP Kelurahan Karang Timur';
+            $mail->Body    = '<h1>Terima Kasih, <strong>' .$nama. ' </strong> .</h1> <p>Informasi anda sudah dikirmkan ke dalam database kami, Mohon untuk menunggu 2 - 3 Hari untuk proses pengajuan. Anda bisa melihat status pada pengajuan surat pada kode : <strong>' .$kode_permohonan. '</strong> dan kami akan menghubungi melalui email / nomor handphone yang sudah ada cantumkan. </p>';
+
+            if ($mail->send()) {
+                // echo "yee sukses";
             } else {
-                echo $this->session->set_flashdata('msg', 'warning-surat');
-                $this->load->view('Front/Homepage.php');
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
             }
-        } 
-    }
 
+            $this->load->view('Front/Info.php',$data);
 
-
-    public function cek_permohonan()
-    {
-        $kode_permohonan = $this->input->post('kode_permohonan');
-        $hasil = $this->M_ktp->cek_kode_permohonan($kode_permohonan)->result();
-
-        $status = $hasil[0]->status;
-        $keterangan = $hasil[0]->keterangan;
-        $file_surat = $hasil[0]->file_surat;
-
-
-
-        if ($status == '1') {   
-            $data['hasil'] = array(
-                'status' => $status,
-                'keterangan' => $keterangan,
-                'file_surat' => $file_surat
-
-            );
-            $this->load->view('Front/Hasil_ktp.php',$data);
-
-        }else{
-            echo $this->session->set_flashdata('msg', 'proses');
-            redirect('Ktp');
+        } else {
+            echo $this->session->set_flashdata('msg', 'warning-surat');
+            $this->load->view('Front/Homepage.php');
         }
+    } 
 
+
+
+} else {
+    echo $this->session->set_flashdata('msg', 'warning-surat');
+    $this->load->view('Front/Homepage.php');
+}
+} 
+
+} else {
+    echo $this->session->set_flashdata('msg', 'warning-surat');
+    $this->load->view('Front/Homepage.php');
+}
+} 
+}
+
+
+
+public function cek_permohonan()
+{
+    $kode_permohonan = $this->input->post('kode_permohonan');
+    $hasil = $this->M_ktp->cek_kode_permohonan($kode_permohonan)->result();
+
+    $status = $hasil[0]->status;
+    $keterangan = $hasil[0]->keterangan;
+    $file_surat = $hasil[0]->file_surat;
+
+
+
+    if ($status == '1') {   
+        $data['hasil'] = array(
+            'status' => $status,
+            'keterangan' => $keterangan,
+            'file_surat' => $file_surat
+
+        );
+        $this->load->view('Front/Hasil_ktp.php',$data);
+
+    }else{
+        echo $this->session->set_flashdata('msg', 'proses');
+        redirect('Ktp');
     }
 
-    public function add()
-    {
+}
+
+public function add()
+{
         // $nik = $this->input->post('nik');
         // // $hasil = $this->M_ktp->cek_ktp($nik)->result();
 
 
-     date_default_timezone_set("Asia/Jakarta");
+ date_default_timezone_set("Asia/Jakarta");
         $config['upload_path'] = './assets/upload/'; //path folder
         $config['allowed_types'] = 'jpg|png|jpeg|pdf'; //type yang dapat diakses bisa anda sesuaikan
         $config['encrypt_name'] = TRUE; //nama yang terupload nantinya

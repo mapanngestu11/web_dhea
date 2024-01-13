@@ -157,5 +157,54 @@ function cetak_laporan($bulan)
   $query = $this->db->get()->result();
   return $query;
 }
+function cetak_laporan_jumlah($bulan)
+{
+  $this->db->select('Count(id_surat_kematian) as jumlah ');
+  $this->db->from('tbl_surat_kematian');
+
+  $this->db->where('MONTH(tanggal)',$bulan);
+  $this->db->order_by('id_surat_kematian');
+
+  $query = $this->db->get()->result();
+  return $query;
+}
+
+function cetak_laporan_setuju($bulan)
+{
+  $this->db->select('Count(id_surat_kematian) as jumlah_setuju ');
+  $this->db->from('tbl_surat_kematian');
+
+  $this->db->where('MONTH(tanggal)',$bulan);
+  $this->db->where('status','1');
+  $this->db->order_by('id_surat_kematian');
+
+  $query = $this->db->get()->result();
+  return $query;
+}
+
+function cetak_laporan_proses($bulan)
+{
+  $this->db->select('Count(id_surat_kematian) as jumlah_proses ');
+  $this->db->from('tbl_surat_kematian');
+
+  $this->db->where('MONTH(tanggal)',$bulan);
+  $this->db->where('status','0');
+  $this->db->order_by('id_surat_kematian');
+
+  $query = $this->db->get()->result();
+  return $query;
+}
+function cetak_laporan_tolak($bulan)
+{
+  $this->db->select('Count(id_surat_kematian) as jumlah_tolak ');
+  $this->db->from('tbl_surat_kematian');
+
+  $this->db->where('MONTH(tanggal)',$bulan);
+  $this->db->where('status','2');
+  $this->db->order_by('id_surat_kematian');
+
+  $query = $this->db->get()->result();
+  return $query;
+}
 
 }

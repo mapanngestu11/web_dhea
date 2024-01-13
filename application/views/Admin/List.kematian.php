@@ -183,361 +183,365 @@
                         <td>
                           <?php if ($status == '1') { ?>
                             <span class="badge badge-success">Sudah</span>
-                          <?php }else{ ?>
-                           <span class="badge badge-warning">Proses</span>
-                         <?php }?>
+                          <?php }elseif($status == '2'){ ?>
+                            <span class="badge badge-danger">DiTolak</span>
+                          <?php }elseif($status == '0'){?>
+                            <span class="badge badge-primary">Proses</span>
+                          <?php }?>
+                        </td>
 
-                       </td>
-                       <td>
-                        <div class="form-button-action">
-                          <a class="btn btn-link btn-primary btn-lg" data-toggle="modal" data-target="#ModalEdit<?php echo $id_surat_kematian; ?>"><span class="fa fa-edit" style="color:white;"></span></a>
-                          <a class="btn btn-link btn-danger btn-lg" data-toggle="modal" data-target="#ModalHapus<?php echo $id_surat_kematian; ?>"><i class=" fa fa-times" data-original-title="Edit Task" style="color:white;"></i></a>
-                          <a class="btn btn-link btn-warning btn-lg" data-toggle="modal" data-target="#ModalEmail<?php echo $id_surat_kematian; ?>"><i class=" fa fa-envelope" data-original-title="Edit Task" style="color:white;"></i></a>
-                        </div>
-                      </td>
-                    <?php endforeach; ?>
+                        <td>
+                          <div class="form-button-action">
+                            <a class="btn btn-link btn-primary btn-lg" data-toggle="modal" data-target="#ModalEdit<?php echo $id_surat_kematian; ?>"><span class="fa fa-edit" style="color:white;"></span></a>
+                            <a class="btn btn-link btn-danger btn-lg" data-toggle="modal" data-target="#ModalHapus<?php echo $id_surat_kematian; ?>"><i class=" fa fa-times" data-original-title="Edit Task" style="color:white;"></i></a>
+                            <!-- <a class="btn btn-link btn-warning btn-lg" data-toggle="modal" data-target="#ModalEmail<?php echo $id_surat_kematian; ?>"><i class=" fa fa-envelope" data-original-title="Edit Task" style="color:white;"></i></a> -->
+                          </div>
+                        </td>
+                      <?php endforeach; ?>
 
-                  </tbody>
-                </table>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!--Row-->
+
+          <!-- Documentation Link -->
+          <div class="row">
+            <div class="col-lg-12">
+              <p>DataTables is a third party plugin that is used to generate the demo table below. For more information
+                about DataTables, please visit the official <a href="https://datatables.net/" target="_blank">DataTables
+                documentation.</a></p>
+              </div>
+            </div>
+
+
+          </div>
+          <!---Container Fluid-->
+        </div>
+
+
+        <!-- modal hapus -->
+        <?php foreach ($kematian->result_array() as $row) :
+          $id_surat_kematian = $row['id_surat_kematian'];
+          $nama = $row['nama'];
+          ?>
+          <div class="modal fade" id="ModalHapus<?php echo $id_surat_kematian; ?>" tabindex="-1" role="dialog" aria-labelledby="">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <!--    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button> -->
+                  <h4 class="modal-title" id="myModalLabel">Hapus Data</h4>
+                </div>
+                <form class="form-horizontal" action="<?php echo base_url() . 'Admin/Kematian/delete' ?>" method="post">
+                  <div class="modal-body">
+                    <input type="hidden" name="id_surat_kematian" value="<?php echo $id_surat_kematian; ?>" />
+
+                    <p>Apakah Anda yakin mau menghapus <b><?php echo $nama; ?></b> ?</p>
+
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">
+                      <i class="bx bx-x d-block d-sm-none"></i>
+                      <span class="d-none d-sm-block">Batal</span>
+                    </button>
+                    <button type="submit" class="btn btn-primary btn-flat" id="simpan">Hapus</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
-
-        </div>
-        <!--Row-->
-
-        <!-- Documentation Link -->
-        <div class="row">
-          <div class="col-lg-12">
-            <p>DataTables is a third party plugin that is used to generate the demo table below. For more information
-              about DataTables, please visit the official <a href="https://datatables.net/" target="_blank">DataTables
-              documentation.</a></p>
-            </div>
-          </div>
+        <?php endforeach; ?>
+        <!-- end modal hapus -->
 
 
-        </div>
-        <!---Container Fluid-->
-      </div>
+        <!-- modal edit -->
+        <?php foreach ($kematian->result_array() as $row) :
+          $id_surat_kematian = $row['id_surat_kematian'];
+
+          $keterangan =  $row['keterangan'];
+          $status = $row['status'];
+
+          $nik = $row['nik'];
+          $nama = $row['nama'];
+          $tgl_lahir = $row['tgl_lahir'];
+          $tgl_kematian = $row['tgl_kematian'];
+          $jenis_kelamin = $row['jenis_kelamin'];
+
+          $nik_pelapor = $row['nik_pelapor'];
+          $nama_pelapor = $row['nama_pelapor'];
+          $no_telp = $row['no_telp'];
+          $email = $row['email'];
+          $alamat = $row['alamat'];
+
+          $ktp = $row['ktp'];
+          $kk = $row['kk'];
+          $lampiran_surat = $row['lampiran_surat'];
 
 
-      <!-- modal hapus -->
-      <?php foreach ($kematian->result_array() as $row) :
-        $id_surat_kematian = $row['id_surat_kematian'];
-        $nama = $row['nama'];
-        ?>
-        <div class="modal fade" id="ModalHapus<?php echo $id_surat_kematian; ?>" tabindex="-1" role="dialog" aria-labelledby="">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <!--    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button> -->
-                <h4 class="modal-title" id="myModalLabel">Hapus Data</h4>
-              </div>
-              <form class="form-horizontal" action="<?php echo base_url() . 'Admin/Kematian/delete' ?>" method="post">
+
+
+          ?>
+          <div class="modal fade " id="ModalEdit<?php echo $id_surat_kematian; ?>" role="dialog" aria-hidden="true" data-backdrop="static">>
+            <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="myModalLabel1">Update Data</h5>
+                  <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                    <i data-feather="x"></i>
+                  </button>
+                </div>
+                <style>
+                  .form-input {
+                    padding-top: 5px;
+                  }
+                </style>
+
                 <div class="modal-body">
-                  <input type="hidden" name="id_surat_kematian" value="<?php echo $id_surat_kematian; ?>" />
+                  <div class="modal-body">
+                    <form action="<?php echo base_url() . 'Admin/Kematian/update'; ?>" method="post" enctype="multipart/form-data">
+                      <div class="row">
+                        <div class="col-md-12">
+                          <label>Kode Permohonan</label>
+                          <div class="form-group form-input">
+                            <input type="text" name="kode_permohonan" value="<?php echo $row['kode_permohonan']; ?>" class="form-control" readonly>
+                            <input type="hidden" name="id_surat_kematian" value="<?php echo $id_surat_kematian;?>">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label>Nik</label>
+                          <div class="form-group form-input">
+                            <input type="text" name="nik" value="<?php echo $row['nik']; ?>" class="form-control" readonly>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <label>Nama</label>
+                          <div class="form-group form-input">
+                            <input type="text" name="nama" value="<?php echo $row['nama']; ?>" class="form-control" readonly>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <label>Jenis Kelamin</label>
+                          <div class="form-group form-input">
+                            <select class="form-control" name="jenis_kelamin" readonly>
+                              <option value="<?php echo $jenis_kelamin;?>"> <?php echo $jenis_kelamin;?></option>
+                              <option value="Laki-Laki">Laki-Laki</option>
+                              <option value="Perempuan">Perempuan</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>Tgl Lahir</label>
+                          <div class="form-group form-input" readonly>
+                            <input type="date" name="tgl_lahir" value="<?php echo $row['tgl_lahir']; ?>" class="form-control">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Tgl Kematian</label>
+                          <div class="form-group form-input" readonly>
+                            <input type="date" name="tgl_kematian" value="<?php echo $row['tgl_kematian']; ?>" class="form-control">
+                          </div>
+                        </div>
+                      </div>
 
-                  <p>Apakah Anda yakin mau menghapus <b><?php echo $nama; ?></b> ?</p>
+                      <strong class="mb-8">Data Anggota Keluarga</strong>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>Nik (Anggota Keluarga)</label>
+                          <div class="form-group form-input">
+                            <input type="text" name="nik_pelapor" value="<?php echo $row['nik_pelapor']; ?>" class="form-control" readonly>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Nama</label>
+                          <div class="form-group form-input">
+                            <input type="text" name="nama_pelapor" value="<?php echo $row['nama_pelapor']; ?>" class="form-control" readonly>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label>No Telp.</label>
+                          <div class="form-group form-input">
+                            <input type="text" name="no_telp" value="<?php echo $row['no_telp']; ?>" class="form-control" readonly>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label>Email</label>
+                          <div class="form-group form-input">
+                            <input type="email" name="email" value="<?php echo $row['email']; ?>" class="form-control" readonly>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <label>Alamat</label>
+                          <div class="form-group form-input">
+                            <input type="text" name="alamat" value="<?php echo $row['alamat']; ?>" class="form-control" readonly>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-4">
+                          <label>File KTP</label>
+                          <div class="form-group form-input">
+                            <a href="<?php echo base_url() . "assets/upload/"; ?><?php echo $row['ktp'];?>" target="_blank" class="btn btn-primary">File KTP</a>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <label>File KK</label>
+                          <div class="form-group form-input">
+                            <a href="<?php echo base_url() . "assets/upload/"; ?><?php echo $row['kk'];?>" target="_blank" class="btn btn-primary">File KK</a>
+                          </div>
+                        </div>
+                        <div class="col-md-4">
+                          <label>File Lampiran Surat</label>
+                          <div class="form-group form-input">
+                            <a href="<?php echo base_url() . "assets/upload/"; ?><?php echo $row['lampiran_surat'];?>" target="_blank" class="btn btn-primary">File Lampiran</a>
+                          </div>
+                        </div>
+                      </div>
 
+                      <div class="row">
+
+                        <div class="col-md-12">
+                          <label>Status</label>
+                          <div class="form-group form-input">
+                            <select class="form-control" name="status">
+                             <option value="<?php echo $status;?>">
+                              <?php 
+                              if ($status == '0') { ?>
+                                Masih Dalam Proses
+                              <?php }else if ($status == '1'){ ?>
+                                Di Setujui
+                              <?php }else if ($status == '2'){  ?>
+                                Di Tolak
+                              <?php } ?>
+                            </option>
+                            <option value="1">Di Setujui</option>
+                            <option value="2">Di Tolak</option>
+                            <option value="0">Masih Dalam Proses</option>
+                          </select>
+                        </div>
+
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <label>Keterangan</label>
+                        <div class="form-group form-input">
+                          <textarea class="form-control" name="keterangan" required=""><?php echo $keterangan;?></textarea>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <label>File Surat</label>
+                        <input type="file" name="file_surat" class="form-control">
+                      </div>
+                      <div class="col-md-6">
+                        <label>Nama User</label>
+                        <?php $nama_user = $this->session->userdata('nama_lengkap'); ?>
+                        <input type="text" name="nama_user" class="form-control" value="<?php echo $nama_user;?>" readonly="">
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn" data-dismiss="modal">
                     <i class="bx bx-x d-block d-sm-none"></i>
                     <span class="d-none d-sm-block">Batal</span>
                   </button>
-                  <button type="submit" class="btn btn-primary btn-flat" id="simpan">Hapus</button>
+                  <button type="submit" class="btn btn-primary ml-1">
+                    <i class="bx bx-check d-block d-sm-none"></i>
+                    <span class="d-none d-sm-block">Proses Surat</span>
+                  </button>
                 </div>
               </form>
             </div>
           </div>
         </div>
       <?php endforeach; ?>
-      <!-- end modal hapus -->
-
-
-      <!-- modal edit -->
-      <?php foreach ($kematian->result_array() as $row) :
-        $id_surat_kematian = $row['id_surat_kematian'];
-
-        $keterangan =  $row['keterangan'];
-        $status = $row['status'];
-
-        $nik = $row['nik'];
-        $nama = $row['nama'];
-        $tgl_lahir = $row['tgl_lahir'];
-        $tgl_kematian = $row['tgl_kematian'];
-        $jenis_kelamin = $row['jenis_kelamin'];
-
-        $nik_pelapor = $row['nik_pelapor'];
-        $nama_pelapor = $row['nama_pelapor'];
-        $no_telp = $row['no_telp'];
-        $email = $row['email'];
-        $alamat = $row['alamat'];
-
-        $ktp = $row['ktp'];
-        $kk = $row['kk'];
-        $lampiran_surat = $row['lampiran_surat'];
-
-
-
-
-        ?>
-        <div class="modal fade " id="ModalEdit<?php echo $id_surat_kematian; ?>" role="dialog" aria-hidden="true" data-backdrop="static">>
-          <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel1">Update Data</h5>
-                <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
-                  <i data-feather="x"></i>
-                </button>
-              </div>
-              <style>
-                .form-input {
-                  padding-top: 5px;
-                }
-              </style>
-
-              <div class="modal-body">
-                <div class="modal-body">
-                  <form action="<?php echo base_url() . 'Admin/Kematian/update'; ?>" method="post" enctype="multipart/form-data">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <label>Kode Permohonan</label>
-                        <div class="form-group form-input">
-                          <input type="text" name="kode_permohonan" value="<?php echo $row['kode_permohonan']; ?>" class="form-control" readonly>
-                          <input type="hidden" name="id_surat_kematian" value="<?php echo $id_surat_kematian;?>">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <label>Nik</label>
-                        <div class="form-group form-input">
-                          <input type="text" name="nik" value="<?php echo $row['nik']; ?>" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <label>Nama</label>
-                        <div class="form-group form-input">
-                          <input type="text" name="nama" value="<?php echo $row['nama']; ?>" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <label>Jenis Kelamin</label>
-                        <div class="form-group form-input">
-                          <select class="form-control" name="jenis_kelamin">
-                            <option value="<?php echo $jenis_kelamin;?>"> <?php echo $jenis_kelamin;?></option>
-                            <option value="Laki-Laki">Laki-Laki</option>
-                            <option value="Perempuan">Perempuan</option>
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <label>Tgl Lahir</label>
-                        <div class="form-group form-input">
-                          <input type="date" name="tgl_lahir" value="<?php echo $row['tgl_lahir']; ?>" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <label>Tgl Kematian</label>
-                        <div class="form-group form-input">
-                          <input type="date" name="tgl_kematian" value="<?php echo $row['tgl_kematian']; ?>" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-
-                    <strong class="mb-8">Data Anggota Keluarga</strong>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <label>Nik (Anggota Keluarga)</label>
-                        <div class="form-group form-input">
-                          <input type="text" name="nik_pelapor" value="<?php echo $row['nik_pelapor']; ?>" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <label>Nama</label>
-                        <div class="form-group form-input">
-                          <input type="text" name="nama_pelapor" value="<?php echo $row['nama_pelapor']; ?>" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <label>No Telp.</label>
-                        <div class="form-group form-input">
-                          <input type="text" name="no_telp" value="<?php echo $row['no_telp']; ?>" class="form-control">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <label>Email</label>
-                        <div class="form-group form-input">
-                          <input type="email" name="email" value="<?php echo $row['email']; ?>" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <label>Alamat</label>
-                        <div class="form-group form-input">
-                          <input type="text" name="alamat" value="<?php echo $row['alamat']; ?>" class="form-control">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <label>File KTP</label>
-                        <div class="form-group form-input">
-                          <a href="<?php echo base_url() . "assets/upload/"; ?><?php echo $row['ktp'];?>" target="_blank" class="btn btn-primary">File KTP</a>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <label>File KK</label>
-                        <div class="form-group form-input">
-                          <a href="<?php echo base_url() . "assets/upload/"; ?><?php echo $row['kk'];?>" target="_blank" class="btn btn-primary">File KK</a>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <label>File Lampiran Surat</label>
-                        <div class="form-group form-input">
-                          <a href="<?php echo base_url() . "assets/upload/"; ?><?php echo $row['lampiran_surat'];?>" target="_blank" class="btn btn-primary">File Lampiran</a>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="row">
-
-                      <div class="col-md-12">
-                        <label>Status</label>
-                        <div class="form-group form-input">
-                          <select class="form-control" name="status">
-                           <option value="<?php echo $status;?>">
-                            <?php 
-                            if ($status == '0') { ?>
-                              Proses
-                            <?php }else{ ?>
-                              Selesai
-                            <?php }  ?>
-                          </option>
-                          <option value="1">Setuju</option>
-                          <option value="0">Proses</option>
-                        </select>
-                      </div>
-
-
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <label>Keterangan</label>
-                      <div class="form-group form-input">
-                        <textarea class="form-control" name="keterangan" required=""><?php echo $keterangan;?></textarea>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <label>File Surat</label>
-                      <input type="file" name="file_surat" class="form-control">
-                    </div>
-                    <div class="col-md-6">
-                      <label>Nama User</label>
-                      <?php $nama_user = $this->session->userdata('nama_lengkap'); ?>
-                      <input type="text" name="nama_user" class="form-control" value="<?php echo $nama_user;?>" readonly="">
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn" data-dismiss="modal">
-                  <i class="bx bx-x d-block d-sm-none"></i>
-                  <span class="d-none d-sm-block">Batal</span>
-                </button>
-                <button type="submit" class="btn btn-primary ml-1">
-                  <i class="bx bx-check d-block d-sm-none"></i>
-                  <span class="d-none d-sm-block">Simpan</span>
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    <?php endforeach; ?>
-    <!-- end modal -->
-    <!-- Footer -->
-    <?php include 'Part/Footer.php';?>
-    <!-- Footer -->
-  </div>
-</div>
-
-
-<!-- modal edit -->
-<?php foreach ($kematian->result_array() as $row) :
-  $id_surat_kematian = $row['id_surat_kematian'];
-  $nama_ayah = $row['nama_ayah'];
-  ?>
-  <div class="modal fade" id="ModalEmail<?php echo $id_surat_kematian; ?>" tabindex="-1" role="dialog" aria-labelledby="">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <!--    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button> -->
-          <h4 class="modal-title" id="myModalLabel">Kirim Data Email</h4>
-        </div>
-        <form class="form-horizontal" action="<?php echo base_url() . 'Admin/Kematian/kirim_email' ?>" method="post">
-          <div class="modal-body">
-            <input type="hidden" name="id_surat_kematian" value="<?php echo $id_surat_kematian; ?>" />
-            <div class="row">
-              <div class="col-md-12 mb-2">
-                <label>Nama Pengirim</label>
-                <?php $nama_user = $this->session->userdata('nama_lengkap'); ?>
-                <input type="text" name="nama_pengirim" class="form-control" value="<?php echo $nama_user;?>" readonly>
-              </div>
-              <div class="col-md-12">
-                <label>Pesan</label>
-                <input type="text" name="pesan" class="form-control" required="">
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn" data-dismiss="modal">
-              <i class="bx bx-x d-block d-sm-none"></i>
-              <span class="d-none d-sm-block">Batal</span>
-            </button>
-            <button type="submit" class="btn btn-primary btn-flat" id="simpan">Kirim Email</button>
-          </div>
-        </form>
-      </div>
+      <!-- end modal -->
+      <!-- Footer -->
+      <?php include 'Part/Footer.php';?>
+      <!-- Footer -->
     </div>
   </div>
-<?php endforeach; ?>
-<!-- end modal hapus -->
 
 
-<!-- Scroll to top -->
-<a class="scroll-to-top rounded" href="#page-top">
-  <i class="fas fa-angle-up"></i>
-</a>
+  <!-- modal edit -->
+  <?php foreach ($kematian->result_array() as $row) :
+    $id_surat_kematian = $row['id_surat_kematian'];
+    $nama_pelapor = $row['nama_pelapor'];
+    ?>
+    <div class="modal fade" id="ModalEmail<?php echo $id_surat_kematian; ?>" tabindex="-1" role="dialog" aria-labelledby="">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!--    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><span class="fa fa-close"></span></span></button> -->
+            <h4 class="modal-title" id="myModalLabel">Kirim Data Email</h4>
+          </div>
+          <form class="form-horizontal" action="<?php echo base_url() . 'Admin/Kematian/kirim_email' ?>" method="post">
+            <div class="modal-body">
+              <input type="hidden" name="id_surat_kematian" value="<?php echo $id_surat_kematian; ?>" />
+              <div class="row">
+                <div class="col-md-12 mb-2">
+                  <label>Nama Pengirim</label>
+                  <?php $nama_user = $this->session->userdata('nama_lengkap'); ?>
+                  <input type="text" name="nama_pengirim" class="form-control" value="<?php echo $nama_user;?>" readonly>
+                </div>
+                <div class="col-md-12">
+                  <label>Pesan</label>
+                  <input type="text" name="pesan" class="form-control" required="">
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn" data-dismiss="modal">
+                <i class="bx bx-x d-block d-sm-none"></i>
+                <span class="d-none d-sm-block">Batal</span>
+              </button>
+              <button type="submit" class="btn btn-primary btn-flat" id="simpan">Kirim Email</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  <?php endforeach; ?>
+  <!-- end modal hapus -->
 
-<?php include 'Part/Js.php';?>
 
-<!-- Page level custom scripts -->
-<script type="text/javascript">
-  function check_nik() {
+  <!-- Scroll to top -->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
 
-    var input_check_nik = $('[name="nik"]').val();
+  <?php include 'Part/Js.php';?>
 
-    $.ajax({
-      url: "<?= site_url('admin/ktp/cek_warga/') ?>",
-      type: "POST",
-      dataType: "JSON",
-      data: {
-        input_check_nik: input_check_nik
-      },
+  <!-- Page level custom scripts -->
+  <script type="text/javascript">
+    function check_nik() {
 
-      success: function(data) {
+      var input_check_nik = $('[name="nik"]').val();
 
-        if (data.result != '' ) {
+      $.ajax({
+        url: "<?= site_url('admin/ktp/cek_warga/') ?>",
+        type: "POST",
+        dataType: "JSON",
+        data: {
+          input_check_nik: input_check_nik
+        },
+
+        success: function(data) {
+
+          if (data.result != '' ) {
                // alert(data.result[0].nik);
                document.getElementById("tambah_warga").style.display = "block";      
                $('#nik').val(data.result[0].nik);
@@ -552,11 +556,11 @@
 
            }
          })
-  }
-</script>
+    }
+  </script>
 
-<script>
-  $(document).ready(function () {
+  <script>
+    $(document).ready(function () {
       $('#dataTable').DataTable(); // ID From dataTable 
       $('#dataTableHover').DataTable(); // ID From dataTable with Hover
     });

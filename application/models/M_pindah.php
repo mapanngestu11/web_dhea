@@ -124,7 +124,7 @@ class M_pindah extends CI_Model
     }
     function cek_kode_permohonan($kode_permohonan)
     {
-       $this->db->select('
+     $this->db->select('
         a.id_surat_pindah,
         a.nik,
         b.nama_lengkap,
@@ -134,14 +134,14 @@ class M_pindah extends CI_Model
         a.file_pemohon,
         a.keterangan,
         a.file_surat');
-       $this->db->from('tbl_surat_pindah as a');
-       $this->db->join('tbl_warga as b', 'b.nik = a.nik','left');
-       $this->db->where('kode_permohonan',$kode_permohonan);
-       $query = $this->db->get();
-       return $query;
-   }
-   function cek_ktp($nik)
-   {
+     $this->db->from('tbl_surat_pindah as a');
+     $this->db->join('tbl_warga as b', 'b.nik = a.nik','left');
+     $this->db->where('kode_permohonan',$kode_permohonan);
+     $query = $this->db->get();
+     return $query;
+ }
+ function cek_ktp($nik)
+ {
     $this->db->select('*');
     $this->db->from('tbl_warga');
     $this->db->where('status','1');
@@ -158,6 +158,56 @@ function cetak_laporan($bulan)
     $query = $this->db->get()->result();
     return $query;
 }
+function cetak_laporan_jumlah($bulan)
+{
+    $this->db->select('Count(id_surat_pindah) as jumlah ');
+    $this->db->from('tbl_surat_pindah');
+
+    $this->db->where('MONTH(tanggal)',$bulan);
+    $this->db->order_by('id_surat_pindah');
+
+    $query = $this->db->get()->result();
+    return $query;
+}
+
+function cetak_laporan_setuju($bulan)
+{
+    $this->db->select('Count(id_surat_pindah) as jumlah_setuju ');
+    $this->db->from('tbl_surat_pindah');
+
+    $this->db->where('MONTH(tanggal)',$bulan);
+    $this->db->where('status','1');
+    $this->db->order_by('id_surat_pindah');
+
+    $query = $this->db->get()->result();
+    return $query;
+}
+
+function cetak_laporan_proses($bulan)
+{
+    $this->db->select('Count(id_surat_pindah) as jumlah_proses ');
+    $this->db->from('tbl_surat_pindah');
+
+    $this->db->where('MONTH(tanggal)',$bulan);
+    $this->db->where('status','0');
+    $this->db->order_by('id_surat_pindah');
+
+    $query = $this->db->get()->result();
+    return $query;
+}
+function cetak_laporan_tolak($bulan)
+{
+    $this->db->select('Count(id_surat_pindah) as jumlah_tolak ');
+    $this->db->from('tbl_surat_pindah');
+
+    $this->db->where('MONTH(tanggal)',$bulan);
+    $this->db->where('status','2');
+    $this->db->order_by('id_surat_pindah');
+
+    $query = $this->db->get()->result();
+    return $query;
+}
+
 
 
 }

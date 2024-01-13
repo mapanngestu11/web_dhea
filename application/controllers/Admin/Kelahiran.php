@@ -89,8 +89,25 @@ class Kelahiran  extends CI_Controller
        $tanggal = $this->input->post('tanggal');
        $bulan = date('m', strtotime($tanggal));
 
-       $data['keterangan'] = 'Permohonan Surat Kelahiran';
+       $cek_bulan = date('F', strtotime($tanggal));
+
+       $data['keterangan'] = 'Permohonan Pembuatan Surat Kelahiran';
        $data['laporan'] = $this->M_kelahiran->cetak_laporan($bulan);
+       $jumlah = $this->M_kelahiran->cetak_laporan_jumlah ($bulan);
+       $setuju = $this->M_kelahiran->cetak_laporan_setuju ($bulan);
+       $proses = $this->M_kelahiran->cetak_laporan_proses ($bulan);
+       $tolak = $this->M_kelahiran->cetak_laporan_tolak ($bulan);
+
+
+
+       $data['informasi'] = array( 
+        'bulan' => $cek_bulan,
+        'jumlah' => $jumlah,
+        'setuju' => $setuju,
+        'proses' => $proses,
+        'tolak' => $tolak,
+
+    );
        $this->load->view('Admin/Cetak_laporan_kelahiran.php',$data);
 
    }
@@ -366,6 +383,52 @@ public function add()
 
             $this->M_kelahiran->update_data($where,$data,'tbl_surat_kelahiran');
             echo $this->session->set_flashdata('msg', 'success_update');
+
+            $data = $this->M_kelahiran->cek_data_surat($id_surat_kelahiran)->result();
+
+            $cek_email = $data['0']->email;
+            $kode_permohonan =  $data['0']->kode_permohonan;
+            $nama = $data['0']->nama;
+
+
+
+            $mail = new PHPMailer(true);
+
+            $pesan              = $keterangan;
+            $nama_pengirim      = $this->input->post('nama_pengirim');
+            $email              =  $cek_email;
+            if ($status  == '1') {
+                $cek_status = 'Di Setujui';
+            } elseif ($status == '2') {
+                $cek_status = 'Di Tolak';
+            } elseif ($status == '0') {
+                $cek_status = 'Masih Menunggu';
+            }
+
+
+            $mail->isSMTP();      
+
+            $mail->Host       = 'smtp.gmail.com';                    // Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+            $mail->Username   = 'Maulanaagung543@gmail.com';   
+            $mail->Password   = 'axsxzmeoojdrtzop';                  // SMTP username
+            
+            // $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+            $mail->Port       = 587;                                    // TCP port to connect to, use 465 for 
+            $mail->setFrom('Maulanaagung543@gmail.com');
+            $mail->addAddress($email, $nama_pengirim);     // Add a recipient
+
+            $mail->addReplyTo('Maulanaagung543@gmail.com');
+
+            $mail->isHTML(true);                                  // Set email format to HTML
+            $mail->Subject = 'Informasi Permohonan Surat Kelahiran Kelurahan Karang Timur';
+            $mail->Body    = '<h1>Halo,' .$nama. '.</h1> <p> Permohonan Surat kamu dengan nomor : <strong>' .$kode_permohonan. ' </strong>, Saat ini sedang tahap : <strong> '.$cek_status.' </strong> , Keterangan lebih lanjut sebagai berikut : ' .$pesan. '</p> ';
+
+            if ($mail->send()) {
+
+            } else {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
             redirect('Admin/Kelahiran');
         }
 

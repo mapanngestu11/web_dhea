@@ -178,18 +178,20 @@
                         <td><?php echo $nama ?></td>
                         <td><?php echo $kode_permohonan ?></td>
                         <td>
-                          <?php if ($status == '1') { ?>
-                            <span class="badge badge-success">Sudah</span>
-                          <?php }else{ ?>
-                           <span class="badge badge-warning">Proses</span>
-                         <?php }?>
+                         <?php if ($status == '1') { ?>
+                          <span class="badge badge-success">Sudah</span>
+                        <?php }elseif($status == '2'){ ?>
+                          <span class="badge badge-danger">Di Tolak</span>
+                        <?php }elseif($status == '0'){?>
+                          <span class="badge badge-primary">Proses</span>
+                        <?php } ?>
 
-                       </td>
-                       <td>
+                      </td>
+                      <td>
                         <div class="form-button-action">
                           <a class="btn btn-link btn-primary btn-lg" data-toggle="modal" data-target="#ModalEdit<?php echo $id_surat_datang; ?>"><span class="fa fa-edit" style="color:white;"></span></a>
                           <a class="btn btn-link btn-danger btn-lg" data-toggle="modal" data-target="#ModalHapus<?php echo $id_surat_datang; ?>"><i class=" fa fa-times" data-original-title="Edit Task" style="color:white;"></i></a>
-                          <a class="btn btn-link btn-warning btn-lg" data-toggle="modal" data-target="#ModalEmail<?php echo $id_surat_datang; ?>"><i class=" fa fa-envelope" data-original-title="Edit Task" style="color:white;"></i></a>
+                          <!--  <a class="btn btn-link btn-warning btn-lg" data-toggle="modal" data-target="#ModalEmail<?php echo $id_surat_datang; ?>"><i class=" fa fa-envelope" data-original-title="Edit Task" style="color:white;"></i></a> -->
                         </div>
                       </td>
                     <?php endforeach; ?>
@@ -303,13 +305,13 @@
                       <div class="col-md-6">
                         <label>Nik</label>
                         <div class="form-group form-input">
-                          <input type="text" name="nik" value="<?php echo $row['nik']; ?>" class="form-control">
+                          <input type="text" name="nik" value="<?php echo $row['nik']; ?>" class="form-control" readonly>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <label>Nama Lengkap</label>
                         <div class="form-group form-input">
-                          <input type="text" name="nama" value="<?php echo $row['nama']; ?>" class="form-control">
+                          <input type="text" name="nama" value="<?php echo $row['nama']; ?>" class="form-control" readonly>
                         </div>
                       </div>
                     </div>
@@ -317,13 +319,13 @@
                       <div class="col-md-6">
                         <label>Email</label>
                         <div class="form-group form-input">
-                          <input type="text" name="email" value="<?php echo $row['email']; ?>" class="form-control">
+                          <input type="text" name="email" value="<?php echo $row['email']; ?>" class="form-control" readonly>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <label>No Telp</label>
                         <div class="form-group form-input">
-                          <input type="text" name="no_telp" value="<?php echo $row['no_telp']; ?>" class="form-control">
+                          <input type="text" name="no_telp" value="<?php echo $row['no_telp']; ?>" class="form-control" readonly>
                         </div>
                       </div>
                     </div>
@@ -331,7 +333,7 @@
                       <div class="col-md-12">
                         <label>Alamat</label>
                         <div class="form-group form-input">
-                          <input type="text" name="alamat" value="<?php echo $row['alamat']; ?>" class="form-control">
+                          <input type="text" name="alamat" value="<?php echo $row['alamat']; ?>" class="form-control" readonly>
                         </div>
                       </div>
                     </div>
@@ -363,16 +365,18 @@
                            <option value="<?php echo $status;?>">
                             <?php 
                             if ($status == '0') { ?>
-                              Proses
-                            <?php }else{ ?>
-                              Selesai
-                            <?php }  ?>
+                              Masih Dalam Proses
+                            <?php }else if ($status == '1'){ ?>
+                              Di Setujui
+                            <?php }else if ($status == '2'){  ?>
+                              Di Tolak
+                            <?php } ?>
                           </option>
-                          <option value="1">Setuju</option>
-                          <option value="0">Proses</option>
+                          <option value="1">Di Setujui</option>
+                          <option value="2">Di Tolak</option>
+                          <option value="0">Masih Dalam Proses</option>
                         </select>
                       </div>
-
 
                     </div>
                   </div>
@@ -380,7 +384,7 @@
                     <div class="col-md-12">
                       <label>Keterangan</label>
                       <div class="form-group form-input">
-                        <textarea class="form-control" name="keterangan"><?php echo $keterangan;?></textarea>
+                        <textarea class="form-control" name="keterangan" required=""><?php echo $keterangan;?></textarea>
                       </div>
                     </div>
                   </div>
@@ -404,7 +408,7 @@
                 </button>
                 <button type="submit" class="btn btn-primary ml-1">
                   <i class="bx bx-check d-block d-sm-none"></i>
-                  <span class="d-none d-sm-block">Simpan</span>
+                  <span class="d-none d-sm-block">Proses Surat</span>
                 </button>
               </div>
             </form>
@@ -543,7 +547,7 @@
             type: 'success',
             title: 'Sukses',
             heading: 'Success',
-            text: "Data Berhasil Di Update.",
+            text: "Data Berhasil Di proses.",
             showHideTransition: 'slide',
             icon: 'success',
             hideAfter: false,

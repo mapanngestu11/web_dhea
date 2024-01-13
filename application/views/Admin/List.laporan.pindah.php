@@ -90,72 +90,72 @@
                           <td><?php echo $kode_permohonan ?></td>
                           <td><?php echo $nik ?></td>
                           <td><?php echo $nama ?></td>
-
                           <td>
                             <?php if ($status == '1') { ?>
                               <span class="badge badge-success">Sudah</span>
-                            <?php }else{ ?>
-                             <span class="badge badge-warning">Proses</span>
-                           <?php }?>
+                            <?php }elseif($status == '2'){ ?>
+                              <span class="badge badge-danger">DiTolak</span>
+                            <?php }elseif($status == '0'){?>
+                              <span class="badge badge-primary">Proses</span>
+                            <?php }?>
+                          </td>
+                        <?php endforeach; ?>
 
-                         </td>
-                       <?php endforeach; ?>
-
-                     </tbody>
-                   </table>
-                 </div>
-               </div>
-             </div>
-
-           </div>
-           <!--Row-->
-
-           <!-- Documentation Link -->
-           <div class="row">
-            <div class="col-lg-12">
-              <p>DataTables is a third party plugin that is used to generate the demo table below. For more information
-                about DataTables, please visit the official <a href="https://datatables.net/" target="_blank">DataTables
-                documentation.</a></p>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
               </div>
+
             </div>
+            <!--Row-->
+
+            <!-- Documentation Link -->
+            <div class="row">
+              <div class="col-lg-12">
+                <p>DataTables is a third party plugin that is used to generate the demo table below. For more information
+                  about DataTables, please visit the official <a href="https://datatables.net/" target="_blank">DataTables
+                  documentation.</a></p>
+                </div>
+              </div>
 
 
+            </div>
+            <!---Container Fluid-->
           </div>
-          <!---Container Fluid-->
+
+
+
+          <!-- Footer -->
+          <?php include 'Part/Footer.php';?>
+          <!-- Footer -->
         </div>
-
-
-        
-        <!-- Footer -->
-        <?php include 'Part/Footer.php';?>
-        <!-- Footer -->
       </div>
-    </div>
 
-    <!-- Scroll to top -->
-    <a class="scroll-to-top rounded" href="#page-top">
-      <i class="fas fa-angle-up"></i>
-    </a>
+      <!-- Scroll to top -->
+      <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+      </a>
 
-    <?php include 'Part/Js.php';?>
+      <?php include 'Part/Js.php';?>
 
-    <!-- Page level custom scripts -->
-    <script type="text/javascript">
-      function check_nik() {
+      <!-- Page level custom scripts -->
+      <script type="text/javascript">
+        function check_nik() {
 
-        var input_check_nik = $('[name="nik"]').val();
+          var input_check_nik = $('[name="nik"]').val();
 
-        $.ajax({
-          url: "<?= site_url('admin/ktp/cek_warga/') ?>",
-          type: "POST",
-          dataType: "JSON",
-          data: {
-            input_check_nik: input_check_nik
-          },
+          $.ajax({
+            url: "<?= site_url('admin/ktp/cek_warga/') ?>",
+            type: "POST",
+            dataType: "JSON",
+            data: {
+              input_check_nik: input_check_nik
+            },
 
-          success: function(data) {
+            success: function(data) {
 
-            if (data.result != '' ) {
+              if (data.result != '' ) {
                // alert(data.result[0].nik);
                document.getElementById("tambah_warga").style.display = "block";      
                $('#nik').val(data.result[0].nik);
@@ -170,11 +170,11 @@
 
            }
          })
-      }
-    </script>
+        }
+      </script>
 
-    <script>
-      $(document).ready(function () {
+      <script>
+        $(document).ready(function () {
       $('#dataTable').DataTable(); // ID From dataTable 
       $('#dataTableHover').DataTable(); // ID From dataTable with Hover
     });
